@@ -33,6 +33,7 @@ build/
 .vscode/
 
 /nginx/
+/logs/
 
 *.yml
 *.properties
