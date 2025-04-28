@@ -36,4 +36,9 @@ public class AuthUser implements OAuth2User {
     public String getName() {
         return oAuth2User.getName();
     }
+
+    @Override
+    public String toString() {
+        return "AuthUser: %s[%s]".formatted(appUser.getId(), appUser.getEmail());
+    }
 }

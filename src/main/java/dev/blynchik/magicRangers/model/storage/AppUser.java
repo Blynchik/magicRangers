@@ -37,6 +37,11 @@ public class AppUser {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Override
+    public String toString() {
+        return "AppUser: %s%s[%s]:%s/%s".formatted(oauth2Provider, oauth2Sub, email, createdAt, updatedAt);
+    }
+
     public AppUser(String oauth2Provider, String oauth2Sub, String email, LocalDateTime createdAt) {
         this.oauth2Provider = oauth2Provider;
         this.oauth2Sub = oauth2Sub;
