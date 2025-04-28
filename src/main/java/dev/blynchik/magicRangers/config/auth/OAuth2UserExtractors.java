@@ -8,6 +8,6 @@ public class OAuth2UserExtractors {
 
     @Bean("google")
     BaseOAuth2UserExtractor googleExtractor() {
-        return new BaseOAuth2UserExtractor("email", "firstname", "lastname");
+        return new BaseOAuth2UserExtractor("sub", "email", "given_name", "family_name");
     }
 }

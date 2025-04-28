@@ -1,5 +1,7 @@
 package dev.blynchik.magicRangers.model.auth;
 
+import dev.blynchik.magicRangers.model.storage.AppUser;
+import lombok.Getter;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -11,8 +13,13 @@ public class AuthUser implements OAuth2User {
 
     private final OAuth2User oAuth2User;
 
-    public AuthUser(@NonNull OAuth2User oAuth2User) {
+    @Getter
+    private final AppUser appUser;
+
+    public AuthUser(@NonNull OAuth2User oAuth2User,
+                    @NonNull AppUser appUser) {
         this.oAuth2User = oAuth2User;
+        this.appUser = appUser;
     }
 
     @Override
