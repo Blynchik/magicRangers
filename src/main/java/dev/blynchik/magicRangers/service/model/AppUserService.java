@@ -22,10 +22,17 @@ public class AppUserService {
         this.appUserRepo = appUserRespo;
     }
 
+    @Transactional
     public AppUser saveAppUserIfNotExist(String oauth2Provider, String oauth2Sub, String email) {
-        log.info("Save appUser if not exist provider: {}, sub: {}", oauth2Provider, oauth2Sub);
-        return this.findByOauth2ProviderAndOauth2Sub(oauth2Provider, oauth2Sub)
-                .orElse(this.save(new AppUser(oauth2Provider, oauth2Sub, email, LocalDateTime.now())));
+        log.info("Save appUser if not exist email: {}", email);
+        return this.findByEmail(email).orElseGet(
+                () -> this.save(new AppUser(oauth2Provider, oauth2Sub, email, LocalDateTime.now())));
+    }
+
+    private Optional<AppUser> findByEmail(String email) {
+        Optional<AppUser> mbAppUser = appUserRepo.findByEmailIgnoreCase(email);
+        log.info("AppUser by email: {} is found: {}", email, mbAppUser.isPresent());
+        return mbAppUser;
     }
 
     private Optional<AppUser> findByOauth2ProviderAndOauth2Sub(String oauth2Provider, String oauth2Sub) {
