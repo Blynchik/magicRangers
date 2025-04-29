@@ -29,6 +29,11 @@ public class AuthUserService extends DefaultOAuth2UserService {
         this.appUserService = appUserService;
     }
 
+    /**
+     * Метод загружает пользователя от провайдера OAuth2 и сохраняет нового пользователя в БД,
+     * если пользователя с такой почтой нет. Для работы методы необходимо от провайдера иметь идентификатор провайдера,
+     * уникальный идентификатор регистрируемого пользователя в среде провайдера и email регистрируемого пользователя
+     */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         log.info("Try to load oAuth2 user");
