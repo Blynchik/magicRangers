@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.config;
 
-import dev.blynchik.magicRangers.service.auth.AuthUserService;
+import dev.blynchik.magicRangers.service.auth.OAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,11 +15,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AuthUserService authUserService;
+    private final OAuth2UserService oAuth2UserService;
 
     @Autowired
-    public SecurityConfig(AuthUserService authUserService) {
-        this.authUserService = authUserService;
+    public SecurityConfig(OAuth2UserService oAuth2UserService) {
+        this.oAuth2UserService = oAuth2UserService;
     }
 
     @Bean

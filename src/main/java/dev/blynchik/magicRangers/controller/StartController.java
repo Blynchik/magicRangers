@@ -9,16 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class StartController {
+    public static final String NOT_SECURED = "/";
+    public static final String SECURED = "/secured";
 
-    @GetMapping("/")
+    @GetMapping(NOT_SECURED)
     public String notSecured() {
-        log.info("Request GET to /");
+        log.info("Request GET to {}", NOT_SECURED);
         return "Unsafe";
     }
 
-    @GetMapping("/secured")
+    @GetMapping(SECURED)
     public String secured(@AuthenticationPrincipal AuthUser authUser) {
-        log.info("Request GET to /secured by: {}", authUser);
+        log.info("Request GET to {} by: {}", SECURED, authUser);
         return "Hello";
     }
 }

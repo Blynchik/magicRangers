@@ -1,14 +1,18 @@
 package dev.blynchik.magicRangers.service.model;
 
+import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.model.storage.AppUser;
 import dev.blynchik.magicRangers.repo.AppUserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static dev.blynchik.magicRangers.exception.ExceptionMessage.APPUSER_NOT_FOUND;
 
 @Service
 @Transactional(readOnly = true)
@@ -20,6 +24,15 @@ public class AppUserService {
     @Autowired
     public AppUserService(AppUserRepo appUserRespo) {
         this.appUserRepo = appUserRespo;
+    }
+
+    /**
+     * Ищем пользователя по уникальному email
+     * и выбрасываем исключение, если не находим
+     */
+    public AppUser getByEmail(String email) {
+        return this.findByEmail(email)
+                .orElseThrow(() -> new AppException(APPUSER_NOT_FOUND.formatted(email), HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -54,7 +67,7 @@ public class AppUserService {
     /**
      * Транзакционно сохраняем нового пользователя в БД
      */
-    @Transactional
+    // @Transactional в private не срабатывает
     private AppUser save(AppUser appUser) {
         log.info("Save appUser: {}", appUser);
         return appUserRepo.save(appUser);
