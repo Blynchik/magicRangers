@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class StartController {
+
     public static final String NOT_SECURED = "/";
     public static final String SECURED = "/secured";
 
