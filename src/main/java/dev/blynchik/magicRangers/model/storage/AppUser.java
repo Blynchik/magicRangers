@@ -37,6 +37,9 @@ public class AppUser {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "character_id")
+    private Long characterId;
+
     @Override
     public String toString() {
         return "AppUser: %s%s[%s]:%s/%s".formatted(oauth2Provider, oauth2Sub, email, createdAt, updatedAt);
