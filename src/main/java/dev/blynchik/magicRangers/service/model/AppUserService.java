@@ -31,7 +31,7 @@ public class AppUserService {
      * и выбрасываем исключение, если не находим
      */
     public AppUser getByEmail(String email) {
-        return this.findByEmail(email)
+        return this.findOptByEmail(email)
                 .orElseThrow(() -> new AppException(APPUSER_NOT_FOUND.formatted(email), HttpStatus.NOT_FOUND));
     }
 
@@ -42,14 +42,14 @@ public class AppUserService {
     @Transactional
     public AppUser saveAppUserIfNotExist(String oauth2Provider, String oauth2Sub, String email) {
         log.info("Save appUser if not exist email: {}", email);
-        return this.findByEmail(email).orElseGet(
+        return this.findOptByEmail(email).orElseGet(
                 () -> this.save(new AppUser(oauth2Provider, oauth2Sub, email, LocalDateTime.now())));
     }
 
     /**
      * Ищем пользователя по уникальному email
      */
-    private Optional<AppUser> findByEmail(String email) {
+    private Optional<AppUser> findOptByEmail(String email) {
         Optional<AppUser> mbAppUser = appUserRepo.findByEmailIgnoreCase(email);
         log.info("AppUser by email: {} is found: {}", email, mbAppUser.isPresent());
         return mbAppUser;
@@ -58,7 +58,7 @@ public class AppUserService {
     /**
      * Ищем пользователя по провайдеру OAuth2 и его уникальному идентификатору в среде провайдера
      */
-    private Optional<AppUser> findByOauth2ProviderAndOauth2Sub(String oauth2Provider, String oauth2Sub) {
+    private Optional<AppUser> findOptByOauth2ProviderAndOauth2Sub(String oauth2Provider, String oauth2Sub) {
         Optional<AppUser> mbAppUser = appUserRepo.findByOauth2ProviderAndOauth2Sub(oauth2Provider, oauth2Sub);
         log.info("OAuth2 profile by provider: {}, sub: {} is found: {}", oauth2Provider, oauth2Sub, mbAppUser.isPresent());
         return mbAppUser;

@@ -1,6 +1,7 @@
 package dev.blynchik.magicRangers.model.storage;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -21,6 +22,7 @@ public class Character {
     private Long id;
 
     @Column(name = "app_user_id", unique = true)
+    @Positive
     private Long appUserId;
 
     @Column(name = "name")
