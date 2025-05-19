@@ -17,19 +17,19 @@
     </div>
 
     <div>
-        <label for="str">Сила (70–180):</label>
+        <label for="str">Удаль (70–180):</label>
         <input type="number" id="str" th:field="*{str}" />
         <div th:if="${#fields.hasErrors('str')}" th:errors="*{str}"></div>
     </div>
 
     <div>
-        <label for="intl">Интеллект (70–180):</label>
+        <label for="intl">Смекалка (70–180):</label>
         <input type="number" id="intl" th:field="*{intl}" />
         <div th:if="${#fields.hasErrors('intl')}" th:errors="*{intl}"></div>
     </div>
 
     <div>
-        <label for="cha">Харизма (70–180):</label>
+        <label for="cha">Обаяние (70–180):</label>
         <input type="number" id="cha" th:field="*{cha}" />
         <div th:if="${#fields.hasErrors('cha')}" th:errors="*{cha}"></div>
     </div>
