@@ -98,4 +98,12 @@ public class CharacterService {
         log.info("Get character by appUser id {}", appUserId);
         return characterRepo.findByAppUserId(appUserId);
     }
+
+    /**
+     * Возвращает, существует ли персонаж у пользователя по его id
+     */
+    public Boolean hasCharacter(Long appUserId){
+        log.info("Get character existence for appUser id {}", appUserId);
+       return characterRepo.existsByAppUserId(appUserId);
+    }
 }

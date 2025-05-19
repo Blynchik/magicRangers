@@ -1,5 +1,6 @@
 package dev.blynchik.magicRangers.config;
 
+import dev.blynchik.magicRangers.config.auth.HasCharacterAuthenticationSuccessHandler;
 import dev.blynchik.magicRangers.service.auth.OAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static dev.blynchik.magicRangers.controller.CharacterPageController.CHARACTER;
+import static dev.blynchik.magicRangers.controller.CharacterPageController.NEW;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -23,7 +26,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, HasCharacterAuthenticationSuccessHandler successHandler) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/").permitAll();
@@ -32,7 +35,7 @@ public class SecurityConfig {
                 .formLogin(withDefaults())
                 .httpBasic(withDefaults())
                 .logout(withDefaults())
-                .oauth2Login(withDefaults())
+                .oauth2Login(oauth -> oauth.successHandler(successHandler))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

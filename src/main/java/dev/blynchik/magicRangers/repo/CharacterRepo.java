@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CharacterRepo extends JpaRepository<Character, Long> {
 
     Optional<Character> findByAppUserId(Long appUserId);
+
+    Boolean existsByAppUserId(Long appUserId);
 }
