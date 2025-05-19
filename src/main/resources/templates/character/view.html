@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Персонаж</title>
+</head>
+<body>
+<h1 th:text="'Персонаж: ' + ${character.name}"></h1>
+
+<ul>
+    <li><strong>Сила:</strong> <span th:text="${character.str}"></span></li>
+    <li><strong>Интеллект:</strong> <span th:text="${character.intl}"></span></li>
+    <li><strong>Харизма:</strong> <span th:text="${character.cha}"></span></li>
+</ul>
+
+</body>
+</html>

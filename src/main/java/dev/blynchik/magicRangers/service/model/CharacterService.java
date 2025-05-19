@@ -3,6 +3,7 @@ package dev.blynchik.magicRangers.service.model;
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.mapper.CharacterMapper;
 import dev.blynchik.magicRangers.model.dto.CharacterRequest;
+import dev.blynchik.magicRangers.model.dto.CharacterResponse;
 import dev.blynchik.magicRangers.model.storage.Character;
 import dev.blynchik.magicRangers.repo.CharacterRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +33,36 @@ public class CharacterService {
     }
 
     /**
+     * Создаем персонажа, возвращая dto для ответа
+     */
+    @Transactional
+    public CharacterResponse createWithDto(Long appUserId, CharacterRequest dto) {
+        return characterMapper.mapToDto(
+                characterRepo.save(
+                        characterMapper.mapToEntity(appUserId, dto)));
+    }
+
+    /**
      * Создаем персонажа
      */
     @Transactional
     public Character create(Long appUserId, CharacterRequest dto) {
         log.info("Create character {} for appUser {}", dto, appUserId);
-        return characterRepo.save(
-                characterMapper.mapToEntity(appUserId, dto));
+        return characterRepo.save(characterMapper.mapToEntity(appUserId, dto));
+    }
+
+    /**
+     * Возвращаем dto персонажа для ответа по id персонажа
+     */
+    public CharacterResponse getDtoById(Long characterId) {
+        return characterMapper.mapToDto(this.getById(characterId));
+    }
+
+    /**
+     * Возвращаем dto персонажа для ответа по id пользователя
+     */
+    public CharacterResponse getDtoByAppUserId(Long appUserId) {
+        return characterMapper.mapToDto(this.getByAppUserId(appUserId));
     }
 
     /**
@@ -62,7 +86,7 @@ public class CharacterService {
     /**
      * Ищем персонажа по id
      */
-    private Optional<Character> getOptById(Long characterId) {
+    public Optional<Character> getOptById(Long characterId) {
         log.info("Get character by id {}", characterId);
         return characterRepo.findById(characterId);
     }
@@ -70,7 +94,7 @@ public class CharacterService {
     /**
      * Ищем персонажа по id пользователя
      */
-    private Optional<Character> getOptByAppUserId(Long appUserId) {
+    public Optional<Character> getOptByAppUserId(Long appUserId) {
         log.info("Get character by appUser id {}", appUserId);
         return characterRepo.findByAppUserId(appUserId);
     }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание персонажа</title>
+    <link rel="stylesheet" href="/css/styles.css"/> <!-- при желании -->
+</head>
+<body>
+<h1>Создание персонажа</h1>
+
+<form th:action="@{/character}" th:object="${character}" method="post">
+
+    <div>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" th:field="*{name}" />
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+
+    <div>
+        <label for="str">Сила (70–180):</label>
+        <input type="number" id="str" th:field="*{str}" />
+        <div th:if="${#fields.hasErrors('str')}" th:errors="*{str}"></div>
+    </div>
+
+    <div>
+        <label for="intl">Интеллект (70–180):</label>
+        <input type="number" id="intl" th:field="*{intl}" />
+        <div th:if="${#fields.hasErrors('intl')}" th:errors="*{intl}"></div>
+    </div>
+
+    <div>
+        <label for="cha">Харизма (70–180):</label>
+        <input type="number" id="cha" th:field="*{cha}" />
+        <div th:if="${#fields.hasErrors('cha')}" th:errors="*{cha}"></div>
+    </div>
+
+    <div>
+        <button type="submit">Создать</button>
+    </div>
+</form>
+
+</body>
+</html>

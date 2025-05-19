@@ -28,7 +28,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(AppException.class)
     public ProblemDetail handleException(AppException ex, WebRequest request) {
-        log.error("Intercepted AppException. Status: {}, Message: {}", ex.getStatus(), ex.getMessage());
+        log.error("Intercepted AppException. Status: {}, Message: ", ex.getStatus(), ex);
         return createProblemDetail(ex.getStatus(), ex.getMessage(), request);
     }
 
@@ -41,7 +41,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   @Nonnull HttpHeaders headers,
                                                                   @Nonnull HttpStatusCode status,
                                                                   @Nonnull WebRequest request) {
-        log.error("Intercepted HttpMessageNotReadable. Message: {}", ex.getMessage());
+        log.error("Intercepted HttpMessageNotReadable. Message: ", ex);
         return ResponseEntity.badRequest().body(createProblemDetail(HttpStatus.BAD_REQUEST, ex.getMessage(), request));
     }
 
@@ -62,7 +62,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(e -> {
             errors.put(e.getField(), e.getDefaultMessage());
         });
-        log.error("Intercepted MethodArgumentNotValidException. Errors: {}", errors);
+        log.error("Intercepted MethodArgumentNotValidException. Errors: ", ex);
         problemDetail.setProperty("invalid_params", errors);
         problemDetail.setStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
@@ -83,7 +83,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ex.getParameterValidationResults().forEach(
                 result -> result.getResolvableErrors().forEach(
                         e -> errors.put(result.getMethodParameter().getParameterName(), e.getDefaultMessage())));
-        log.error("Intercepted HandlerMethodValidationException. Errors: {}", errors);
+        log.error("Intercepted HandlerMethodValidationException. Errors: ", ex);
         problemDetail.setProperty("invalid_params", errors);
         problemDetail.setStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));

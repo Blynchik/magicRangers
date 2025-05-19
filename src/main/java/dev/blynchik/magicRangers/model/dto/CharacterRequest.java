@@ -3,10 +3,12 @@ package dev.blynchik.magicRangers.model.dto;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import static dev.blynchik.magicRangers.model.dto.DtoValidationMessage.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class CharacterRequest {
 
