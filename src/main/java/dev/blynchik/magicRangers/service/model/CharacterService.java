@@ -37,9 +37,7 @@ public class CharacterService {
      */
     @Transactional
     public CharacterResponse createWithDto(Long appUserId, CharacterRequest dto) {
-        return characterMapper.mapToDto(
-                characterRepo.save(
-                        characterMapper.mapToEntity(appUserId, dto)));
+        return characterMapper.mapToDto(this.create(appUserId, dto));
     }
 
     /**

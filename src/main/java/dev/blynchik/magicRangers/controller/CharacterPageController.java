@@ -4,12 +4,14 @@ import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.CharacterRequest;
 import dev.blynchik.magicRangers.model.dto.CharacterResponse;
 import dev.blynchik.magicRangers.service.model.CharacterService;
+import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,14 +23,17 @@ import static dev.blynchik.magicRangers.controller.CharacterPageController.CHARA
 public class CharacterPageController {
 
     private final CharacterService characterService;
+    private final ValidationUIErrorUtil validationUIErrorUtil;
     public static final String CHARACTER = "/character";
     public static final String NEW = "/new";
     public static final String ID = "/{id}";
     public static final String MY = "/my";
 
     @Autowired
-    public CharacterPageController(CharacterService characterService) {
+    public CharacterPageController(CharacterService characterService,
+                                   ValidationUIErrorUtil validationUIErrorUtil) {
         this.characterService = characterService;
+        this.validationUIErrorUtil = validationUIErrorUtil;
     }
 
     /**
@@ -37,8 +42,10 @@ public class CharacterPageController {
     @PostMapping
     public String create(@AuthenticationPrincipal AuthUser authUser,
                          @Valid @ModelAttribute("character") CharacterRequest dto,
+                         BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         log.info("Request POST to {}", CHARACTER);
+        if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;
         CharacterResponse ch = characterService.createWithDto(authUser.getAppUser().getId(), dto);
         redirectAttributes.addFlashAttribute("character", ch);
         return "redirect:" + CHARACTER + MY;
@@ -48,6 +55,7 @@ public class CharacterPageController {
      * Возвращает страницу создания персонажа
      */
     @GetMapping(NEW)
+
     public String showCreate(Model model) {
         log.info("Request GET to {}", CHARACTER + NEW);
         model.addAttribute("character", new CharacterRequest());

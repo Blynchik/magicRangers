@@ -13,7 +13,7 @@ import static dev.blynchik.magicRangers.model.dto.DtoValidationMessage.*;
 public class CharacterRequest {
 
     @Size(min = 1, max = 255, message = AT_LEAST_LETTERS + "1")
-    @NotBlank(message = AT_LEAST_LETTERS + "1")
+    @NotBlank(message = NO_BLANK)
     @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = ONLY_LATIN_OR_RUSSIAN)
     private String name;
 
