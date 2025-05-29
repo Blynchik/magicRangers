@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.exception;
 
-public class ExceptionMessage {
+public final class ExceptionMessage {
 
     public static final String OAUTH2_UNKNOWN_PROVIDER = "Unknown auth provider %s";
     public static final String OAUTH2_MISSING_SUB = "%s account missing user ID (sub)";

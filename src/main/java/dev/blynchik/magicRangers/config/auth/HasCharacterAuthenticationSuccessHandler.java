@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static dev.blynchik.magicRangers.controller.CharacterPageController.*;
+import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.*;
 
 @Component
 @Slf4j

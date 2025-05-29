@@ -15,7 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static dev.blynchik.magicRangers.controller.CharacterPageController.CHARACTER;
+import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.*;
 
 @Controller
 @RequestMapping(CHARACTER)
@@ -24,10 +24,6 @@ public class CharacterPageController {
 
     private final CharacterService characterService;
     private final ValidationUIErrorUtil validationUIErrorUtil;
-    public static final String CHARACTER = "/character";
-    public static final String NEW = "/new";
-    public static final String ID = "/{id}";
-    public static final String MY = "/my";
 
     @Autowired
     public CharacterPageController(CharacterService characterService,

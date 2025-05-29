@@ -6,12 +6,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static dev.blynchik.magicRangers.controller.rout.StartRoutes.NOT_SECURED;
+import static dev.blynchik.magicRangers.controller.rout.StartRoutes.SECURED;
+
 @RestController
 @Slf4j
 public class StartController {
-
-    public static final String NOT_SECURED = "/";
-    public static final String SECURED = "/secured";
 
     @GetMapping(NOT_SECURED)
     public String notSecured() {

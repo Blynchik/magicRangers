@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static dev.blynchik.magicRangers.controller.CharacterPageController.CHARACTER;
-import static dev.blynchik.magicRangers.controller.CharacterPageController.NEW;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration

@@ -1,15 +1,15 @@
 package dev.blynchik.magicRangers.controller;
 
+import dev.blynchik.magicRangers.controller.rout.AuthRoutes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static dev.blynchik.magicRangers.controller.rout.AuthRoutes.*;
+
 @RestController
 @Slf4j
 public class AuthController {
-
-    public static final String LOGIN = "/login";
-    public static final String LOGOUT = "/logout";
 
     @GetMapping(LOGIN)
     public void login() {

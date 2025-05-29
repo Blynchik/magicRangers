@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import static dev.blynchik.magicRangers.controller.rout.ErrorPageRoutes.ERROR;
+
 @ControllerAdvice(annotations = Controller.class)
 @Slf4j
 public class UIExceptionHandler {
@@ -26,7 +28,7 @@ public class UIExceptionHandler {
         }
         // можно закомментировать/раскомментировать в зависимости от того, нужно ли показывать актуальное сообщение об ошибке для 500
 //        request.getSession().setAttribute("globalError", ex.getMessage());
-        return "redirect:/error";
+        return "redirect:" + ERROR;
     }
 
     /**
@@ -38,7 +40,7 @@ public class UIExceptionHandler {
         log.error("Exception occurred: {}", ex);
         // можно закомментировать/раскомментировать в зависимости от того, нужно ли показывать актуальное сообщение об ошибке для 500
 //        request.getSession().setAttribute("globalError", ex.getMessage());
-        return "redirect:/error";
+        return "redirect:" + ERROR;
     }
 
     /**
