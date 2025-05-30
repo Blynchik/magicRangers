@@ -1,18 +1,22 @@
 package dev.blynchik.magicRangers.model.dto;
 
+import dev.blynchik.magicRangers.validation.annotaion.ValidCharacterCharacteristicSum;
+import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@ValidCharacterCharacteristicSum
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class CharacterRequest {
 
+    @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
     @Size(min = 1, max = 255, message = "{constraint.message.size}")
     @NotBlank(message = "{constraint.message.notBlank}")
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "{constraint.message.onlyLatinOrCyrillic}")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я '-]+$", message = "{constraint.message.onlyLatinOrCyrillic}")
     private String name;
 
     @Min(value = 70, message = "{constraint.message.minNum}")

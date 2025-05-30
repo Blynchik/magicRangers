@@ -46,7 +46,7 @@ public class CharacterService {
     @Transactional
     public Character create(Long appUserId, CharacterRequest dto) {
         log.info("Create character {} for appUser {}", dto, appUserId);
-        return characterRepo.save(characterMapper.mapToEntity(appUserId, dto));
+        return this.save(characterMapper.mapToEntity(appUserId, dto));
     }
 
     /**
@@ -100,8 +100,15 @@ public class CharacterService {
     /**
      * Возвращает, существует ли персонаж у пользователя по его id
      */
-    public Boolean hasCharacter(Long appUserId){
+    public Boolean hasCharacter(Long appUserId) {
         log.info("Get character existence for appUser id {}", appUserId);
-       return characterRepo.existsByAppUserId(appUserId);
+        return characterRepo.existsByAppUserId(appUserId);
+    }
+
+    // @Transactional в private и во внутри не работает
+    private Character save(Character character) {
+        character.setName(character.getName().trim());
+        log.info("Save character {}", character);
+        return characterRepo.save(character);
     }
 }

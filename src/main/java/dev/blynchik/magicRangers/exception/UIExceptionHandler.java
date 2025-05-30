@@ -23,11 +23,11 @@ public class UIExceptionHandler {
                                      HttpServletRequest request) {
         log.error("AppException occurred: {}", ex);
         if (ex.getStatus().is4xxClientError()) {
-            request.getSession().setAttribute("globalError", ex.getMessage());
+            request.getSession().setAttribute("handledError", ex.getMessage());
             return "redirect:" + request.getHeader("Referer");
         }
         // можно закомментировать/раскомментировать в зависимости от того, нужно ли показывать актуальное сообщение об ошибке для 500
-//        request.getSession().setAttribute("globalError", ex.getMessage());
+//        request.getSession().setAttribute("handledError", ex.getMessage());
         return "redirect:" + ERROR;
     }
 
@@ -39,22 +39,22 @@ public class UIExceptionHandler {
                                   HttpServletRequest request) {
         log.error("Exception occurred: {}", ex);
         // можно закомментировать/раскомментировать в зависимости от того, нужно ли показывать актуальное сообщение об ошибке для 500
-//        request.getSession().setAttribute("globalError", ex.getMessage());
+//        request.getSession().setAttribute("handledError", ex.getMessage());
         return "redirect:" + ERROR;
     }
 
     /**
-     * Вклинивается в цепочку обработки Spring MVC и добавляет атрибут globalError в Model, если он есть в HttpSession.
+     * Вклинивается в цепочку обработки Spring MVC и добавляет атрибут handledError в Model, если он есть в HttpSession.
      * Это позволяет тебе просто использовать его в любом шаблоне без явного добавления в контроллере.
      * Автоматически вызывается перед каждым @RequestMapping методом любого контроллера,
      * если он находится в классе, помеченном как @ControllerAdvice
      */
     @ModelAttribute
-    public void addGlobalError(Model model, HttpServletRequest request) {
-        Object error = request.getSession().getAttribute("globalError");
+    public void addHandledError(Model model, HttpServletRequest request) {
+        Object error = request.getSession().getAttribute("handledError");
         if (error != null) {
-            model.addAttribute("globalError", error);
-            request.getSession().removeAttribute("globalError");
+            model.addAttribute("handledError", error);
+            request.getSession().removeAttribute("handledError");
         }
     }
 }
