@@ -41,6 +41,9 @@ public class CharacterPageController {
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         log.info("Request POST to {}", CHARACTER);
+        if (characterService.hasCharacter(authUser.getAppUser().getId())) {
+            bindingResult.reject("character.constraint.message.appUserHasCharacter");
+        }
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;
         CharacterResponse ch = characterService.createWithDto(authUser.getAppUser().getId(), dto);
         redirectAttributes.addFlashAttribute("character", ch);
@@ -51,7 +54,6 @@ public class CharacterPageController {
      * Возвращает страницу создания персонажа
      */
     @GetMapping(NEW)
-
     public String showCreate(Model model) {
         log.info("Request GET to {}", CHARACTER + NEW);
         model.addAttribute("character", new CharacterRequest());
