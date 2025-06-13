@@ -75,6 +75,6 @@ public class EventService {
      */
     public Optional<Event> getOptByTitle(String title) {
         log.info("Get event by title {}", title);
-        return eventRepo.findByEventTitle(title);
+        return eventRepo.findByTitle(title);
     }
 }

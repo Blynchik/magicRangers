@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Поиск события</title>
+</head>
+<body>
+<h1>Поиск события</h1>
+
+<form action="/event" method="get">
+    <label for="name">Введите название события:</label>
+    <input type="text" id="name" name="name" th:value="${param.name}">
+    <button type="submit">Найти</button>
+</form>
+
+<hr>
+
+<div th:if="${event != null}">
+    <h2>Результат:</h2>
+    <p><strong>Название:</strong> <span th:text="${event.title}"></span></p>
+    <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
+</div>
+
+<div th:if="${param.name != null and event == null}">
+    <p style="color: red;">Событие не найдено.</p>
+</div>
+</body>
+</html>

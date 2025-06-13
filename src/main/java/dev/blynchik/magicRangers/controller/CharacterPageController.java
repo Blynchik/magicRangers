@@ -40,7 +40,7 @@ public class CharacterPageController {
                          @Valid @ModelAttribute("character") CharacterRequest dto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
-        log.info("Request POST to {}", CHARACTER);
+        log.info("Request POST to {} by {}", CHARACTER, authUser.getAppUser().getId());
         if (characterService.hasCharacter(authUser.getAppUser().getId())) {
             bindingResult.reject("character.constraint.message.appUserHasCharacter");
         }
@@ -78,7 +78,7 @@ public class CharacterPageController {
     @GetMapping(MY)
     public String getMy(@AuthenticationPrincipal AuthUser authUser,
                         Model model) {
-        log.info("Request GET to {}", CHARACTER + MY);
+        log.info("Request GET to {} by {}", CHARACTER + MY, authUser.getAppUser().getId());
         CharacterResponse ch = characterService.getDtoByAppUserId(authUser.getAppUser().getId());
         model.addAttribute("character", ch);
         return "character/view";
