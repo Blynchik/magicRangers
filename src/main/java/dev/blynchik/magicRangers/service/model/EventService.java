@@ -2,6 +2,7 @@ package dev.blynchik.magicRangers.service.model;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.mapper.EventMapper;
+import dev.blynchik.magicRangers.model.dto.EventRequest;
 import dev.blynchik.magicRangers.model.dto.EventResponse;
 import dev.blynchik.magicRangers.model.storage.Event;
 import dev.blynchik.magicRangers.repo.EventRepo;
@@ -31,16 +32,33 @@ public class EventService {
     }
 
     /**
+     * Создаем событие, возвращая dto для ответа
+     */
+    @Transactional
+    public EventResponse createWithDto(EventRequest dto) {
+        return eventMapper.mapToDto(this.create(dto));
+    }
+
+    /**
+     * Создаем событие
+     */
+    @Transactional
+    public Event create(EventRequest dto) {
+        log.info("Create event {}", dto);
+        return this.save(eventMapper.mapToEntity(dto));
+    }
+
+    /**
      * Возвращаем dto события для ответа по id
      */
-    public EventResponse getDtoById(Long id){
+    public EventResponse getDtoById(Long id) {
         return eventMapper.mapToDto(this.getById(id));
     }
 
     /**
      * Возвращаем dto события для ответа по названию
      */
-    public EventResponse getDtoByTitle(String title){
+    public EventResponse getDtoByTitle(String title) {
         return eventMapper.mapToDto(this.getByTitle(title));
     }
 
@@ -76,5 +94,13 @@ public class EventService {
     public Optional<Event> getOptByTitle(String title) {
         log.info("Get event by title {}", title);
         return eventRepo.findByTitle(title);
+    }
+
+    // @Transactional в private и во внутри не работает
+    private Event save(Event event) {
+        event.setTitle(event.getTitle().trim());
+        event.setDescr(event.getDescr().trim());
+        log.info("Save event {}", event);
+        return eventRepo.save(event);
     }
 }

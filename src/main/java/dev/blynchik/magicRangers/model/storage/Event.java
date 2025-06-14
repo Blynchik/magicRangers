@@ -30,13 +30,9 @@ public class Event {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", descr='" + descr + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+    public Event(String title, String descr, LocalDateTime createdAt) {
+        this.title = title;
+        this.descr = descr;
+        this.createdAt = createdAt;
     }
 }
