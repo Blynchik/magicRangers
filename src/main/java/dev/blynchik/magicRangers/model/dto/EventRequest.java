@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,4 +23,10 @@ public class EventRequest {
     @NotBlank(message = "{constraint.message.notBlank}")
     @Size(min = 1, max = 1000, message = "{constraint.message.size}")
     private String descr;
+
+    // одинаковый разер
+    // без совпадений внутри
+    // без пустых
+    // не нулевой размер
+    private List<EventOptionRequest> optionRequests;
 }

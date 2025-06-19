@@ -25,6 +25,17 @@
     </div>
 
     <div>
+        <h3>Опции и результаты</h3>
+        <div id="optionResultPairs-container">
+            <!-- JS будет добавлять сюда блоки пар -->
+        </div>
+        <button type="button" class="btn btn-outline-primary mb-3" onclick="addOptionResultPair()">Добавить вариант
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removePair(this)">Удалить вариант
+        </button>
+    </div>
+
+    <div>
         <button type="submit">Создать</button>
     </div>
     <div th:if="${#fields.hasGlobalErrors()}" style="color:red;">
@@ -55,6 +66,97 @@
             toast.show();
         }
     });
+</script>
+
+<template id="optionResultTemplate">
+    <div class="option-result-block mb-3">
+        <fieldset class="border p-3 rounded">
+            <legend class="float-none w-auto px-2">Вариант #[#]</legend>
+
+            <label>Атрибут:</label>
+            <select name="optionRequests[#].attribute" class="form-select mb-2">
+                <option value="">-- выберите --</option>
+                <option value="STR">Удаль</option>
+                <option value="INTL">Смекалка</option>
+                <option value="CHA">Обаяние</option>
+            </select>
+
+            <label>Описание опции:</label>
+            <input type="text" name="optionRequests[#].descr" class="form-control mb-2"/>
+
+            <div class="results-container"></div>
+
+            <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="addResult(this, #)">Добавить
+                результат
+            </button>
+            </button>
+        </fieldset>
+    </div>
+</template>
+
+<!-- Новый шаблон для одного результата -->
+<template id="resultTemplate">
+    <div class="result-block border rounded p-2 mb-2">
+        <label>Сложность:</label>
+        <input type="number" name="optionRequests[#].results[##].minDifficulty" class="form-control mb-2"/>
+
+        <label>Описание результата:</label>
+        <textarea name="optionRequests[#].results[##].descr" rows="2" class="form-control mb-2"></textarea>
+
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeResult(this)">Удалить результат
+        </button>
+    </div>
+</template>
+
+<script>
+    let pairCount = 0;
+
+    function replaceIndex(templateHTML, index) {
+    return templateHTML
+        .replace(/\[#\]/g, `[${index}]`)
+        .replace(/onclick="addResult\(this, #\)"/g, `onclick="addResult(this, ${index})"`);
+}
+
+    function addOptionResultPair() {
+        const container = document.getElementById('optionResultPairs-container');
+        const template = document.getElementById('optionResultTemplate');
+        let html = replaceIndex(template.innerHTML, pairCount);
+        container.insertAdjacentHTML('beforeend', html);
+        pairCount++;
+    }
+
+    function removePair(button) {
+        const block = button.closest('.option-result-block');
+        block.remove();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        addOptionResultPair(); // одна пара по умолчанию
+    });
+
+    let optionIndex = 0;
+
+function addResult(button, optionIdx) {
+    const resultsContainer = button.parentElement.querySelector('.results-container');
+    const resultTemplate = document.getElementById('resultTemplate').innerHTML;
+
+    const currentResults = resultsContainer.querySelectorAll('.result-block').length;
+    const html = resultTemplate
+        .replaceAll('[#]', `[${optionIdx}]`)
+        .replaceAll('[##]', `[${currentResults}]`);
+
+    const resultDiv = document.createElement('div');
+    resultDiv.innerHTML = html;
+    resultsContainer.appendChild(resultDiv);
+}
+
+function removePair(button) {
+    button.closest('.option-result-block').remove();
+}
+
+function removeResult(button) {
+    button.closest('.result-block').remove();
+}
 </script>
 
 </body>

@@ -1,11 +1,14 @@
 package dev.blynchik.magicRangers.model.storage;
 
+import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "event",
@@ -27,12 +30,18 @@ public class Event {
     @Size(min = 1, max = 1000)
     private String descr;
 
+    @Type(JsonBinaryType.class)
+    @Column(name = "option_collection", columnDefinition = "jsonb")
+    @Size(min = 1, max = 10)
+    private List<EventOption> options;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Event(String title, String descr, LocalDateTime createdAt) {
+    public Event(String title, String descr, List<EventOption> options, LocalDateTime createdAt) {
         this.title = title;
         this.descr = descr;
+        this.options = options;
         this.createdAt = createdAt;
     }
 }
