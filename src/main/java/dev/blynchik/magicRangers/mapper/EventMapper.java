@@ -1,6 +1,7 @@
 package dev.blynchik.magicRangers.mapper;
 
 import dev.blynchik.magicRangers.model.dto.*;
+import dev.blynchik.magicRangers.model.storage.Attributes;
 import dev.blynchik.magicRangers.model.storage.Event;
 import dev.blynchik.magicRangers.model.storage.EventOption;
 import dev.blynchik.magicRangers.model.storage.EventOptionResult;
@@ -22,7 +23,7 @@ public class EventMapper {
         return new Event(dto.getTitle(), dto.getDescr(),
                 dto.getOptionRequests().stream()
                         .map(this::mapToEntity)
-                        .toList(),
+                        .collect(Collectors.toSet()),
                 LocalDateTime.now());
     }
 
@@ -50,7 +51,7 @@ public class EventMapper {
      */
     public EventOption mapToEntity(EventOptionRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), EventOption.class.getName());
-        return new EventOption(dto.getAttribute(), dto.getDescr(), dto.getResults().stream()
+        return new EventOption(Attributes.valueOf(dto.getAttribute()), dto.getDescr(), dto.getResults().stream()
                 .map(this::mapToEntity)
                 .toList());
     }

@@ -41,7 +41,7 @@ public class EventPageController {
                          @Valid @ModelAttribute("event") EventRequest dto,
                          BindingResult bindingResult) {
         log.info("Request POST to {} by {}", EVENT, authUser.getAppUser().getId());
-        if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;
+        if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return EVENT + NEW;
         EventResponse event = eventService.createWithDto(dto);
         return "redirect:" + EVENT + "?name=" + event.getTitle();
     }

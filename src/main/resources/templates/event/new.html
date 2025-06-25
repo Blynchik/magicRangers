@@ -27,18 +27,22 @@
     <div>
         <h3>Опции и результаты</h3>
         <div id="optionResultPairs-container">
-            <!-- JS будет добавлять сюда блоки пар -->
         </div>
-        <button type="button" class="btn btn-outline-primary mb-3" onclick="addOptionResultPair()">Добавить вариант
-        </button>
-        <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removePair(this)">Удалить вариант
-        </button>
+        <button type="button" class="btn btn-outline-primary mb-3" onclick="addOptionResultPair()">Добавить вариант</button>
+    </div>
+
+    <div th:if="${#fields.hasErrors()}" class="alert alert-danger mt-3">
+        <label>Все текущие ошибки:</label>
+        <ul>
+            <li th:each="err : ${#fields.errors()}" th:text="${err}"></li>
+        </ul>
     </div>
 
     <div>
         <button type="submit">Создать</button>
     </div>
     <div th:if="${#fields.hasGlobalErrors()}" style="color:red;">
+
         <ul>
             <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
         </ul>
@@ -72,6 +76,7 @@
     <div class="option-result-block mb-3">
         <fieldset class="border p-3 rounded">
             <legend class="float-none w-auto px-2">Вариант #[#]</legend>
+            <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removePair(this)">Удалить вариант</button>
 
             <label>Атрибут:</label>
             <select name="optionRequests[#].attribute" class="form-select mb-2">
@@ -84,17 +89,15 @@
             <label>Описание опции:</label>
             <input type="text" name="optionRequests[#].descr" class="form-control mb-2"/>
 
-            <div class="results-container"></div>
+            <div class="results-container mb-2">
+                <!-- Здесь будут добавляться результаты -->
+            </div>
 
-            <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="addResult(this, #)">Добавить
-                результат
-            </button>
-            </button>
+            <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="addResult(this, #)">Добавить результат</button>
         </fieldset>
     </div>
 </template>
 
-<!-- Новый шаблон для одного результата -->
 <template id="resultTemplate">
     <div class="result-block border rounded p-2 mb-2">
         <label>Сложность:</label>
@@ -123,11 +126,6 @@
         let html = replaceIndex(template.innerHTML, pairCount);
         container.insertAdjacentHTML('beforeend', html);
         pairCount++;
-    }
-
-    function removePair(button) {
-        const block = button.closest('.option-result-block');
-        block.remove();
     }
 
     window.addEventListener('DOMContentLoaded', () => {
