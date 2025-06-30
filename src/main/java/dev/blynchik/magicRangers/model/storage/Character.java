@@ -1,5 +1,6 @@
 package dev.blynchik.magicRangers.model.storage;
 
+import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 
@@ -46,6 +48,10 @@ public class Character {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Type(JsonBinaryType.class)
+    @Column(name = "current_event", columnDefinition = "jsonb")
+    private Event currentEvent;
 
     @Override
     public String toString() {

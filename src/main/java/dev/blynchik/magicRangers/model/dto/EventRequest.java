@@ -30,5 +30,6 @@ public class EventRequest {
     @Valid
     @Size(min = 1, max = 10, message = "{constraint.message.size}")
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
+    //Добавить проверку на неодинаковость описаний в EventOptionRequest
     private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionRequest> optionRequests;
 }

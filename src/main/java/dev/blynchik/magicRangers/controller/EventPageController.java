@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.util.UriEncoder;
 
-import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.CHARACTER;
 import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.NEW;
 import static dev.blynchik.magicRangers.controller.rout.EventPageRoutes.EVENT;
 
@@ -43,7 +43,7 @@ public class EventPageController {
         log.info("Request POST to {} by {}", EVENT, authUser.getAppUser().getId());
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return EVENT + NEW;
         EventResponse event = eventService.createWithDto(dto);
-        return "redirect:" + EVENT + "?name=" + event.getTitle();
+        return "redirect:" + EVENT + "?name=" + UriEncoder.encode(event.getTitle());
     }
 
     /**

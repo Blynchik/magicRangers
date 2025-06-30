@@ -12,4 +12,6 @@ public interface CharacterRepo extends JpaRepository<Character, Long> {
     Optional<Character> findByAppUserId(Long appUserId);
 
     Boolean existsByAppUserId(Long appUserId);
+
+    Boolean existsByIdAndCurrentEventIsNotNull(Long characterId);
 }

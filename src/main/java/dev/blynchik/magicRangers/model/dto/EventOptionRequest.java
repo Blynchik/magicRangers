@@ -23,6 +23,7 @@ public class EventOptionRequest {
     @Size(min = 1, max = 500, message = "{constraint.message.size}")
     @NotBlank(message = "{constraint.message.notBlank}")
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
+    //Добавить проверку на неодинаковость описаний
     private String descr;
 
     @Valid

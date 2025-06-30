@@ -82,6 +82,13 @@ public class CharacterService {
     }
 
     /**
+     * Возвращаем dto персонажа для ответа
+     */
+    public CharacterResponse getDto(Character character) {
+        return characterMapper.mapToDto(character);
+    }
+
+    /**
      * Ищем персонажа по id
      */
     public Optional<Character> getOptById(Long characterId) {
@@ -105,8 +112,19 @@ public class CharacterService {
         return characterRepo.existsByAppUserId(appUserId);
     }
 
-    // @Transactional в private и во внутри не работает
-    private Character save(Character character) {
+    /**
+     * Возвращает, существует ли у персонажа событие по его id
+     */
+    public Boolean hasEvent(Long characterId) {
+        log.info("Get event existence for character id {}", characterId);
+        return characterRepo.existsByIdAndCurrentEventIsNotNull(characterId);
+    }
+
+    /**
+     * Сохраняет персонажа
+     */
+    @Transactional
+    public Character save(Character character) {
         character.setName(character.getName().trim());
         log.info("Save character {}", character);
         return characterRepo.save(character);

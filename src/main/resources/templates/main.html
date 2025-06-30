@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+<h1 th:text="'Персонаж: ' + ${character.name}"></h1>
+
+<ul>
+    <li><strong>Удаль:</strong> <span th:text="${character.str}"></span></li>
+    <li><strong>Смекалка:</strong> <span th:text="${character.intl}"></span></li>
+    <li><strong>Обаяние:</strong> <span th:text="${character.cha}"></span></li>
+</ul>
+
+<div th:if="${event != null}">
+    <p><strong>Название:</strong> <span th:text="${event.title}"></span></p>
+    <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
+</div>
+
+<div th:if="${options != null and result == null}">
+    <h3>Выбери действие:</h3>
+    <form th:action="@{/main}" method="post" th:each="opt : ${options}">
+        <input type="hidden" name="attribute" th:value="${opt.attribute}" />
+        <input type="hidden" name="descr" th:value="${opt.descr}" />
+        <button type="submit"
+                th:text="${opt.descr + ' (' + opt.attribute + ')'}">
+        </button>
+    </form>
+</div>
+
+<div th:if="${result != null}">
+    <h3>Результат выбора:</h3>
+    <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
+    <p><strong>Описание:</strong> <span th:text="${result.descr}"></span></p>
+</div>
+
+<div th:if="${param.name != null and event == null}">
+    <p style="color: red;">Событие не найдено.</p>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0"
+         role="alert" aria-live="assertive" aria-atomic="true"
+         data-bs-delay="10000"
+         th:if="${handledError}">
+        <div class="d-flex">
+            <div class="toast-body" th:text="${handledError}"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const toastEl = document.getElementById('errorToast');
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+</script>
+
+</body>
+</html>
