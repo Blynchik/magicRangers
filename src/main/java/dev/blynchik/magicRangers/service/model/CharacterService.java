@@ -1,10 +1,15 @@
 package dev.blynchik.magicRangers.service.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.mapper.CharacterMapper;
 import dev.blynchik.magicRangers.model.dto.CharacterRequest;
 import dev.blynchik.magicRangers.model.dto.CharacterResponse;
 import dev.blynchik.magicRangers.model.storage.Character;
+import dev.blynchik.magicRangers.model.storage.Event;
 import dev.blynchik.magicRangers.repo.CharacterRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static dev.blynchik.magicRangers.exception.ExceptionMessage.APPUSERS_CHARACTER_NOT_FOUND;
-import static dev.blynchik.magicRangers.exception.ExceptionMessage.CHARACTER_NOT_FOUND;
+import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
 
 @Service
 @Slf4j
@@ -24,12 +28,35 @@ public class CharacterService {
 
     private final CharacterRepo characterRepo;
     private final CharacterMapper characterMapper;
+    private final ObjectMapper objectMapper;
 
     @Autowired
     public CharacterService(CharacterRepo characterRepo,
                             CharacterMapper characterMapper) {
         this.characterRepo = characterRepo;
         this.characterMapper = characterMapper;
+        this.objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
+
+    /**
+     * Метод обновляет текущее событие персонажа
+     * или выбрасывает исключение, если не смог этого сделать
+     */
+    @Transactional
+    public void updateCurrentEvent(Long characterId, Event event) {
+        String eventJson = null;
+        try {
+            if(event != null){
+                eventJson = objectMapper.writeValueAsString(event);
+            }
+        } catch (JsonProcessingException e) {
+            throw new AppException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if (characterRepo.updateCurrentEvent(characterId, eventJson) == 0) {
+            throw new AppException(UPDATE_DENIED, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

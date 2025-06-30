@@ -13,6 +13,10 @@
     <li><strong>Обаяние:</strong> <span th:text="${character.cha}"></span></li>
 </ul>
 
+<form method="post" action="/main/search">
+    <button type="submit">Найти событие</button>
+</form>
+
 <div th:if="${event != null}">
     <p><strong>Название:</strong> <span th:text="${event.title}"></span></p>
     <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
@@ -21,8 +25,8 @@
 <div th:if="${options != null and result == null}">
     <h3>Выбери действие:</h3>
     <form th:action="@{/main}" method="post" th:each="opt : ${options}">
-        <input type="hidden" name="attribute" th:value="${opt.attribute}" />
-        <input type="hidden" name="descr" th:value="${opt.descr}" />
+        <input type="hidden" name="attribute" th:value="${opt.attribute}"/>
+        <input type="hidden" name="descr" th:value="${opt.descr}"/>
         <button type="submit"
                 th:text="${opt.descr + ' (' + opt.attribute + ')'}">
         </button>

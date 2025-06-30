@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Set;
 
 import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.MAIN;
+import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.SEARCH;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
@@ -41,7 +42,7 @@ public class MainPageController {
     }
 
     /**
-     * Возвращает главную страницу с событием и персонажем
+     * Возвращает главную страницу с событием (если он есть) и персонажем
      */
     @GetMapping
     public String get(@AuthenticationPrincipal AuthUser authUser,
@@ -52,14 +53,29 @@ public class MainPageController {
         if (characterService.hasEvent(character.getId())) {
             event = character.getCurrentEvent();
             EventResponse eventResponse = eventService.getDto(event);
-            model.addAttribute("character", characterService.getDto(character));
             model.addAttribute("event", eventService.getDto(event));
             model.addAttribute("options", eventResponse.getOptions());
-            return MAIN;
         }
-        event = eventService.getRandom();
-        character.setCurrentEvent(event);
-        character = characterService.save(character);
+        model.addAttribute("character", characterService.getDto(character));
+        return "/main";
+    }
+
+    /**
+     * После нажатия 'Поиска события' возвращает главную страницу
+     * со случайным событием (либо с текущим персонажа) и персонажем
+     */
+    @PostMapping(SEARCH)
+    public String findRandomEvent(@AuthenticationPrincipal AuthUser authUser,
+                                  Model model) {
+        log.info("Request GET to {} by {}", MAIN + SEARCH, authUser.getAppUser().getId());
+        Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        Event event;
+        if (characterService.hasEvent(character.getId())) {
+            event = character.getCurrentEvent();
+        } else {
+            event = eventService.getRandom();
+            characterService.updateCurrentEvent(character.getId(), event);
+        }
         EventResponse eventResponse = eventService.getDto(event);
         model.addAttribute("character", characterService.getDto(character));
         model.addAttribute("event", eventService.getDto(event));
@@ -87,9 +103,8 @@ public class MainPageController {
             model.addAttribute("character", characterService.getDto(character));
             model.addAttribute("event", eventService.getDto(character.getCurrentEvent()));
             model.addAttribute("result", eventOption.getResults().get(0));
-            character.setCurrentEvent(null);
-            characterService.save(character);
-            return MAIN;
+            characterService.updateCurrentEvent(character.getId(), null);
+            return "/main";
         }
         return "redirect:" + MAIN;
     }

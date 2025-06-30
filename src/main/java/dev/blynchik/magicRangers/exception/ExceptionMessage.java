@@ -9,4 +9,5 @@ public final class ExceptionMessage {
     public static final String CHARACTER_NOT_FOUND = "Character %s not found";
     public static final String NOT_FOUND = "%s not found";
     public static final String APPUSERS_CHARACTER_NOT_FOUND = "User's %s character not found";
+    public static final String UPDATE_DENIED = "Update denied";
 }
