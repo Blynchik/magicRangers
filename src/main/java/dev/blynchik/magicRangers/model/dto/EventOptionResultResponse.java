@@ -8,5 +8,7 @@ import lombok.Data;
 public class EventOptionResultResponse {
 
     private String title;
+    private String selectedOption;
+    private int minDifficulty;
     private String resultDescr;
 }

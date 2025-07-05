@@ -35,8 +35,9 @@
 
 <div th:if="${result != null}">
     <h3>Результат выбора:</h3>
+    <p><strong>Выбранный вариант:</strong> <span th:text="${result.selectedOption}"></span></p>
     <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
-    <p><strong>Описание:</strong> <span th:text="${result.descr}"></span></p>
+    <p><strong>Описание:</strong> <span th:text="${result.resultDescr}"></span></p>
 </div>
 
 <div th:if="${param.name != null and event == null}">

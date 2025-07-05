@@ -47,6 +47,17 @@ public class EventMapper {
     }
 
     /**
+     * Получаем объект для ответа на выбор варианта
+     */
+    public EventOptionResultResponse mapToDto(String eventTitle, String selectedOption, EventOptionResult optionResult) {
+        log.info("Convert {} to {}", optionResult.getClass().getName(), EventOptionResultResponse.class.getName());
+        return new EventOptionResultResponse(eventTitle,
+                selectedOption,
+                optionResult.getMinDifficulty(),
+                optionResult.getDescr());
+    }
+
+    /**
      * Конвертирует dto для создания EventOption
      */
     public EventOption mapToEntity(EventOptionRequest dto) {

@@ -2,6 +2,7 @@ package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.exception.ExceptionMessage;
+import dev.blynchik.magicRangers.mapper.EventMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.EventResponse;
 import dev.blynchik.magicRangers.model.dto.SelectedEventOption;
@@ -33,12 +34,15 @@ public class MainPageController {
 
     private final CharacterService characterService;
     private final EventService eventService;
+    private final EventMapper eventMapper;
 
     @Autowired
     public MainPageController(CharacterService characterService,
-                              EventService eventService) {
+                              EventService eventService,
+                              EventMapper eventMapper) {
         this.characterService = characterService;
         this.eventService = eventService;
+        this.eventMapper = eventMapper;
     }
 
     /**
@@ -102,7 +106,9 @@ public class MainPageController {
                     .orElseThrow(() -> new AppException(ExceptionMessage.NOT_FOUND.formatted(selectedOption.getDescr() + " " + selectedOption.getAttribute()), NOT_FOUND));
             model.addAttribute("character", characterService.getDto(character));
             model.addAttribute("event", eventService.getDto(character.getCurrentEvent()));
-            model.addAttribute("result", eventOption.getResults().get(0));
+            model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
+                    selectedOption.getDescr(),
+                    eventOption.getResults().get(0)));
             characterService.updateCurrentEvent(character.getId(), null);
             return "/main";
         }
