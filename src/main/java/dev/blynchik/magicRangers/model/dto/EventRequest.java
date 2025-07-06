@@ -1,5 +1,6 @@
 package dev.blynchik.magicRangers.model.dto;
 
+import dev.blynchik.magicRangers.validation.annotaion.UniqueAttributeDescrCombination;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +31,6 @@ public class EventRequest {
     @Valid
     @Size(min = 1, max = 10, message = "{constraint.message.size}")
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
-    //Добавить проверку на неодинаковость описаний в EventOptionRequest
+    @UniqueAttributeDescrCombination(message = "{event.constraint.message.notUniqueAttrDescrComb}")
     private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionRequest> optionRequests;
 }

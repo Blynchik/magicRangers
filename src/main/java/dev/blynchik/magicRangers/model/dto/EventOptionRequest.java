@@ -1,5 +1,6 @@
 package dev.blynchik.magicRangers.model.dto;
 
+import dev.blynchik.magicRangers.validation.annotaion.UniqueResultMinDifficulty;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -20,15 +21,16 @@ public class EventOptionRequest {
 
     @Pattern(regexp = "STR|INTL|CHA", message = "{constraint.message.type}")
     private String attribute;
+
     @Size(min = 1, max = 500, message = "{constraint.message.size}")
     @NotBlank(message = "{constraint.message.notBlank}")
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
-    //Добавить проверку на неодинаковость описаний
     private String descr;
 
     @Valid
     @Size(min = 1, max = 10, message = "{constraint.message.size}")
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @NotNull(message = "{constraint.message.notBlank}")
+    @UniqueResultMinDifficulty(message = "{event.constraint.message.notUniqueMinDifficulty}")
     private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionResultRequest> results;
 }
