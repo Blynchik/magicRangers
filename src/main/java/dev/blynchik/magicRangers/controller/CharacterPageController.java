@@ -41,7 +41,7 @@ public class CharacterPageController {
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         log.info("Request POST to {} by {}", CHARACTER, authUser.getAppUser().getId());
-        if (characterService.hasCharacter(authUser.getAppUser().getId())) {
+        if (characterService.existsByAppUserId(authUser.getAppUser().getId())) {
             bindingResult.reject("character.constraint.message.appUserHasCharacter");
         }
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;

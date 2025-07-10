@@ -48,7 +48,7 @@ public class CharacterService {
     public void updateCurrentEvent(Long characterId, Event event) {
         String eventJson = null;
         try {
-            if(event != null){
+            if (event != null) {
                 eventJson = objectMapper.writeValueAsString(event);
             }
         } catch (JsonProcessingException e) {
@@ -134,7 +134,7 @@ public class CharacterService {
     /**
      * Возвращает, существует ли персонаж у пользователя по его id
      */
-    public Boolean hasCharacter(Long appUserId) {
+    public Boolean existsByAppUserId(Long appUserId) {
         log.info("Get character existence for appUser id {}", appUserId);
         return characterRepo.existsByAppUserId(appUserId);
     }
@@ -142,7 +142,7 @@ public class CharacterService {
     /**
      * Возвращает, существует ли у персонажа событие по его id
      */
-    public Boolean hasEvent(Long characterId) {
+    public Boolean existsByIdAndCurrentEventIsNotNull(Long characterId) {
         log.info("Get event existence for character id {}", characterId);
         return characterRepo.existsByIdAndCurrentEventIsNotNull(characterId);
     }

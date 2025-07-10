@@ -14,4 +14,6 @@ public interface EventRepo extends JpaRepository<Event, Long> {
 
     @Query(value = "SELECT * FROM event ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
     Optional<Event> findRandom();
+
+    Boolean existsByTitle(String title);
 }

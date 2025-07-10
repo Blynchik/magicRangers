@@ -62,7 +62,7 @@ class CharacterPageControllerTest {
     @Test
     void createCharacter_whenRequestToCreate_successWithRedirect() throws Exception {
         CharacterResponse response = new CharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
-        when(characterService.hasCharacter(1L)).thenReturn(false);
+        when(characterService.existsByAppUserId(1L)).thenReturn(false);
         when(characterService.createWithDto(anyLong(), any())).thenReturn(response);
         when(validationUIErrorUtil.hasValidationErrors(any())).thenReturn(false);
 

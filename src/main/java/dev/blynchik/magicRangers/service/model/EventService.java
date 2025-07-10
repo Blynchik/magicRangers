@@ -40,6 +40,14 @@ public class EventService {
     }
 
     /**
+     * Проверяем наличие события с таким же названием
+     */
+    public Boolean existsByTitle(String title) {
+        log.info("Check event existence by title: {}", title);
+        return eventRepo.existsByTitle(title);
+    }
+
+    /**
      * Создаем событие
      */
     @Transactional

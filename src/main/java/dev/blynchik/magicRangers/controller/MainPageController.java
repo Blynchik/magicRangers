@@ -54,7 +54,7 @@ public class MainPageController {
         log.info("Request GET to {} by {}", MAIN, authUser.getAppUser().getId());
         Event event;
         Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
-        if (characterService.hasEvent(character.getId())) {
+        if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
             EventResponse eventResponse = eventService.getDto(event);
             model.addAttribute("event", eventService.getDto(event));
@@ -74,7 +74,7 @@ public class MainPageController {
         log.info("Request GET to {} by {}", MAIN + SEARCH, authUser.getAppUser().getId());
         Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
         Event event;
-        if (characterService.hasEvent(character.getId())) {
+        if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
         } else {
             event = eventService.getRandom();
@@ -98,7 +98,7 @@ public class MainPageController {
                          Model model) {
         log.info("Request POST to {} by {}", MAIN, authUser.getAppUser().getId());
         Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
-        if (characterService.hasEvent(character.getId())) {
+        if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             Set<EventOption> options = character.getCurrentEvent().getOptions();
             EventOption eventOption = options.stream()
                     .filter(o -> o.getDescr().equals(selectedOption.getDescr()) && o.getAttribute().name().equals(selectedOption.getAttribute()))

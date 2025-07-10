@@ -30,7 +30,7 @@ public class HasCharacterAuthenticationSuccessHandler extends SimpleUrlAuthentic
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         Long userId = ((AuthUser) authentication.getPrincipal()).getAppUser().getId();
-        boolean hasCharacter = characterService.hasCharacter(userId);
+        boolean hasCharacter = characterService.existsByAppUserId(userId);
         String targetUrl = hasCharacter ? CHARACTER + MY : CHARACTER + NEW;
         log.info("AppUser id {} has character: {}, and redirected: {}", userId, hasCharacter, targetUrl);
         getRedirectStrategy().sendRedirect(request, response, targetUrl);

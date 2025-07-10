@@ -1,6 +1,7 @@
 package dev.blynchik.magicRangers.model.dto;
 
 import dev.blynchik.magicRangers.validation.annotaion.UniqueAttributeDescrCombination;
+import dev.blynchik.magicRangers.validation.annotaion.UniqueEventTitle;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +22,7 @@ public class EventRequest {
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
     @NotBlank(message = "{constraint.message.notBlank}")
     @Size(min = 1, max = 255, message = "{constraint.message.size}")
-    // уникальность названия
+    @UniqueEventTitle(message = "{event.constraint.message.notUniqueTitle}")
     private String title;
 
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
