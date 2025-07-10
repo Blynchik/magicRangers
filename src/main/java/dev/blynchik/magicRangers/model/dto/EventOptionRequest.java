@@ -32,5 +32,5 @@ public class EventOptionRequest {
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @NotNull(message = "{constraint.message.notBlank}")
     @UniqueResultMinDifficulty(message = "{event.constraint.message.notUniqueMinDifficulty}")
-    private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionResultRequest> results;
+    private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionResultSetRequest> results;
 }

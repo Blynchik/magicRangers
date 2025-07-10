@@ -1,10 +1,7 @@
 package dev.blynchik.magicRangers.mapper;
 
 import dev.blynchik.magicRangers.model.dto.*;
-import dev.blynchik.magicRangers.model.storage.Attributes;
-import dev.blynchik.magicRangers.model.storage.Event;
-import dev.blynchik.magicRangers.model.storage.EventOption;
-import dev.blynchik.magicRangers.model.storage.EventOptionResult;
+import dev.blynchik.magicRangers.model.storage.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -49,12 +46,15 @@ public class EventMapper {
     /**
      * Получаем объект для ответа на выбор варианта
      */
-    public EventOptionResultResponse mapToDto(String eventTitle, String selectedOption, EventOptionResult optionResult) {
-        log.info("Convert {} to {}", optionResult.getClass().getName(), EventOptionResultResponse.class.getName());
-        return new EventOptionResultResponse(eventTitle,
+    public EventOptionResultSetResponse mapToDto(String eventTitle, String selectedOption, EventOptionResultSet optionResultSet) {
+        log.info("Convert {} to {}", optionResultSet.getClass().getName(), EventOptionResultSetResponse.class.getName());
+        return new EventOptionResultSetResponse(eventTitle,
                 selectedOption,
-                optionResult.getMinDifficulty(),
-                optionResult.getDescr());
+                optionResultSet.getMinDifficulty(),
+                optionResultSet.getProbableResults().stream()
+                        .findFirst()
+                        .get()
+                        .getDescr());
     }
 
     /**
@@ -70,8 +70,10 @@ public class EventMapper {
     /**
      * Конвертирует dto для создания EventOptionResult
      */
-    public EventOptionResult mapToEntity(EventOptionResultRequest dto) {
-        log.info("Convert {} to {}", dto.getClass().getName(), EventOptionResult.class.getName());
-        return new EventOptionResult(dto.getMinDifficulty(), dto.getDescr());
+    public EventOptionResultSet mapToEntity(EventOptionResultSetRequest dto) {
+        log.info("Convert {} to {}", dto.getClass().getName(), EventOptionResultSet.class.getName());
+        return new EventOptionResultSet(dto.getMinDifficulty(), dto.getProbableResults().stream()
+                .map(r -> new ProbableResult(r.getProbabilityPercent(), r.getDescr()))
+                .collect(Collectors.toSet()));
     }
 }

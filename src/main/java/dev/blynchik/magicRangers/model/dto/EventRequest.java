@@ -21,6 +21,7 @@ public class EventRequest {
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
     @NotBlank(message = "{constraint.message.notBlank}")
     @Size(min = 1, max = 255, message = "{constraint.message.size}")
+    // уникальность названия
     private String title;
 
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")

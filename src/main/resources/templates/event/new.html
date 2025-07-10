@@ -99,15 +99,30 @@
 </template>
 
 <template id="resultTemplate">
-    <div class="result-block border rounded p-2 mb-2">
+    <div class="result-block border rounded p-2 mb-3">
         <label>Сложность:</label>
         <input type="number" name="optionRequests[#].results[##].minDifficulty" class="form-control mb-2"/>
 
-        <label>Описание результата:</label>
-        <textarea name="optionRequests[#].results[##].descr" rows="2" class="form-control mb-2"></textarea>
+        <div class="probable-results-container mb-2">
+        </div>
 
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeResult(this)">Удалить результат
-        </button>
+        <button type="button" class="btn btn-sm btn-outline-primary mb-2"
+                onclick="addProbableResult(this, #, ##)">Добавить вероятный результат</button>
+
+        <button type="button" class="btn btn-sm btn-outline-danger"
+                onclick="removeResult(this)">Удалить результат</button>
+    </div>
+</template>
+
+<template id="probableResultTemplate">
+    <div class="probable-result-block border p-2 mb-2">
+        <label>Вероятность (%):</label>
+        <input type="number" step="0.000001" name="optionRequests[#].results[##].probableResults[###].probabilityPercent" class="form-control mb-2"/>
+
+        <label>Описание результата:</label>
+        <textarea name="optionRequests[#].results[##].probableResults[###].descr" rows="2" class="form-control mb-2"></textarea>
+
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProbableResult(this)">Удалить вероятный результат</button>
     </div>
 </template>
 
@@ -138,15 +153,21 @@ function addResult(button, optionIdx) {
     const resultsContainer = button.parentElement.querySelector('.results-container');
     const resultTemplate = document.getElementById('resultTemplate').innerHTML;
 
-    const currentResults = resultsContainer.querySelectorAll('.result-block').length;
+    const resultIndex = resultsContainer.querySelectorAll('.result-block').length;
+
     const html = resultTemplate
         .replaceAll('[#]', `[${optionIdx}]`)
-        .replaceAll('[##]', `[${currentResults}]`);
+        .replaceAll('[##]', `[${resultIndex}]`)
+        .replace(/onclick="addProbableResult\(this, #, ##\)"/g, `onclick="addProbableResult(this, ${optionIdx}, ${resultIndex})"`);
 
-    const resultDiv = document.createElement('div');
-    resultDiv.innerHTML = html;
-    resultsContainer.appendChild(resultDiv);
-}
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    resultsContainer.appendChild(wrapper);
+
+    // Добавляем один вероятный результат по умолчанию
+    const addProbBtn = wrapper.querySelector('button[onclick^="addProbableResult"]');
+    addProbableResult(addProbBtn, optionIdx, resultIndex);
+    }
 
 function removePair(button) {
     button.closest('.option-result-block').remove();
@@ -154,6 +175,27 @@ function removePair(button) {
 
 function removeResult(button) {
     button.closest('.result-block').remove();
+}
+</script>
+
+<script>
+    function addProbableResult(button, optionIdx, resultIdx) {
+    const container = button.parentElement.querySelector('.probable-results-container');
+    const template = document.getElementById('probableResultTemplate').innerHTML;
+    const currentCount = container.querySelectorAll('.probable-result-block').length;
+
+    const html = template
+        .replaceAll('[#]', `[${optionIdx}]`)
+        .replaceAll('[##]', `[${resultIdx}]`)
+        .replaceAll('[###]', `[${currentCount}]`);
+
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    container.appendChild(div);
+}
+
+function removeProbableResult(button) {
+    button.closest('.probable-result-block').remove();
 }
 </script>
 

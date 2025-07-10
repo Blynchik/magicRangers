@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class EventOptionResultResponse {
+public class EventOptionResultSetResponse {
 
     private String title;
     private String selectedOption;

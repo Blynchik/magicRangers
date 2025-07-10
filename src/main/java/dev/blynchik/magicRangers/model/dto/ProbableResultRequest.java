@@ -1,20 +1,22 @@
 package dev.blynchik.magicRangers.model.dto;
 
+import dev.blynchik.magicRangers.validation.annotaion.MinDouble;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventOptionResultRequest {
+@Data
+public class ProbableResultRequest {
 
-    @PositiveOrZero(message = "{constraint.message.shouldBePositive}")
-    @Max(value = 400, message = "{constraint.message.maxNum}")
     @NotNull(message = "{constraint.message.notBlank}")
-    private Integer minDifficulty;
+    @PositiveOrZero(message = "{constraint.message.shouldBePositive}")
+    @Max(value = 100, message = "{constraint.message.maxNum}")
+    @MinDouble(message = "{constraint.message.minNum}", value = 0.000001)
+    private Double probabilityPercent;
 
     @Size(min = 1, max = 1000, message = "{constraint.message.size}")
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
