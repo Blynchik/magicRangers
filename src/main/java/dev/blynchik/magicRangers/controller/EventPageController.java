@@ -1,8 +1,8 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.EventRequest;
-import dev.blynchik.magicRangers.model.dto.EventResponse;
+import dev.blynchik.magicRangers.model.dto.AppEventRequest;
+import dev.blynchik.magicRangers.model.dto.AppEventResponse;
 import dev.blynchik.magicRangers.service.model.EventService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import jakarta.validation.Valid;
@@ -38,11 +38,11 @@ public class EventPageController {
      */
     @PostMapping
     public String create(@AuthenticationPrincipal AuthUser authUser,
-                         @Valid @ModelAttribute("event") EventRequest dto,
+                         @Valid @ModelAttribute("event") AppEventRequest dto,
                          BindingResult bindingResult) {
         log.info("Request POST to {} by {}", EVENT, authUser.getAppUser().getId());
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return EVENT + NEW;
-        EventResponse event = eventService.createWithDto(dto);
+        AppEventResponse event = eventService.createWithDto(dto);
         return "redirect:" + EVENT + "?name=" + UriEncoder.encode(event.getTitle());
     }
 
@@ -52,7 +52,7 @@ public class EventPageController {
     @GetMapping(NEW)
     public String showCreate(Model model) {
         log.info("Request GET to {}", EVENT + NEW);
-        model.addAttribute("event", new EventRequest());
+        model.addAttribute("event", new AppEventRequest());
         return "event/new";
     }
 
@@ -64,7 +64,7 @@ public class EventPageController {
                       String name,
                       Model model) {
         log.info("Request GET to {} with name {}", EVENT, name);
-        EventResponse event = eventService.getDtoByTitle(name);
+        AppEventResponse event = eventService.getDtoByTitle(name);
         model.addAttribute("event", event);
         return "event/view";
     }

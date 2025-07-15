@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProbableResultRequest {
+public class AppProbableResultRequest {
 
     @NotNull(message = "{constraint.message.notBlank}")
     @PositiveOrZero(message = "{constraint.message.shouldBePositive}")

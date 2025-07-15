@@ -15,9 +15,9 @@ public class EventMapper {
     /**
      * Конвертирует dto для создания Event
      */
-    public Event mapToEntity(EventRequest dto) {
-        log.info("Convert {} to {}", dto.getClass().getName(), Event.class.getName());
-        return new Event(dto.getTitle(), dto.getDescr(),
+    public AppEvent mapToEntity(AppEventRequest dto) {
+        log.info("Convert {} to {}", dto.getClass().getName(), AppEvent.class.getName());
+        return new AppEvent(dto.getTitle(), dto.getDescr(),
                 dto.getOptionRequests().stream()
                         .map(this::mapToEntity)
                         .toList(),
@@ -27,9 +27,9 @@ public class EventMapper {
     /**
      * Конвертирует Event в dto для ответа
      */
-    public EventResponse mapToDto(Event event) {
-        log.info("Convert {} to {}", event.getClass().getName(), EventResponse.class.getName());
-        return new EventResponse(event.getTitle(), event.getDescr(),
+    public AppEventResponse mapToDto(AppEvent event) {
+        log.info("Convert {} to {}", event.getClass().getName(), AppEventResponse.class.getName());
+        return new AppEventResponse(event.getTitle(), event.getDescr(),
                 event.getOptions().stream()
                         .map(this::mapToDto)
                         .collect(Collectors.toSet()));
@@ -38,17 +38,17 @@ public class EventMapper {
     /**
      * Конвертирует EventOption в dto для ответа
      */
-    public EventOptionResponse mapToDto(EventOption option) {
-        log.info("Convert {} to {}", option.getClass().getName(), EventOptionResponse.class.getName());
-        return new EventOptionResponse(option.getAttribute().name(), option.getDescr());
+    public AppEventOptionResponse mapToDto(AppEventOption option) {
+        log.info("Convert {} to {}", option.getClass().getName(), AppEventOptionResponse.class.getName());
+        return new AppEventOptionResponse(option.getAttribute().name(), option.getDescr());
     }
 
     /**
      * Получаем объект для ответа на выбор варианта
      */
-    public EventOptionResultSetResponse mapToDto(String eventTitle, String selectedOption, EventOptionResultSet optionResultSet) {
-        log.info("Convert {} to {}", optionResultSet.getClass().getName(), EventOptionResultSetResponse.class.getName());
-        return new EventOptionResultSetResponse(eventTitle,
+    public AppEventOptionResultSetResponse mapToDto(String eventTitle, String selectedOption, AppEventOptionResultSet optionResultSet) {
+        log.info("Convert {} to {}", optionResultSet.getClass().getName(), AppEventOptionResultSetResponse.class.getName());
+        return new AppEventOptionResultSetResponse(eventTitle,
                 selectedOption,
                 optionResultSet.getMinDifficulty(),
                 optionResultSet.getProbableResults().stream()
@@ -60,9 +60,9 @@ public class EventMapper {
     /**
      * Конвертирует dto для создания EventOption
      */
-    public EventOption mapToEntity(EventOptionRequest dto) {
-        log.info("Convert {} to {}", dto.getClass().getName(), EventOption.class.getName());
-        return new EventOption(Attributes.valueOf(dto.getAttribute()), dto.getDescr(), dto.getResults().stream()
+    public AppEventOption mapToEntity(AppEventOptionRequest dto) {
+        log.info("Convert {} to {}", dto.getClass().getName(), AppEventOption.class.getName());
+        return new AppEventOption(AppAttributes.valueOf(dto.getAttribute()), dto.getDescr(), dto.getResults().stream()
                 .map(this::mapToEntity)
                 .toList());
     }
@@ -70,10 +70,10 @@ public class EventMapper {
     /**
      * Конвертирует dto для создания EventOptionResult
      */
-    public EventOptionResultSet mapToEntity(EventOptionResultSetRequest dto) {
-        log.info("Convert {} to {}", dto.getClass().getName(), EventOptionResultSet.class.getName());
-        return new EventOptionResultSet(dto.getMinDifficulty(), dto.getProbableResults().stream()
-                .map(r -> new ProbableResult(r.getProbabilityPercent(), r.getDescr()))
+    public AppEventOptionResultSet mapToEntity(AppEventOptionResultSetRequest dto) {
+        log.info("Convert {} to {}", dto.getClass().getName(), AppEventOptionResultSet.class.getName());
+        return new AppEventOptionResultSet(dto.getMinDifficulty(), dto.getProbableResults().stream()
+                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr()))
                 .toList());
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EventRequest {
+public class AppEventRequest {
 
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
     @NotBlank(message = "{constraint.message.notBlank}")
@@ -34,5 +34,5 @@ public class EventRequest {
     @Size(min = 1, max = 10, message = "{constraint.message.size}")
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @UniqueAttributeDescrCombination(message = "{event.constraint.message.notUniqueAttrDescrComb}")
-    private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionRequest> optionRequests;
+    private List<@NotNull(message = "{constraint.message.notBlank}") AppEventOptionRequest> optionRequests;
 }

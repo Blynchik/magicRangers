@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProbableResult {
+public class AppProbableResult {
 
     private Double probabilityPercent;
     private String descr;

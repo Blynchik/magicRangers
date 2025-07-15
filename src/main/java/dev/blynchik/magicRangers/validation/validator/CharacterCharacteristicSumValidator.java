@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.validation.validator;
 
-import dev.blynchik.magicRangers.model.dto.CharacterRequest;
+import dev.blynchik.magicRangers.model.dto.AppCharacterRequest;
 import dev.blynchik.magicRangers.validation.annotaion.ValidCharacterCharacteristicSum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,7 +10,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CharacterCharacteristicSumValidator implements ConstraintValidator<ValidCharacterCharacteristicSum, CharacterRequest> {
+public class CharacterCharacteristicSumValidator implements ConstraintValidator<ValidCharacterCharacteristicSum, AppCharacterRequest> {
 
     private final int expectedSum = 300;
     private final MessageSource messageSource;
@@ -22,7 +22,7 @@ public class CharacterCharacteristicSumValidator implements ConstraintValidator<
 
 
     @Override
-    public boolean isValid(CharacterRequest value, ConstraintValidatorContext context) {
+    public boolean isValid(AppCharacterRequest value, ConstraintValidatorContext context) {
         if (value.getStr() == null || value.getIntl() == null || value.getCha() == null) {
             return true; // Пусть другие аннотации сработают
         }

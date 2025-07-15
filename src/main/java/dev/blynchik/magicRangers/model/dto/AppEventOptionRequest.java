@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EventOptionRequest {
+public class AppEventOptionRequest {
 
     @Pattern(regexp = "STR|INTL|CHA", message = "{constraint.message.type}")
     private String attribute;
@@ -32,5 +32,5 @@ public class EventOptionRequest {
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @NotNull(message = "{constraint.message.notBlank}")
     @UniqueResultMinDifficulty(message = "{event.constraint.message.notUniqueMinDifficulty}")
-    private List<@NotNull(message = "{constraint.message.notBlank}") EventOptionResultSetRequest> results;
+    private List<@NotNull(message = "{constraint.message.notBlank}") AppEventOptionResultSetRequest> results;
 }

@@ -1,8 +1,8 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.CharacterRequest;
-import dev.blynchik.magicRangers.model.dto.CharacterResponse;
+import dev.blynchik.magicRangers.model.dto.AppCharacterRequest;
+import dev.blynchik.magicRangers.model.dto.AppCharacterResponse;
 import dev.blynchik.magicRangers.service.model.CharacterService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import jakarta.validation.Valid;
@@ -37,7 +37,7 @@ public class CharacterPageController {
      */
     @PostMapping
     public String create(@AuthenticationPrincipal AuthUser authUser,
-                         @Valid @ModelAttribute("character") CharacterRequest dto,
+                         @Valid @ModelAttribute("character") AppCharacterRequest dto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         log.info("Request POST to {} by {}", CHARACTER, authUser.getAppUser().getId());
@@ -45,7 +45,7 @@ public class CharacterPageController {
             bindingResult.reject("character.constraint.message.appUserHasCharacter");
         }
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;
-        CharacterResponse ch = characterService.createWithDto(authUser.getAppUser().getId(), dto);
+        AppCharacterResponse ch = characterService.createWithDto(authUser.getAppUser().getId(), dto);
         redirectAttributes.addFlashAttribute("character", ch);
         return "redirect:" + CHARACTER + MY;
     }
@@ -56,7 +56,7 @@ public class CharacterPageController {
     @GetMapping(NEW)
     public String showCreate(Model model) {
         log.info("Request GET to {}", CHARACTER + NEW);
-        model.addAttribute("character", new CharacterRequest());
+        model.addAttribute("character", new AppCharacterRequest());
         return "character/new";
     }
 
@@ -67,7 +67,7 @@ public class CharacterPageController {
     public String get(@PathVariable Long id,
                       Model model) {
         log.info("Request GET to {}", CHARACTER + ID);
-        CharacterResponse ch = characterService.getDtoById(id);
+        AppCharacterResponse ch = characterService.getDtoById(id);
         model.addAttribute("character", ch);
         return "character/view";
     }
@@ -79,7 +79,7 @@ public class CharacterPageController {
     public String getMy(@AuthenticationPrincipal AuthUser authUser,
                         Model model) {
         log.info("Request GET to {} by {}", CHARACTER + MY, authUser.getAppUser().getId());
-        CharacterResponse ch = characterService.getDtoByAppUserId(authUser.getAppUser().getId());
+        AppCharacterResponse ch = characterService.getDtoByAppUserId(authUser.getAppUser().getId());
         model.addAttribute("character", ch);
         return "character/view";
     }

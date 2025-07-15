@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.repo;
 
-import dev.blynchik.magicRangers.model.storage.Character;
+import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CharacterRepo extends JpaRepository<Character, Long> {
+public interface CharacterRepo extends JpaRepository<AppCharacter, Long> {
 
-    Optional<Character> findByAppUserId(Long appUserId);
+    Optional<AppCharacter> findByAppUserId(Long appUserId);
 
     Boolean existsByAppUserId(Long appUserId);
 

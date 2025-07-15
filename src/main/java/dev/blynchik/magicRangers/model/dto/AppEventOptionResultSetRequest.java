@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventOptionResultSetRequest {
+public class AppEventOptionResultSetRequest {
 
     @PositiveOrZero(message = "{constraint.message.shouldBePositive}")
     @Max(value = 400, message = "{constraint.message.maxNum}")
@@ -28,5 +28,5 @@ public class EventOptionResultSetRequest {
     @NotNull(message = "{constraint.message.notBlank}")
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @ProbabilitySum(message = "{event.constraint.message.probabilitySum}", value = 0.0000001)
-    private List<@NotNull(message = "{constraint.message.notBlank}") ProbableResultRequest> probableResults;
+    private List<@NotNull(message = "{constraint.message.notBlank}") AppProbableResultRequest> probableResults;
 }

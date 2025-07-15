@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Data
-public class CharacterResponse {
+public class AppCharacterResponse {
 
     private String name;
     private Integer str;

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "character")
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Character {
+public class AppCharacter {
 
     @Id
     @Column(name = "id")
@@ -51,14 +51,14 @@ public class Character {
 
     @Type(JsonBinaryType.class)
     @Column(name = "current_event", columnDefinition = "jsonb")
-    private Event currentEvent;
+    private AppEvent currentEvent;
 
     @Override
     public String toString() {
         return "Character: %s of %s with %s/%s/%s:%s/%s".formatted(name, appUserId, str, intl, cha, createdAt, updatedAt);
     }
 
-    public Character(Long appUserId, String name, Integer str, Integer intl, Integer cha, LocalDateTime createdAt) {
+    public AppCharacter(Long appUserId, String name, Integer str, Integer intl, Integer cha, LocalDateTime createdAt) {
         this.appUserId = appUserId;
         this.name = name;
         this.str = str;

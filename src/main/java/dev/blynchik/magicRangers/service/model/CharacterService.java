@@ -6,10 +6,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.mapper.CharacterMapper;
-import dev.blynchik.magicRangers.model.dto.CharacterRequest;
-import dev.blynchik.magicRangers.model.dto.CharacterResponse;
-import dev.blynchik.magicRangers.model.storage.Character;
-import dev.blynchik.magicRangers.model.storage.Event;
+import dev.blynchik.magicRangers.model.dto.AppCharacterRequest;
+import dev.blynchik.magicRangers.model.dto.AppCharacterResponse;
+import dev.blynchik.magicRangers.model.storage.AppCharacter;
+import dev.blynchik.magicRangers.model.storage.AppEvent;
 import dev.blynchik.magicRangers.repo.CharacterRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class CharacterService {
      * или выбрасывает исключение, если не смог этого сделать
      */
     @Transactional
-    public void updateCurrentEvent(Long characterId, Event event) {
+    public void updateCurrentEvent(Long characterId, AppEvent event) {
         String eventJson = null;
         try {
             if (event != null) {
@@ -63,7 +63,7 @@ public class CharacterService {
      * Создаем персонажа, возвращая dto для ответа
      */
     @Transactional
-    public CharacterResponse createWithDto(Long appUserId, CharacterRequest dto) {
+    public AppCharacterResponse createWithDto(Long appUserId, AppCharacterRequest dto) {
         return characterMapper.mapToDto(this.create(appUserId, dto));
     }
 
@@ -71,7 +71,7 @@ public class CharacterService {
      * Создаем персонажа
      */
     @Transactional
-    public Character create(Long appUserId, CharacterRequest dto) {
+    public AppCharacter create(Long appUserId, AppCharacterRequest dto) {
         log.info("Create character {} for appUser {}", dto, appUserId);
         return this.save(characterMapper.mapToEntity(appUserId, dto));
     }
@@ -79,14 +79,14 @@ public class CharacterService {
     /**
      * Возвращаем dto персонажа для ответа по id персонажа
      */
-    public CharacterResponse getDtoById(Long characterId) {
+    public AppCharacterResponse getDtoById(Long characterId) {
         return characterMapper.mapToDto(this.getById(characterId));
     }
 
     /**
      * Возвращаем dto персонажа для ответа по id пользователя
      */
-    public CharacterResponse getDtoByAppUserId(Long appUserId) {
+    public AppCharacterResponse getDtoByAppUserId(Long appUserId) {
         return characterMapper.mapToDto(this.getByAppUserId(appUserId));
     }
 
@@ -94,7 +94,7 @@ public class CharacterService {
      * Ищем персонажа по id,
      * если не находим, то выбрасываем исключение
      */
-    public Character getById(Long characterId) {
+    public AppCharacter getById(Long characterId) {
         return this.getOptById(characterId)
                 .orElseThrow(() -> new AppException(CHARACTER_NOT_FOUND.formatted(characterId), HttpStatus.NOT_FOUND));
     }
@@ -103,7 +103,7 @@ public class CharacterService {
      * Ищем персонажа по id пользователя,
      * если не находим, то выбрасываем исключение
      */
-    public Character getByAppUserId(Long appUserId) {
+    public AppCharacter getByAppUserId(Long appUserId) {
         return this.getOptByAppUserId(appUserId)
                 .orElseThrow(() -> new AppException(APPUSERS_CHARACTER_NOT_FOUND.formatted(appUserId), HttpStatus.NOT_FOUND));
     }
@@ -111,14 +111,14 @@ public class CharacterService {
     /**
      * Возвращаем dto персонажа для ответа
      */
-    public CharacterResponse getDto(Character character) {
+    public AppCharacterResponse getDto(AppCharacter character) {
         return characterMapper.mapToDto(character);
     }
 
     /**
      * Ищем персонажа по id
      */
-    public Optional<Character> getOptById(Long characterId) {
+    public Optional<AppCharacter> getOptById(Long characterId) {
         log.info("Get character by id {}", characterId);
         return characterRepo.findById(characterId);
     }
@@ -126,7 +126,7 @@ public class CharacterService {
     /**
      * Ищем персонажа по id пользователя
      */
-    public Optional<Character> getOptByAppUserId(Long appUserId) {
+    public Optional<AppCharacter> getOptByAppUserId(Long appUserId) {
         log.info("Get character by appUser id {}", appUserId);
         return characterRepo.findByAppUserId(appUserId);
     }
@@ -151,7 +151,7 @@ public class CharacterService {
      * Сохраняет персонажа
      */
     @Transactional
-    public Character save(Character character) {
+    public AppCharacter save(AppCharacter character) {
         character.setName(character.getName().trim());
         log.info("Save character {}", character);
         return characterRepo.save(character);

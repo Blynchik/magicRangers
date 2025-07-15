@@ -1,7 +1,7 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.CharacterResponse;
+import dev.blynchik.magicRangers.model.dto.AppCharacterResponse;
 import dev.blynchik.magicRangers.model.storage.AppUser;
 import dev.blynchik.magicRangers.service.model.CharacterService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
@@ -61,7 +61,7 @@ class CharacterPageControllerTest {
 
     @Test
     void createCharacter_whenRequestToCreate_successWithRedirect() throws Exception {
-        CharacterResponse response = new CharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
+        AppCharacterResponse response = new AppCharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
         when(characterService.existsByAppUserId(1L)).thenReturn(false);
         when(characterService.createWithDto(anyLong(), any())).thenReturn(response);
         when(validationUIErrorUtil.hasValidationErrors(any())).thenReturn(false);
@@ -78,7 +78,7 @@ class CharacterPageControllerTest {
 
     @Test
     void createCharacter_whenRequestToCreate_NotAuthUser() throws Exception {
-        CharacterResponse response = new CharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
+        AppCharacterResponse response = new AppCharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
         mockMvc.perform(MockMvcRequestBuilders.post(CHARACTER)
                         .param("name", response.getName())
                         .param("str", response.getStr().toString())
@@ -91,7 +91,7 @@ class CharacterPageControllerTest {
 
     @Test
     void createCharacter_getCharacterPage_shouldDisplayCharacterDetails() throws Exception {
-        CharacterResponse response = new CharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
+        AppCharacterResponse response = new AppCharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
         when(characterService.getDtoByAppUserId(anyLong())).thenReturn(response);
         authUser.getAppUser().setId(1L);
 

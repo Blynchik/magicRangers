@@ -4,11 +4,11 @@ import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.exception.ExceptionMessage;
 import dev.blynchik.magicRangers.mapper.EventMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.EventResponse;
-import dev.blynchik.magicRangers.model.dto.SelectedEventOption;
-import dev.blynchik.magicRangers.model.storage.Character;
-import dev.blynchik.magicRangers.model.storage.Event;
-import dev.blynchik.magicRangers.model.storage.EventOption;
+import dev.blynchik.magicRangers.model.dto.AppEventResponse;
+import dev.blynchik.magicRangers.model.dto.SelectedAppEventOption;
+import dev.blynchik.magicRangers.model.storage.AppCharacter;
+import dev.blynchik.magicRangers.model.storage.AppEvent;
+import dev.blynchik.magicRangers.model.storage.AppEventOption;
 import dev.blynchik.magicRangers.service.model.CharacterService;
 import dev.blynchik.magicRangers.service.model.EventService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Set;
 
 import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.MAIN;
 import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.SEARCH;
@@ -53,11 +52,11 @@ public class MainPageController {
     public String get(@AuthenticationPrincipal AuthUser authUser,
                       Model model) {
         log.info("Request GET to {} by {}", MAIN, authUser.getAppUser().getId());
-        Event event;
-        Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        AppEvent event;
+        AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
-            EventResponse eventResponse = eventService.getDto(event);
+            AppEventResponse eventResponse = eventService.getDto(event);
             model.addAttribute("event", eventService.getDto(event));
             model.addAttribute("options", eventResponse.getOptions());
         }
@@ -73,15 +72,15 @@ public class MainPageController {
     public String findRandomEvent(@AuthenticationPrincipal AuthUser authUser,
                                   Model model) {
         log.info("Request GET to {} by {}", MAIN + SEARCH, authUser.getAppUser().getId());
-        Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
-        Event event;
+        AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        AppEvent event;
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
         } else {
             event = eventService.getRandom();
             characterService.updateCurrentEvent(character.getId(), event);
         }
-        EventResponse eventResponse = eventService.getDto(event);
+        AppEventResponse eventResponse = eventService.getDto(event);
         model.addAttribute("character", characterService.getDto(character));
         model.addAttribute("event", eventService.getDto(event));
         model.addAttribute("options", eventResponse.getOptions());
@@ -95,13 +94,13 @@ public class MainPageController {
      */
     @PostMapping
     public String select(@AuthenticationPrincipal AuthUser authUser,
-                         @ModelAttribute SelectedEventOption selectedOption,
+                         @ModelAttribute SelectedAppEventOption selectedOption,
                          Model model) {
         log.info("Request POST to {} by {}", MAIN, authUser.getAppUser().getId());
-        Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
-            List<EventOption> options = character.getCurrentEvent().getOptions();
-            EventOption eventOption = options.stream()
+            List<AppEventOption> options = character.getCurrentEvent().getOptions();
+            AppEventOption eventOption = options.stream()
                     .filter(o -> o.getDescr().equals(selectedOption.getDescr()) && o.getAttribute().name().equals(selectedOption.getAttribute()))
                     .findFirst()
                     .orElseThrow(() -> new AppException(ExceptionMessage.NOT_FOUND.formatted(selectedOption.getDescr() + " " + selectedOption.getAttribute()), NOT_FOUND));

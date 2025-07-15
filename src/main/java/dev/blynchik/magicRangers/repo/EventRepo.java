@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.repo;
 
-import dev.blynchik.magicRangers.model.storage.Event;
+import dev.blynchik.magicRangers.model.storage.AppEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EventRepo extends JpaRepository<Event, Long> {
+public interface EventRepo extends JpaRepository<AppEvent, Long> {
 
-    Optional<Event> findByTitle(String title);
+    Optional<AppEvent> findByTitle(String title);
 
     @Query(value = "SELECT * FROM event ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
-    Optional<Event> findRandom();
+    Optional<AppEvent> findRandom();
 
     Boolean existsByTitle(String title);
 }

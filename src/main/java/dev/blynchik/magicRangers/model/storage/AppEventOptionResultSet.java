@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventOptionResultSet {
+public class AppEventOptionResultSet {
 
     /**
      * Минимальная сложность, при которой становятся доступные вероятные результаты
@@ -23,5 +23,5 @@ public class EventOptionResultSet {
      * Список вероятных результатов.
      * Для повышения вероятности ее можно изменять.
      */
-    private List<ProbableResult> probableResults;
+    private List<AppProbableResult> probableResults;
 }

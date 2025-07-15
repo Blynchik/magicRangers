@@ -12,12 +12,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventOption {
+public class AppEventOption {
 
     /**
      * Аттрибут (STR, INTL, CHA) с помощью которого решается событие
      */
-    private Attributes attribute;
+    private AppAttributes attribute;
 
     /**
      * Описание решения
@@ -36,5 +36,5 @@ public class EventOption {
      * Результат 1: минимальная сложность 100, он сработает, даже если проверка будет ниже (например бросок проверки 1),
      * т.к. это единственный возможный результат на событие.
      */
-    private List<EventOptionResultSet> results;
+    private List<AppEventOptionResultSet> results;
 }

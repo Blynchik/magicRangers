@@ -15,7 +15,7 @@ import java.util.List;
         indexes = @Index(name = "idx_event_title", columnList = "title"))
 @Data
 @NoArgsConstructor
-public class Event {
+public class AppEvent {
 
     @Id
     @Column(name = "id")
@@ -33,12 +33,12 @@ public class Event {
     @Type(JsonBinaryType.class)
     @Column(name = "option_collection", columnDefinition = "jsonb")
     @Size(min = 1, max = 10)
-    private List<EventOption> options;
+    private List<AppEventOption> options;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Event(String title, String descr, List<EventOption> options, LocalDateTime createdAt) {
+    public AppEvent(String title, String descr, List<AppEventOption> options, LocalDateTime createdAt) {
         this.title = title;
         this.descr = descr;
         this.options = options;

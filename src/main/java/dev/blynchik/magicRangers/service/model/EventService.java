@@ -2,9 +2,9 @@ package dev.blynchik.magicRangers.service.model;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.mapper.EventMapper;
-import dev.blynchik.magicRangers.model.dto.EventRequest;
-import dev.blynchik.magicRangers.model.dto.EventResponse;
-import dev.blynchik.magicRangers.model.storage.Event;
+import dev.blynchik.magicRangers.model.dto.AppEventRequest;
+import dev.blynchik.magicRangers.model.dto.AppEventResponse;
+import dev.blynchik.magicRangers.model.storage.AppEvent;
 import dev.blynchik.magicRangers.repo.EventRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class EventService {
      * Создаем событие, возвращая dto для ответа
      */
     @Transactional
-    public EventResponse createWithDto(EventRequest dto) {
+    public AppEventResponse createWithDto(AppEventRequest dto) {
         return eventMapper.mapToDto(this.create(dto));
     }
 
@@ -51,7 +51,7 @@ public class EventService {
      * Создаем событие
      */
     @Transactional
-    public Event create(EventRequest dto) {
+    public AppEvent create(AppEventRequest dto) {
         log.info("Create event {}", dto);
         return this.save(eventMapper.mapToEntity(dto));
     }
@@ -59,28 +59,28 @@ public class EventService {
     /**
      * Возвращаем dto события для ответа по id
      */
-    public EventResponse getDtoById(Long id) {
+    public AppEventResponse getDtoById(Long id) {
         return eventMapper.mapToDto(this.getById(id));
     }
 
     /**
      * Возвращаем dto события для ответа по названию
      */
-    public EventResponse getDtoByTitle(String title) {
+    public AppEventResponse getDtoByTitle(String title) {
         return eventMapper.mapToDto(this.getByTitle(title));
     }
 
     /**
      * Возвращаем dto случайного события для ответа
      */
-    public EventResponse getDtoRandom() {
+    public AppEventResponse getDtoRandom() {
         return eventMapper.mapToDto(this.getRandom());
     }
 
     /**
      * Возвращаем dto события для ответа
      */
-    public EventResponse getDto(Event event) {
+    public AppEventResponse getDto(AppEvent event) {
         return eventMapper.mapToDto(event);
     }
 
@@ -88,7 +88,7 @@ public class EventService {
      * Ищем событие по названию,
      * если не находим, то выбрасываем исключение
      */
-    public Event getByTitle(String title) {
+    public AppEvent getByTitle(String title) {
         return this.getOptByTitle(title)
                 .orElseThrow(() -> new AppException(NOT_FOUND.formatted(title), HttpStatus.NOT_FOUND));
     }
@@ -97,7 +97,7 @@ public class EventService {
      * Ищем событие по id,
      * если не находим, то выбрасываем исключение
      */
-    public Event getById(Long id) {
+    public AppEvent getById(Long id) {
         return this.getOptById(id)
                 .orElseThrow(() -> new AppException(NOT_FOUND.formatted(id), HttpStatus.NOT_FOUND));
     }
@@ -106,7 +106,7 @@ public class EventService {
      * Ищем случайное событие,
      * если не находим, то выбрасываем исключение
      */
-    public Event getRandom() {
+    public AppEvent getRandom() {
         return this.getOptRandom()
                 .orElseThrow(() -> new AppException(NOT_FOUND.formatted("Random"), HttpStatus.NOT_FOUND));
     }
@@ -114,7 +114,7 @@ public class EventService {
     /**
      * Ищем событие по id
      */
-    public Optional<Event> getOptById(Long id) {
+    public Optional<AppEvent> getOptById(Long id) {
         log.info("Get event by id {}", id);
         return eventRepo.findById(id);
     }
@@ -122,7 +122,7 @@ public class EventService {
     /**
      * Ищем событие по названию
      */
-    public Optional<Event> getOptByTitle(String title) {
+    public Optional<AppEvent> getOptByTitle(String title) {
         log.info("Get event by title {}", title);
         return eventRepo.findByTitle(title);
     }
@@ -130,13 +130,13 @@ public class EventService {
     /**
      * Ищем случайное событие
      */
-    public Optional<Event> getOptRandom() {
+    public Optional<AppEvent> getOptRandom() {
         log.info("Get random event");
         return eventRepo.findRandom();
     }
 
     @Transactional
-    public Event save(Event event) {
+    public AppEvent save(AppEvent event) {
         event.setTitle(event.getTitle().trim());
         event.setDescr(event.getDescr().trim());
         log.info("Save event {}", event);

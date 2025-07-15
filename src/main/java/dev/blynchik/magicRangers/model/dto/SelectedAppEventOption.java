@@ -2,14 +2,12 @@ package dev.blynchik.magicRangers.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Set;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class EventResponse {
-
-    private String title;
+public class SelectedAppEventOption {
+    private String attribute;
     private String descr;
-    private Set<EventOptionResponse> options;
 }

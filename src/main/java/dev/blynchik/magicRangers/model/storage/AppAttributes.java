@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.model.storage;
 
-public enum Attributes {
+public enum AppAttributes {
     STR,
     INTL,
     CHA

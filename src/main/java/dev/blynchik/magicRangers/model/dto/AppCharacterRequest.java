@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CharacterRequest {
+public class AppCharacterRequest {
 
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
     @Size(min = 1, max = 255, message = "{constraint.message.size}")
