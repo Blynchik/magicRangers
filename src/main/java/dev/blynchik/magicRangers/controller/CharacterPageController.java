@@ -1,5 +1,6 @@
 package dev.blynchik.magicRangers.controller;
 
+import dev.blynchik.magicRangers.mapper.CharacterMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.request.AppCharacterRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppCharacterResponse;
@@ -24,12 +25,15 @@ public class CharacterPageController {
 
     private final CharacterService characterService;
     private final ValidationUIErrorUtil validationUIErrorUtil;
+    private final CharacterMapper characterMapper;
 
     @Autowired
     public CharacterPageController(CharacterService characterService,
-                                   ValidationUIErrorUtil validationUIErrorUtil) {
+                                   ValidationUIErrorUtil validationUIErrorUtil,
+                                   CharacterMapper characterMapper) {
         this.characterService = characterService;
         this.validationUIErrorUtil = validationUIErrorUtil;
+        this.characterMapper = characterMapper;
     }
 
     /**
@@ -45,7 +49,9 @@ public class CharacterPageController {
             bindingResult.reject("character.constraint.message.appUserHasCharacter");
         }
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;
-        AppCharacterResponse ch = characterService.createWithDto(authUser.getAppUser().getId(), dto);
+        AppCharacterResponse ch = characterMapper.mapToDto(
+                characterService.create(
+                        authUser.getAppUser().getId(), characterMapper.mapToEntity(authUser.getAppUser().getId(), dto)));
         redirectAttributes.addFlashAttribute("character", ch);
         return "redirect:" + CHARACTER + MY;
     }
@@ -67,7 +73,8 @@ public class CharacterPageController {
     public String get(@PathVariable Long id,
                       Model model) {
         log.info("Request GET to {}", CHARACTER + ID);
-        AppCharacterResponse ch = characterService.getDtoById(id);
+        AppCharacterResponse ch = characterMapper.mapToDto(
+                characterService.getById(id));
         model.addAttribute("character", ch);
         return "character/view";
     }
@@ -79,7 +86,8 @@ public class CharacterPageController {
     public String getMy(@AuthenticationPrincipal AuthUser authUser,
                         Model model) {
         log.info("Request GET to {} by {}", CHARACTER + MY, authUser.getAppUser().getId());
-        AppCharacterResponse ch = characterService.getDtoByAppUserId(authUser.getAppUser().getId());
+        AppCharacterResponse ch = characterMapper.mapToDto(
+                characterService.getByAppUserId(authUser.getAppUser().getId()));
         model.addAttribute("character", ch);
         return "character/view";
     }

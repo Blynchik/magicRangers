@@ -22,21 +22,10 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.NOT_FOUND;
 public class EventService {
 
     private final EventRepo eventRepo;
-    private final EventMapper eventMapper;
 
     @Autowired
-    public EventService(EventRepo eventRepo,
-                        EventMapper eventMapper) {
+    public EventService(EventRepo eventRepo) {
         this.eventRepo = eventRepo;
-        this.eventMapper = eventMapper;
-    }
-
-    /**
-     * Создаем событие, возвращая dto для ответа
-     */
-    @Transactional
-    public AppEventResponse createWithDto(AppEventRequest dto) {
-        return eventMapper.mapToDto(this.create(dto));
     }
 
     /**
@@ -51,37 +40,9 @@ public class EventService {
      * Создаем событие
      */
     @Transactional
-    public AppEvent create(AppEventRequest dto) {
-        log.info("Create event {}", dto);
-        return this.save(eventMapper.mapToEntity(dto));
-    }
-
-    /**
-     * Возвращаем dto события для ответа по id
-     */
-    public AppEventResponse getDtoById(Long id) {
-        return eventMapper.mapToDto(this.getById(id));
-    }
-
-    /**
-     * Возвращаем dto события для ответа по названию
-     */
-    public AppEventResponse getDtoByTitle(String title) {
-        return eventMapper.mapToDto(this.getByTitle(title));
-    }
-
-    /**
-     * Возвращаем dto случайного события для ответа
-     */
-    public AppEventResponse getDtoRandom() {
-        return eventMapper.mapToDto(this.getRandom());
-    }
-
-    /**
-     * Возвращаем dto события для ответа
-     */
-    public AppEventResponse getDto(AppEvent event) {
-        return eventMapper.mapToDto(event);
+    public AppEvent create(AppEvent event) {
+        log.info("Create event {}", event);
+        return this.save(event);
     }
 
     /**

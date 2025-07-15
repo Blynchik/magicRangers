@@ -29,7 +29,7 @@ public class DevDataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        characterService.save(new AppCharacter(1L, "Барон фон Сладкорыльцефф", 100, 100, 100, LocalDateTime.now()));
+//        characterService.save(new AppCharacter(1L, "Барон фон Сладкорыльцефф", 100, 100, 100, LocalDateTime.now()));
         eventService.save(new AppEvent("Конкурс талантов",
                 """
                         Вы попали на большой деревенский праздник.

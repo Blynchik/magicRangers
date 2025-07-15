@@ -2,10 +2,11 @@ package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.exception.ExceptionMessage;
+import dev.blynchik.magicRangers.mapper.CharacterMapper;
 import dev.blynchik.magicRangers.mapper.EventMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.dto.request.SelectedAppEventOption;
+import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
 import dev.blynchik.magicRangers.model.storage.AppEventOption;
@@ -35,14 +36,17 @@ public class MainPageController {
     private final CharacterService characterService;
     private final EventService eventService;
     private final EventMapper eventMapper;
+    private final CharacterMapper characterMapper;
 
     @Autowired
     public MainPageController(CharacterService characterService,
                               EventService eventService,
-                              EventMapper eventMapper) {
+                              EventMapper eventMapper,
+                              CharacterMapper characterMapper) {
         this.characterService = characterService;
         this.eventService = eventService;
         this.eventMapper = eventMapper;
+        this.characterMapper = characterMapper;
     }
 
     /**
@@ -56,11 +60,11 @@ public class MainPageController {
         AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
-            AppEventResponse eventResponse = eventService.getDto(event);
-            model.addAttribute("event", eventService.getDto(event));
+            AppEventResponse eventResponse = eventMapper.mapToDto(event);
+            model.addAttribute("event", eventResponse);
             model.addAttribute("options", eventResponse.getOptions());
         }
-        model.addAttribute("character", characterService.getDto(character));
+        model.addAttribute("character", characterMapper.mapToDto(character));
         return "/main";
     }
 
@@ -80,9 +84,9 @@ public class MainPageController {
             event = eventService.getRandom();
             characterService.updateCurrentEvent(character.getId(), event);
         }
-        AppEventResponse eventResponse = eventService.getDto(event);
-        model.addAttribute("character", characterService.getDto(character));
-        model.addAttribute("event", eventService.getDto(event));
+        AppEventResponse eventResponse = eventMapper.mapToDto(event);
+        model.addAttribute("character", characterMapper.mapToDto(character));
+        model.addAttribute("event", eventResponse);
         model.addAttribute("options", eventResponse.getOptions());
         return "/main";
     }
@@ -104,8 +108,8 @@ public class MainPageController {
                     .filter(o -> o.getDescr().equals(selectedOption.getDescr()) && o.getAttribute().name().equals(selectedOption.getAttribute()))
                     .findFirst()
                     .orElseThrow(() -> new AppException(ExceptionMessage.NOT_FOUND.formatted(selectedOption.getDescr() + " " + selectedOption.getAttribute()), NOT_FOUND));
-            model.addAttribute("character", characterService.getDto(character));
-            model.addAttribute("event", eventService.getDto(character.getCurrentEvent()));
+            model.addAttribute("character", characterMapper.mapToDto(character));
+            model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
             model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
                     selectedOption.getDescr(),
                     eventOption.getResults().get(0)));

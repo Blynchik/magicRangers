@@ -22,8 +22,8 @@ public class AppUserService {
     private final AppUserRepo appUserRepo;
 
     @Autowired
-    public AppUserService(AppUserRepo appUserRespo) {
-        this.appUserRepo = appUserRespo;
+    public AppUserService(AppUserRepo appUserRepo) {
+        this.appUserRepo = appUserRepo;
     }
 
     /**
@@ -67,7 +67,7 @@ public class AppUserService {
     /**
      * Транзакционно сохраняем нового пользователя в БД
      */
-    // @Transactional в private не срабатывает
+    @Transactional
     private AppUser save(AppUser appUser) {
         log.info("Save appUser: {}", appUser);
         return appUserRepo.save(appUser);
