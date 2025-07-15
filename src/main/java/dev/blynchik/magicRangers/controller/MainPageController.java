@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Set;
 
 import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.MAIN;
@@ -99,7 +100,7 @@ public class MainPageController {
         log.info("Request POST to {} by {}", MAIN, authUser.getAppUser().getId());
         Character character = characterService.getByAppUserId(authUser.getAppUser().getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
-            Set<EventOption> options = character.getCurrentEvent().getOptions();
+            List<EventOption> options = character.getCurrentEvent().getOptions();
             EventOption eventOption = options.stream()
                     .filter(o -> o.getDescr().equals(selectedOption.getDescr()) && o.getAttribute().name().equals(selectedOption.getAttribute()))
                     .findFirst()

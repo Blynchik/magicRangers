@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Класс для списка вероятных результатов при минимальной сложности
@@ -23,5 +23,5 @@ public class EventOptionResultSet {
      * Список вероятных результатов.
      * Для повышения вероятности ее можно изменять.
      */
-    private Set<ProbableResult> probableResults;
+    private List<ProbableResult> probableResults;
 }

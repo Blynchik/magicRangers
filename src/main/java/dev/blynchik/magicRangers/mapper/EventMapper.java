@@ -20,7 +20,7 @@ public class EventMapper {
         return new Event(dto.getTitle(), dto.getDescr(),
                 dto.getOptionRequests().stream()
                         .map(this::mapToEntity)
-                        .collect(Collectors.toSet()),
+                        .toList(),
                 LocalDateTime.now());
     }
 
@@ -74,6 +74,6 @@ public class EventMapper {
         log.info("Convert {} to {}", dto.getClass().getName(), EventOptionResultSet.class.getName());
         return new EventOptionResultSet(dto.getMinDifficulty(), dto.getProbableResults().stream()
                 .map(r -> new ProbableResult(r.getProbabilityPercent(), r.getDescr()))
-                .collect(Collectors.toSet()));
+                .toList());
     }
 }

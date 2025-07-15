@@ -9,7 +9,6 @@ import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "event",
@@ -34,12 +33,12 @@ public class Event {
     @Type(JsonBinaryType.class)
     @Column(name = "option_collection", columnDefinition = "jsonb")
     @Size(min = 1, max = 10)
-    private Set<EventOption> options;
+    private List<EventOption> options;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Event(String title, String descr, Set<EventOption> options, LocalDateTime createdAt) {
+    public Event(String title, String descr, List<EventOption> options, LocalDateTime createdAt) {
         this.title = title;
         this.descr = descr;
         this.options = options;
