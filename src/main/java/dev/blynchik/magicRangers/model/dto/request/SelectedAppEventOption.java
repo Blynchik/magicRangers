@@ -1,4 +1,4 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.validation.validator;
 
-import dev.blynchik.magicRangers.model.dto.AppCharacterRequest;
+import dev.blynchik.magicRangers.model.dto.request.AppCharacterRequest;
 import dev.blynchik.magicRangers.validation.annotaion.ValidCharacterCharacteristicSum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

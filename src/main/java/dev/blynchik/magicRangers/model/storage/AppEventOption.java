@@ -36,5 +36,5 @@ public class AppEventOption {
      * Результат 1: минимальная сложность 100, он сработает, даже если проверка будет ниже (например бросок проверки 1),
      * т.к. это единственный возможный результат на событие.
      */
-    private List<AppEventOptionResultSet> results;
+    private List<AppEventOptionResultList> results;
 }

@@ -1,4 +1,4 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.request;
 
 import dev.blynchik.magicRangers.validation.annotaion.UniqueResultMinDifficulty;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
@@ -32,5 +32,5 @@ public class AppEventOptionRequest {
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @NotNull(message = "{constraint.message.notBlank}")
     @UniqueResultMinDifficulty(message = "{event.constraint.message.notUniqueMinDifficulty}")
-    private List<@NotNull(message = "{constraint.message.notBlank}") AppEventOptionResultSetRequest> results;
+    private List<@NotNull(message = "{constraint.message.notBlank}") AppEventOptionResultListRequest> results;
 }

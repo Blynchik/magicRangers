@@ -1,6 +1,11 @@
 package dev.blynchik.magicRangers.mapper;
 
-import dev.blynchik.magicRangers.model.dto.*;
+import dev.blynchik.magicRangers.model.dto.request.AppEventOptionRequest;
+import dev.blynchik.magicRangers.model.dto.request.AppEventOptionResultListRequest;
+import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
+import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResponse;
+import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResultListResponse;
+import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -46,9 +51,9 @@ public class EventMapper {
     /**
      * Получаем объект для ответа на выбор варианта
      */
-    public AppEventOptionResultSetResponse mapToDto(String eventTitle, String selectedOption, AppEventOptionResultSet optionResultSet) {
-        log.info("Convert {} to {}", optionResultSet.getClass().getName(), AppEventOptionResultSetResponse.class.getName());
-        return new AppEventOptionResultSetResponse(eventTitle,
+    public AppEventOptionResultListResponse mapToDto(String eventTitle, String selectedOption, AppEventOptionResultList optionResultSet) {
+        log.info("Convert {} to {}", optionResultSet.getClass().getName(), AppEventOptionResultListResponse.class.getName());
+        return new AppEventOptionResultListResponse(eventTitle,
                 selectedOption,
                 optionResultSet.getMinDifficulty(),
                 optionResultSet.getProbableResults().stream()
@@ -70,9 +75,9 @@ public class EventMapper {
     /**
      * Конвертирует dto для создания EventOptionResult
      */
-    public AppEventOptionResultSet mapToEntity(AppEventOptionResultSetRequest dto) {
-        log.info("Convert {} to {}", dto.getClass().getName(), AppEventOptionResultSet.class.getName());
-        return new AppEventOptionResultSet(dto.getMinDifficulty(), dto.getProbableResults().stream()
+    public AppEventOptionResultList mapToEntity(AppEventOptionResultListRequest dto) {
+        log.info("Convert {} to {}", dto.getClass().getName(), AppEventOptionResultList.class.getName());
+        return new AppEventOptionResultList(dto.getMinDifficulty(), dto.getProbableResults().stream()
                 .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr()))
                 .toList());
     }

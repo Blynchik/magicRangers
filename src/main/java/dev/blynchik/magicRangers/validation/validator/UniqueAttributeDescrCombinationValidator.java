@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.validation.validator;
 
-import dev.blynchik.magicRangers.model.dto.AppEventOptionRequest;
+import dev.blynchik.magicRangers.model.dto.request.AppEventOptionRequest;
 import dev.blynchik.magicRangers.validation.annotaion.UniqueAttributeDescrCombination;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -1,4 +1,4 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.request;
 
 import dev.blynchik.magicRangers.validation.annotaion.ValidCharacterCharacteristicSum;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;

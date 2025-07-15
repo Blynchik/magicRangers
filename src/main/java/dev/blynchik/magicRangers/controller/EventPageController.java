@@ -1,8 +1,8 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.AppEventRequest;
-import dev.blynchik.magicRangers.model.dto.AppEventResponse;
+import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
+import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.service.model.EventService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import jakarta.validation.Valid;

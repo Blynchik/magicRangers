@@ -2,8 +2,8 @@ package dev.blynchik.magicRangers.service.model;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.mapper.EventMapper;
-import dev.blynchik.magicRangers.model.dto.AppEventRequest;
-import dev.blynchik.magicRangers.model.dto.AppEventResponse;
+import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
+import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
 import dev.blynchik.magicRangers.repo.EventRepo;
 import lombok.extern.slf4j.Slf4j;

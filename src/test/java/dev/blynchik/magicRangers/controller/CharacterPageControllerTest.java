@@ -1,7 +1,7 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.model.dto.AppCharacterResponse;
+import dev.blynchik.magicRangers.model.dto.response.AppCharacterResponse;
 import dev.blynchik.magicRangers.model.storage.AppUser;
 import dev.blynchik.magicRangers.service.model.CharacterService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;

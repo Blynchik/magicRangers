@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppEventOptionResultSet {
+public class AppEventOptionResultList {
 
     /**
      * Минимальная сложность, при которой становятся доступные вероятные результаты

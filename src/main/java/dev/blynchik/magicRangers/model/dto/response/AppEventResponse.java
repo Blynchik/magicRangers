@@ -1,12 +1,14 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;
 
 @AllArgsConstructor
 @Data
+@Builder
 public class AppEventResponse {
 
     private String title;

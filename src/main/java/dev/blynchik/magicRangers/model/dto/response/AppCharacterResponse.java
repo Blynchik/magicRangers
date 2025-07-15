@@ -1,12 +1,14 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Data
+@Builder
 public class AppCharacterResponse {
 
     private String name;

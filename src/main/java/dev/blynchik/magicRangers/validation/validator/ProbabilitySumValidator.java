@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.validation.validator;
 
-import dev.blynchik.magicRangers.model.dto.AppProbableResultRequest;
+import dev.blynchik.magicRangers.model.dto.request.AppProbableResultRequest;
 import dev.blynchik.magicRangers.validation.annotaion.ProbabilitySum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

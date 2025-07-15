@@ -1,11 +1,13 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AppEventOptionResultSetResponse {
+@Builder
+public class AppEventOptionResultListResponse {
 
     private String title;
     private String selectedOption;

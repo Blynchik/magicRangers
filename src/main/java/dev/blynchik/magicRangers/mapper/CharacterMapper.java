@@ -1,7 +1,7 @@
 package dev.blynchik.magicRangers.mapper;
 
-import dev.blynchik.magicRangers.model.dto.AppCharacterRequest;
-import dev.blynchik.magicRangers.model.dto.AppCharacterResponse;
+import dev.blynchik.magicRangers.model.dto.request.AppCharacterRequest;
+import dev.blynchik.magicRangers.model.dto.response.AppCharacterResponse;
 import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

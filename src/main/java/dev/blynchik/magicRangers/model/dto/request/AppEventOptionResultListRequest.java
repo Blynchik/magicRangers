@@ -1,4 +1,4 @@
-package dev.blynchik.magicRangers.model.dto;
+package dev.blynchik.magicRangers.model.dto.request;
 
 import dev.blynchik.magicRangers.validation.annotaion.ProbabilitySum;
 import jakarta.validation.Valid;
@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppEventOptionResultSetRequest {
+public class AppEventOptionResultListRequest {
 
     @PositiveOrZero(message = "{constraint.message.shouldBePositive}")
     @Max(value = 400, message = "{constraint.message.maxNum}")
