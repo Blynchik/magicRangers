@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
@@ -19,14 +20,14 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
 @Service
 @Slf4j
 @Transactional(readOnly = true)
-public class CharacterService {
+public class AppCharacterService {
 
     private final CharacterRepo characterRepo;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public CharacterService(CharacterRepo characterRepo,
-                            ObjectMapper objectMapper) {
+    public AppCharacterService(CharacterRepo characterRepo,
+                               ObjectMapper objectMapper) {
         this.characterRepo = characterRepo;
         this.objectMapper = objectMapper;
     }
@@ -116,6 +117,7 @@ public class CharacterService {
     @Transactional
     public AppCharacter save(AppCharacter character) {
         character.setName(character.getName().trim());
+        character.setUpdatedAt(LocalDateTime.now());
         log.info("Save character {}", character);
         return characterRepo.save(character);
     }

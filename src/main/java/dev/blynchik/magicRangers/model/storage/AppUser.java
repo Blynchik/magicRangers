@@ -31,10 +31,10 @@ public class AppUser {
     @Column(name = "sub")
     private String oauth2Sub;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "timestamp default now()", updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", columnDefinition = "timestamp default now()")
     private LocalDateTime updatedAt;
 
     @Column(name = "character_id")
@@ -42,14 +42,12 @@ public class AppUser {
 
     @Override
     public String toString() {
-        return "AppUser: %s%s[%s]:%s/%s".formatted(oauth2Provider, oauth2Sub, email, createdAt, updatedAt);
+        return "AppUser: %s%s[%s]".formatted(oauth2Provider, oauth2Sub, email);
     }
 
-    public AppUser(String oauth2Provider, String oauth2Sub, String email, LocalDateTime createdAt) {
+    public AppUser(String oauth2Provider, String oauth2Sub, String email) {
         this.oauth2Provider = oauth2Provider;
         this.oauth2Sub = oauth2Sub;
         this.email = email;
-        this.createdAt = createdAt;
-        this.updatedAt = createdAt;
     }
 }

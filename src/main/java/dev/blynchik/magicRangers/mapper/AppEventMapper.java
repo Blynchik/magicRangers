@@ -10,12 +10,11 @@ import dev.blynchik.magicRangers.model.storage.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public class EventMapper {
+public class AppEventMapper {
 
     /**
      * Конвертирует dto для создания Event
@@ -25,8 +24,7 @@ public class EventMapper {
         return new AppEvent(dto.getTitle(), dto.getDescr(),
                 dto.getOptionRequests().stream()
                         .map(this::mapToEntity)
-                        .toList(),
-                LocalDateTime.now());
+                        .toList());
     }
 
     /**

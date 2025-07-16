@@ -1,9 +1,10 @@
 package dev.blynchik.magicRangers.controller;
 
+import dev.blynchik.magicRangers.mapper.AppCharacterMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.response.AppCharacterResponse;
 import dev.blynchik.magicRangers.model.storage.AppUser;
-import dev.blynchik.magicRangers.service.model.CharacterService;
+import dev.blynchik.magicRangers.service.model.AppCharacterService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,8 +39,11 @@ class CharacterPageControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private AppCharacterMapper characterMapper;
     @MockitoBean
-    private CharacterService characterService;
+    private AppCharacterService characterService;
     @MockitoBean
     private ValidationUIErrorUtil validationUIErrorUtil;
     private AuthUser authUser;
@@ -51,19 +55,19 @@ class CharacterPageControllerTest {
                 Collections.emptySet(),
                 Map.of("sub", OAUTH2_GOOGLE_SUB, "email", OAUTH2_EMAIL), "sub"
         ),
-                new AppUser(OAUTH2_PROVIDER_GOOGLE, OAUTH2_GOOGLE_SUB, OAUTH2_EMAIL, LocalDateTime.now()));
+                new AppUser(OAUTH2_PROVIDER_GOOGLE, OAUTH2_GOOGLE_SUB, OAUTH2_EMAIL));
         notAuthUser = new AuthUser(new DefaultOAuth2User(
                 Collections.emptySet(),
                 Map.of("sub", OAUTH2_PROVIDER_UNKNOWN, "email", OAUTH2_EMAIL), "sub"
         ),
-                new AppUser(OAUTH2_PROVIDER_UNKNOWN, OAUTH2_GOOGLE_SUB, OAUTH2_EMAIL, LocalDateTime.now()));
+                new AppUser(OAUTH2_PROVIDER_UNKNOWN, OAUTH2_GOOGLE_SUB, OAUTH2_EMAIL));
     }
 
     @Test
     void createCharacter_whenRequestToCreate_successWithRedirect() throws Exception {
         AppCharacterResponse response = new AppCharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
         when(characterService.existsByAppUserId(1L)).thenReturn(false);
-        when(characterService.createWithDto(anyLong(), any())).thenReturn(response);
+        when(characterMapper.mapToDto(characterService.create(anyLong(), any()))).thenReturn(response);
         when(validationUIErrorUtil.hasValidationErrors(any())).thenReturn(false);
 
         mockMvc.perform(MockMvcRequestBuilders.post(CHARACTER)
@@ -92,7 +96,7 @@ class CharacterPageControllerTest {
     @Test
     void createCharacter_getCharacterPage_shouldDisplayCharacterDetails() throws Exception {
         AppCharacterResponse response = new AppCharacterResponse("Test", 100, 100, 100, LocalDateTime.now());
-        when(characterService.getDtoByAppUserId(anyLong())).thenReturn(response);
+        when(characterMapper.mapToDto(characterService.getByAppUserId(anyLong()))).thenReturn(response);
         authUser.getAppUser().setId(1L);
 
         mockMvc.perform(MockMvcRequestBuilders.get(CHARACTER + MY)

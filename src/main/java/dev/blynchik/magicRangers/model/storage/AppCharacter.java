@@ -43,10 +43,10 @@ public class AppCharacter {
     @PositiveOrZero
     private Integer cha;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "timestamp default now()", updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", columnDefinition = "timestamp default now()")
     private LocalDateTime updatedAt;
 
     @Type(JsonBinaryType.class)
@@ -55,16 +55,14 @@ public class AppCharacter {
 
     @Override
     public String toString() {
-        return "Character: %s of %s with %s/%s/%s:%s/%s".formatted(name, appUserId, str, intl, cha, createdAt, updatedAt);
+        return "Character: %s of %s with %s/%s/%s".formatted(name, appUserId, str, intl, cha);
     }
 
-    public AppCharacter(Long appUserId, String name, Integer str, Integer intl, Integer cha, LocalDateTime createdAt) {
+    public AppCharacter(Long appUserId, String name, Integer str, Integer intl, Integer cha) {
         this.appUserId = appUserId;
         this.name = name;
         this.str = str;
         this.intl = intl;
         this.cha = cha;
-        this.createdAt = createdAt;
-        this.updatedAt = createdAt;
     }
 }

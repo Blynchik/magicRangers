@@ -1,10 +1,10 @@
 package dev.blynchik.magicRangers.controller;
 
-import dev.blynchik.magicRangers.mapper.EventMapper;
+import dev.blynchik.magicRangers.mapper.AppEventMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
-import dev.blynchik.magicRangers.service.model.EventService;
+import dev.blynchik.magicRangers.service.model.AppEventService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +24,14 @@ import static dev.blynchik.magicRangers.controller.rout.EventPageRoutes.EVENT;
 @Slf4j
 public class EventPageController {
 
-    private final EventService eventService;
+    private final AppEventService eventService;
     private final ValidationUIErrorUtil validationUIErrorUtil;
-    private final EventMapper eventMapper;
+    private final AppEventMapper eventMapper;
 
     @Autowired
-    public EventPageController(EventService eventService,
+    public EventPageController(AppEventService eventService,
                                ValidationUIErrorUtil validationUIErrorUtil,
-                               EventMapper eventMapper) {
+                               AppEventMapper eventMapper) {
         this.eventService = eventService;
         this.validationUIErrorUtil = validationUIErrorUtil;
         this.eventMapper = eventMapper;

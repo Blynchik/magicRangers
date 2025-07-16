@@ -6,18 +6,16 @@ import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Component
 @Slf4j
-public class CharacterMapper {
+public class AppCharacterMapper {
 
     /**
      * Конвертирует dto для создания Character
      */
     public AppCharacter mapToEntity(Long appUserId, AppCharacterRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppCharacter.class.getName());
-        return new AppCharacter(appUserId, dto.getName(), dto.getStr(), dto.getIntl(), dto.getCha(), LocalDateTime.now());
+        return new AppCharacter(appUserId, dto.getName(), dto.getStr(), dto.getIntl(), dto.getCha());
     }
 
     /**

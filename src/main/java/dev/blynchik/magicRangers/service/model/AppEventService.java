@@ -1,9 +1,6 @@
 package dev.blynchik.magicRangers.service.model;
 
 import dev.blynchik.magicRangers.exception.AppException;
-import dev.blynchik.magicRangers.mapper.EventMapper;
-import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
-import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
 import dev.blynchik.magicRangers.repo.EventRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.NOT_FOUND;
@@ -19,12 +17,12 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.NOT_FOUND;
 @Service
 @Slf4j
 @Transactional(readOnly = true)
-public class EventService {
+public class AppEventService {
 
     private final EventRepo eventRepo;
 
     @Autowired
-    public EventService(EventRepo eventRepo) {
+    public AppEventService(EventRepo eventRepo) {
         this.eventRepo = eventRepo;
     }
 
@@ -100,6 +98,7 @@ public class EventService {
     public AppEvent save(AppEvent event) {
         event.setTitle(event.getTitle().trim());
         event.setDescr(event.getDescr().trim());
+        event.setUpdatedAt(LocalDateTime.now());
         log.info("Save event {}", event);
         return eventRepo.save(event);
     }

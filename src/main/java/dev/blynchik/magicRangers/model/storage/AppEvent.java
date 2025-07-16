@@ -35,13 +35,15 @@ public class AppEvent {
     @Size(min = 1, max = 10)
     private List<AppEventOption> options;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "timestamp default now()", updatable = false)
     private LocalDateTime createdAt;
 
-    public AppEvent(String title, String descr, List<AppEventOption> options, LocalDateTime createdAt) {
+    @Column(name = "updated_at", columnDefinition = "timestamp default now()")
+    private LocalDateTime updatedAt;
+
+    public AppEvent(String title, String descr, List<AppEventOption> options) {
         this.title = title;
         this.descr = descr;
         this.options = options;
-        this.createdAt = createdAt;
     }
 }

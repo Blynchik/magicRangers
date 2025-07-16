@@ -2,16 +2,16 @@ package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.exception.ExceptionMessage;
-import dev.blynchik.magicRangers.mapper.CharacterMapper;
-import dev.blynchik.magicRangers.mapper.EventMapper;
+import dev.blynchik.magicRangers.mapper.AppCharacterMapper;
+import dev.blynchik.magicRangers.mapper.AppEventMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.request.SelectedAppEventOption;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
 import dev.blynchik.magicRangers.model.storage.AppEventOption;
-import dev.blynchik.magicRangers.service.model.CharacterService;
-import dev.blynchik.magicRangers.service.model.EventService;
+import dev.blynchik.magicRangers.service.model.AppCharacterService;
+import dev.blynchik.magicRangers.service.model.AppEventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,16 +33,16 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Slf4j
 public class MainPageController {
 
-    private final CharacterService characterService;
-    private final EventService eventService;
-    private final EventMapper eventMapper;
-    private final CharacterMapper characterMapper;
+    private final AppCharacterService characterService;
+    private final AppEventService eventService;
+    private final AppEventMapper eventMapper;
+    private final AppCharacterMapper characterMapper;
 
     @Autowired
-    public MainPageController(CharacterService characterService,
-                              EventService eventService,
-                              EventMapper eventMapper,
-                              CharacterMapper characterMapper) {
+    public MainPageController(AppCharacterService characterService,
+                              AppEventService eventService,
+                              AppEventMapper eventMapper,
+                              AppCharacterMapper characterMapper) {
         this.characterService = characterService;
         this.eventService = eventService;
         this.eventMapper = eventMapper;

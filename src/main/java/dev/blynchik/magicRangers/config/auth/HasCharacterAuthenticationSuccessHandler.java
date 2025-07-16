@@ -1,7 +1,7 @@
 package dev.blynchik.magicRangers.config.auth;
 
 import dev.blynchik.magicRangers.model.auth.AuthUser;
-import dev.blynchik.magicRangers.service.model.CharacterService;
+import dev.blynchik.magicRangers.service.model.AppCharacterService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.*;
 public class HasCharacterAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Autowired
-    private CharacterService characterService;
+    private AppCharacterService characterService;
 
     /**
      * При успешной аутентификации пользователя перенаправляем пользователя на разные ресурсы

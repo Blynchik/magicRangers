@@ -1,6 +1,6 @@
 package dev.blynchik.magicRangers.validation.validator;
 
-import dev.blynchik.magicRangers.service.model.EventService;
+import dev.blynchik.magicRangers.service.model.AppEventService;
 import dev.blynchik.magicRangers.validation.annotaion.UniqueEventTitle;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class UniqueEventTitleValidator implements ConstraintValidator<UniqueEventTitle, String> {
 
-    private final EventService eventService;
+    private final AppEventService eventService;
 
     @Autowired
-    public UniqueEventTitleValidator(EventService eventService) {
+    public UniqueEventTitleValidator(AppEventService eventService) {
         this.eventService = eventService;
     }
 

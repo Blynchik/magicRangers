@@ -43,7 +43,7 @@ public class AppUserService {
     public AppUser saveAppUserIfNotExist(String oauth2Provider, String oauth2Sub, String email) {
         log.info("Save appUser if not exist email: {}", email);
         return this.findOptByEmail(email).orElseGet(
-                () -> this.save(new AppUser(oauth2Provider, oauth2Sub, email, LocalDateTime.now())));
+                () -> this.save(new AppUser(oauth2Provider, oauth2Sub, email)));
     }
 
     /**
@@ -69,6 +69,7 @@ public class AppUserService {
      */
     @Transactional
     private AppUser save(AppUser appUser) {
+        appUser.setUpdatedAt(LocalDateTime.now());
         log.info("Save appUser: {}", appUser);
         return appUserRepo.save(appUser);
     }

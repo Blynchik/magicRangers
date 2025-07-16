@@ -1,15 +1,14 @@
 package dev.blynchik.magicRangers.config;
 
 import dev.blynchik.magicRangers.model.storage.*;
-import dev.blynchik.magicRangers.service.model.CharacterService;
-import dev.blynchik.magicRangers.service.model.EventService;
+import dev.blynchik.magicRangers.service.model.AppCharacterService;
+import dev.blynchik.magicRangers.service.model.AppEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static dev.blynchik.magicRangers.model.storage.AppAttributes.*;
@@ -17,19 +16,19 @@ import static dev.blynchik.magicRangers.model.storage.AppAttributes.*;
 @Component
 @Profile("dev")
 public class DevDataInitializer implements ApplicationRunner {
-    private final CharacterService characterService;
-    private final EventService eventService;
+    private final AppCharacterService characterService;
+    private final AppEventService eventService;
 
     @Autowired
-    public DevDataInitializer(CharacterService characterService,
-                              EventService eventService) {
+    public DevDataInitializer(AppCharacterService characterService,
+                              AppEventService eventService) {
         this.characterService = characterService;
         this.eventService = eventService;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        characterService.save(new AppCharacter(1L, "Барон фон Сладкорыльцефф", 100, 100, 100, LocalDateTime.now()));
+        characterService.save(new AppCharacter(1L, "Барон фон Сладкорыльцефф", 100, 100, 100));
         eventService.save(new AppEvent("Конкурс талантов",
                 """
                         Вы попали на большой деревенский праздник.
@@ -99,8 +98,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         )
-                ),
-                LocalDateTime.now()));
+                )));
         eventService.save(new AppEvent("Разбойники!",
                 """
                         На большом торговом тракте на вас напал разбойник! Действовать нужно быстро!
@@ -163,8 +161,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         )
-                ),
-                LocalDateTime.now()));
+                )));
         eventService.save(new AppEvent("Игра в загадки",
                 """
                         В поисках сокровищ в горных пещерах, вы попали в плен к подземному чудовищу.
@@ -251,8 +248,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         )
-                ),
-                LocalDateTime.now()));
+                )));
         eventService.save(new AppEvent("Казино \"Три топора Азиноя\"",
                 """
                         Кто такой Азиной? И почему у него три топора? Отбросив глупые вопросы, вы решили испытать свою удачу в игре в рулетку!
@@ -316,8 +312,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         )
-                ),
-                LocalDateTime.now()));
+                )));
         eventService.save(new AppEvent("Крепкий сон",
                 """
                         Вы решили исследовать древний замок. Старожилы говорят, что в нем когда-то обитал вампир. В одной из комнат вы обнаружили богато украшенный гроб. Вскрыв его, вы обнаружили мирно спящего вампира. Как же повезло, что вы прихватили с собой осиновый кол!
@@ -337,7 +332,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(40,
                                                 List.of(
-                                                        new AppProbableResult(80.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Кол соскользнул с доспеха, а вампир, открыв глаза, моментально потянулся к вашей шее. Теперь ваша участь вечное служение злу."),
+                                                        new AppProbableResult(80.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Кол соскользнул с доспеха, а вампир, открыв глаза, моментально потянулся к вашей шее. Теперь ваша участь - вечное служение злу."),
                                                         new AppProbableResult(20.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Поэтому вампир ощутил лишь легкий толчок. Открыв глаза он только спросило текущем годе, но, не получив ожидаемого ответа, в весьма грубой форме послал вас восвояси. Опозоренный, вы не решились доводить дело до конца.")
                                                 )
                                         )
@@ -352,7 +347,6 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         )
-                ),
-                LocalDateTime.now()));
+                )));
     }
 }

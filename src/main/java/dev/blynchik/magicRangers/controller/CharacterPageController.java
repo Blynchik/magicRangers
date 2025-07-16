@@ -1,10 +1,10 @@
 package dev.blynchik.magicRangers.controller;
 
-import dev.blynchik.magicRangers.mapper.CharacterMapper;
+import dev.blynchik.magicRangers.mapper.AppCharacterMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.request.AppCharacterRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppCharacterResponse;
-import dev.blynchik.magicRangers.service.model.CharacterService;
+import dev.blynchik.magicRangers.service.model.AppCharacterService;
 import dev.blynchik.magicRangers.util.ValidationUIErrorUtil;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +23,14 @@ import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.*;
 @Slf4j
 public class CharacterPageController {
 
-    private final CharacterService characterService;
+    private final AppCharacterService characterService;
     private final ValidationUIErrorUtil validationUIErrorUtil;
-    private final CharacterMapper characterMapper;
+    private final AppCharacterMapper characterMapper;
 
     @Autowired
-    public CharacterPageController(CharacterService characterService,
+    public CharacterPageController(AppCharacterService characterService,
                                    ValidationUIErrorUtil validationUIErrorUtil,
-                                   CharacterMapper characterMapper) {
+                                   AppCharacterMapper characterMapper) {
         this.characterService = characterService;
         this.validationUIErrorUtil = validationUIErrorUtil;
         this.characterMapper = characterMapper;
