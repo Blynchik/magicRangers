@@ -1,12 +1,14 @@
 package dev.blynchik.magicRangers.validation.annotaion;
 
 import dev.blynchik.magicRangers.validation.validator.CountAttemptsValidator;
-import dev.blynchik.magicRangers.validation.validator.UniqueAttributeDescrCombinationValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+/**
+ * Аннотация проверки, что количество оставшихся попыток всех вариантов равно общему количеству попыток на событие
+ */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CountAttemptsValidator.class)
