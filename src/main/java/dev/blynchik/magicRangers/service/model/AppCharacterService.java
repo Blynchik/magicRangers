@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
-import dev.blynchik.magicRangers.repo.CharacterRepo;
+import dev.blynchik.magicRangers.repo.AppCharacterRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,11 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
 @Transactional(readOnly = true)
 public class AppCharacterService {
 
-    private final CharacterRepo characterRepo;
+    private final AppCharacterRepo characterRepo;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public AppCharacterService(CharacterRepo characterRepo,
+    public AppCharacterService(AppCharacterRepo characterRepo,
                                ObjectMapper objectMapper) {
         this.characterRepo = characterRepo;
         this.objectMapper = objectMapper;

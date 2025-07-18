@@ -53,11 +53,6 @@ public class AppCharacter {
     @Column(name = "current_event", columnDefinition = "jsonb")
     private AppEvent currentEvent;
 
-    @Override
-    public String toString() {
-        return "Character: %s of %s with %s/%s/%s".formatted(name, appUserId, str, intl, cha);
-    }
-
     public AppCharacter(Long appUserId, String name, Integer str, Integer intl, Integer cha) {
         this.appUserId = appUserId;
         this.name = name;

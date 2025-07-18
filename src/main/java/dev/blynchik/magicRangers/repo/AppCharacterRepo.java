@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CharacterRepo extends JpaRepository<AppCharacter, Long> {
+public interface AppCharacterRepo extends JpaRepository<AppCharacter, Long> {
 
     Optional<AppCharacter> findByAppUserId(Long appUserId);
 

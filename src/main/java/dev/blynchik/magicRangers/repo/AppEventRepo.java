@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EventRepo extends JpaRepository<AppEvent, Long> {
+public interface AppEventRepo extends JpaRepository<AppEvent, Long> {
 
     Optional<AppEvent> findByTitle(String title);
 

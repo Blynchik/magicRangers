@@ -25,10 +25,17 @@
     </div>
 
     <div>
+        <label>Общее количество попыток:</label>
+        <input type="number" th:field="*{commonAttempts}" class="form-control mb-2"/>
+        <div th:if="${#fields.hasErrors('commonAttempts')}" th:errors="*{commonAttempts}" style="color:red;"></div>
+    </div>
+
+    <div>
         <h3>Опции и результаты</h3>
         <div id="optionResultPairs-container">
         </div>
-        <button type="button" class="btn btn-outline-primary mb-3" onclick="addOptionResultPair()">Добавить вариант</button>
+        <button type="button" class="btn btn-outline-primary mb-3" onclick="addOptionResultPair()">Добавить вариант
+        </button>
     </div>
 
     <div th:if="${#fields.hasErrors()}" class="alert alert-danger mt-3">
@@ -76,7 +83,9 @@
     <div class="option-result-block mb-3">
         <fieldset class="border p-3 rounded">
             <legend class="float-none w-auto px-2">Вариант #[#]</legend>
-            <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removePair(this)">Удалить вариант</button>
+            <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removePair(this)">Удалить
+                вариант
+            </button>
 
             <label>Атрибут:</label>
             <select name="optionRequests[#].attribute" class="form-select mb-2">
@@ -89,11 +98,16 @@
             <label>Описание опции:</label>
             <input type="text" name="optionRequests[#].descr" class="form-control mb-2"/>
 
+            <label>Количество попыток на вариант:</label>
+            <input type="number" name="optionRequests[#].remainingAttempts" class="form-control mb-2"/>
+
             <div class="results-container mb-2">
                 <!-- Здесь будут добавляться результаты -->
             </div>
 
-            <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="addResult(this, #)">Добавить результат</button>
+            <button type="button" class="btn btn-sm btn-outline-primary mb-2" onclick="addResult(this, #)">Добавить
+                результат
+            </button>
         </fieldset>
     </div>
 </template>
@@ -107,22 +121,28 @@
         </div>
 
         <button type="button" class="btn btn-sm btn-outline-primary mb-2"
-                onclick="addProbableResult(this, #, ##)">Добавить вероятный результат</button>
+                onclick="addProbableResult(this, #, ##)">Добавить вероятный результат
+        </button>
 
         <button type="button" class="btn btn-sm btn-outline-danger"
-                onclick="removeResult(this)">Удалить результат</button>
+                onclick="removeResult(this)">Удалить результат
+        </button>
     </div>
 </template>
 
 <template id="probableResultTemplate">
     <div class="probable-result-block border p-2 mb-2">
         <label>Вероятность (%):</label>
-        <input type="number" step="0.000001" name="optionRequests[#].results[##].probableResults[###].probabilityPercent" class="form-control mb-2"/>
+        <input type="number" step="0.000001"
+               name="optionRequests[#].results[##].probableResults[###].probabilityPercent" class="form-control mb-2"/>
 
         <label>Описание результата:</label>
-        <textarea name="optionRequests[#].results[##].probableResults[###].descr" rows="2" class="form-control mb-2"></textarea>
+        <textarea name="optionRequests[#].results[##].probableResults[###].descr" rows="2"
+                  class="form-control mb-2"></textarea>
 
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProbableResult(this)">Удалить вероятный результат</button>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProbableResult(this)">Удалить
+            вероятный результат
+        </button>
     </div>
 </template>
 

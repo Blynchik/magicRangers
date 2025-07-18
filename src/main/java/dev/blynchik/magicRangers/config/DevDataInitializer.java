@@ -35,8 +35,9 @@ public class DevDataInitializer implements ApplicationRunner {
                         Сельчане готовят большое соревнование, где каждый может проявить себя с лучшей стороны.
                         Вы решили поучаствовать. Чем удивите публику?
                         """,
+                1,
                 List.of(
-                        new AppEventOption(STR, "Покажу им свою силу",
+                        new AppEventOption(STR, "Покажу им свою силу", 1,
                                 List.of(
                                         new AppEventOptionResultList(70,
                                                 List.of(
@@ -60,7 +61,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(INTL, "Расскажу о загадках и секретах Вселенной",
+                        new AppEventOption(INTL, "Расскажу о загадках и секретах Вселенной", 1,
                                 List.of(
                                         new AppEventOptionResultList(70,
                                                 List.of(
@@ -79,7 +80,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(CHA, "Спою романтическую балладу",
+                        new AppEventOption(CHA, "Спою романтическую балладу", 1,
                                 List.of(
                                         new AppEventOptionResultList(40,
                                                 List.of(
@@ -103,8 +104,9 @@ public class DevDataInitializer implements ApplicationRunner {
                 """
                         На большом торговом тракте на вас напал разбойник! Действовать нужно быстро!
                         """,
+                1,
                 List.of(
-                        new AppEventOption(STR, "Покажу разбойнику, кто тут главный!",
+                        new AppEventOption(STR, "Покажу разбойнику, кто тут главный!", 1,
                                 List.of(
                                         new AppEventOptionResultList(51,
                                                 List.of(
@@ -118,7 +120,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(INTL, "Попробую подметить слабые места разбойника",
+                        new AppEventOption(INTL, "Попробую подметить слабые места разбойника", 1,
                                 List.of(
                                         new AppEventOptionResultList(50,
                                                 List.of(
@@ -137,7 +139,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(CHA, "Попробую убедить разбойника",
+                        new AppEventOption(CHA, "Попробую убедить разбойника", 1,
                                 List.of(
                                         new AppEventOptionResultList(90,
                                                 List.of(
@@ -168,8 +170,9 @@ public class DevDataInitializer implements ApplicationRunner {
                         Что бы разбавить свое одиночество, оно предложило вам сыграть в загадки.
                         Если вы победите, то вам будет позволено отсюда уйти. Иначе - от вас останутся одни косточки!
                         """,
+                1,
                 List.of(
-                        new AppEventOption(INTL, "Вспомню все загадки, услышанные за жизнь, и задам самую сложную",
+                        new AppEventOption(INTL, "Вспомню все загадки, услышанные за жизнь, и задам самую сложную", 1,
                                 List.of(
                                         new AppEventOptionResultList(50,
                                                 List.of(
@@ -188,7 +191,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(INTL, "Сам придумаю все загадки, чтобы чудовище случайно не угадало ответ",
+                        new AppEventOption(INTL, "Сам придумаю все загадки, чтобы чудовище случайно не угадало ответ", 1,
                                 List.of(
                                         new AppEventOptionResultList(90,
                                                 List.of(
@@ -253,8 +256,9 @@ public class DevDataInitializer implements ApplicationRunner {
                 """
                         Кто такой Азиной? И почему у него три топора? Отбросив глупые вопросы, вы решили испытать свою удачу в игре в рулетку!
                         """,
+                1,
                 List.of(
-                        new AppEventOption(CHA, "Ставлю на черное!",
+                        new AppEventOption(CHA, "Ставлю на черное!", 1,
                                 List.of(
                                         new AppEventOptionResultList(5,
                                                 List.of(
@@ -264,7 +268,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(CHA, "Ставлю на красное!",
+                        new AppEventOption(CHA, "Ставлю на красное!", 1,
                                 List.of(
                                         new AppEventOptionResultList(4,
                                                 List.of(
@@ -274,7 +278,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(CHA, "Ставлю на зеро!",
+                        new AppEventOption(CHA, "Ставлю на зеро!", 1,
                                 List.of(
                                         new AppEventOptionResultList(4,
                                                 List.of(
@@ -284,7 +288,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(STR, "Сделаю ставку и обнесу карманы участников, пока они раззявили рты",
+                        new AppEventOption(STR, "Сделаю ставку и обнесу карманы участников, пока они раззявили рты", 1,
                                 List.of(
                                         new AppEventOptionResultList(80,
                                                 List.of(
@@ -299,7 +303,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(INTL, "Просчитаю вероятности и сделаю ставку",
+                        new AppEventOption(INTL, "Просчитаю вероятности и сделаю ставку", 1,
                                 List.of(
                                         new AppEventOptionResultList(99,
                                                 List.of(
@@ -317,8 +321,9 @@ public class DevDataInitializer implements ApplicationRunner {
                 """
                         Вы решили исследовать древний замок. Старожилы говорят, что в нем когда-то обитал вампир. В одной из комнат вы обнаружили богато украшенный гроб. Вскрыв его, вы обнаружили мирно спящего вампира. Как же повезло, что вы прихватили с собой осиновый кол!
                         """,
+                1,
                 List.of(
-                        new AppEventOption(STR, "Со всей силы ударю вампира колом в сердце!",
+                        new AppEventOption(STR, "Со всей силы ударю вампира колом в сердце!", 1,
                                 List.of(
                                         new AppEventOptionResultList(60,
                                                 List.of(
@@ -328,7 +333,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(STR, "Просто ударю вампира в сердце без фанатизма",
+                        new AppEventOption(STR, "Просто ударю вампира в сердце без фанатизма", 1,
                                 List.of(
                                         new AppEventOptionResultList(40,
                                                 List.of(
@@ -338,7 +343,7 @@ public class DevDataInitializer implements ApplicationRunner {
                                         )
                                 )
                         ),
-                        new AppEventOption(STR, "Растолкаю вампира",
+                        new AppEventOption(STR, "Растолкаю вампира", 1,
                                 List.of(
                                         new AppEventOptionResultList(20,
                                                 List.of(

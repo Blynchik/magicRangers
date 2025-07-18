@@ -11,4 +11,5 @@ public class AppEventOptionResponse {
 
     private String attribute;
     private String descr;
+    private int remainingAttempts;
 }

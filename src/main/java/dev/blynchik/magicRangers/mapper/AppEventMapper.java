@@ -21,7 +21,7 @@ public class AppEventMapper {
      */
     public AppEvent mapToEntity(AppEventRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppEvent.class.getName());
-        return new AppEvent(dto.getTitle(), dto.getDescr(),
+        return new AppEvent(dto.getTitle(), dto.getDescr(), 1,
                 dto.getOptionRequests().stream()
                         .map(this::mapToEntity)
                         .toList());
@@ -32,7 +32,7 @@ public class AppEventMapper {
      */
     public AppEventResponse mapToDto(AppEvent event) {
         log.info("Convert {} to {}", event.getClass().getName(), AppEventResponse.class.getName());
-        return new AppEventResponse(event.getTitle(), event.getDescr(),
+        return new AppEventResponse(event.getTitle(), event.getDescr(), event.getCommonAttempts(),
                 event.getOptions().stream()
                         .map(this::mapToDto)
                         .collect(Collectors.toSet()));
@@ -43,7 +43,7 @@ public class AppEventMapper {
      */
     public AppEventOptionResponse mapToDto(AppEventOption option) {
         log.info("Convert {} to {}", option.getClass().getName(), AppEventOptionResponse.class.getName());
-        return new AppEventOptionResponse(option.getAttribute().name(), option.getDescr());
+        return new AppEventOptionResponse(option.getAttribute().name(), option.getDescr(), option.getRemainingAttempts());
     }
 
     /**
@@ -65,7 +65,7 @@ public class AppEventMapper {
      */
     public AppEventOption mapToEntity(AppEventOptionRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppEventOption.class.getName());
-        return new AppEventOption(AppAttributes.valueOf(dto.getAttribute()), dto.getDescr(), dto.getResults().stream()
+        return new AppEventOption(AppAttributes.valueOf(dto.getAttribute()), dto.getDescr(), dto.getRemainingAttempts(), dto.getResults().stream()
                 .map(this::mapToEntity)
                 .toList());
     }

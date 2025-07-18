@@ -20,6 +20,7 @@
 <div th:if="${event != null}">
     <p><strong>Название:</strong> <span th:text="${event.title}"></span></p>
     <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
+    <p><strong>Количество попыток:</strong> <span th:text="${event.commonAttempts}"></span></p>
 </div>
 
 <div th:if="${options != null and result == null}">
@@ -27,8 +28,9 @@
     <form th:action="@{/main}" method="post" th:each="opt : ${options}">
         <input type="hidden" name="attribute" th:value="${opt.attribute}"/>
         <input type="hidden" name="descr" th:value="${opt.descr}"/>
+        <input type="hidden" name="remainingAttempts" th:value="${opt.remainingAttempts}">
         <button type="submit"
-                th:text="${opt.descr + ' (' + opt.attribute + ')'}">
+                th:text="${opt.descr + ' (' + opt.attribute + ')' + ' x ' + opt.remainingAttempts}">
         </button>
     </form>
 </div>

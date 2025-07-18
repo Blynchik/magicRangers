@@ -2,7 +2,7 @@ package dev.blynchik.magicRangers.service.model;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
-import dev.blynchik.magicRangers.repo.EventRepo;
+import dev.blynchik.magicRangers.repo.AppEventRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +19,10 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.NOT_FOUND;
 @Transactional(readOnly = true)
 public class AppEventService {
 
-    private final EventRepo eventRepo;
+    private final AppEventRepo eventRepo;
 
     @Autowired
-    public AppEventService(EventRepo eventRepo) {
+    public AppEventService(AppEventRepo eventRepo) {
         this.eventRepo = eventRepo;
     }
 

@@ -25,6 +25,11 @@ public class AppEventOption {
     private String descr;
 
     /**
+     * Оставшиеся попытки на выбранный вариант
+     */
+    private int remainingAttempts;
+
+    /**
      * Вероятности результатов, если пройдена проверка сложности на атрибут
      * Например, проверка на STR. Вероятности результатов станут доступны при >= EventOptionResult.minDifficulty
      * Вариант: Показать силу (STR)

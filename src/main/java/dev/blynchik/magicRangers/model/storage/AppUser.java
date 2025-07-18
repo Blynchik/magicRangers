@@ -40,11 +40,6 @@ public class AppUser {
     @Column(name = "character_id")
     private Long characterId;
 
-    @Override
-    public String toString() {
-        return "AppUser: %s%s[%s]".formatted(oauth2Provider, oauth2Sub, email);
-    }
-
     public AppUser(String oauth2Provider, String oauth2Sub, String email) {
         this.oauth2Provider = oauth2Provider;
         this.oauth2Sub = oauth2Sub;
