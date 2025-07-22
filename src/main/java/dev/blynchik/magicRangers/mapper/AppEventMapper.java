@@ -21,7 +21,7 @@ public class AppEventMapper {
      */
     public AppEvent mapToEntity(AppEventRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppEvent.class.getName());
-        return new AppEvent(dto.getTitle(), dto.getDescr(), 1,
+        return new AppEvent(dto.getTitle(), dto.getDescr(),
                 dto.getOptionRequests().stream()
                         .map(this::mapToEntity)
                         .toList());
@@ -32,7 +32,7 @@ public class AppEventMapper {
      */
     public AppEventResponse mapToDto(AppEvent event) {
         log.info("Convert {} to {}", event.getClass().getName(), AppEventResponse.class.getName());
-        return new AppEventResponse(event.getTitle(), event.getDescr(), event.getCommonAttempts(),
+        return new AppEventResponse(event.getTitle(), event.getDescr(),
                 event.getOptions().stream()
                         .map(this::mapToDto)
                         .collect(Collectors.toSet()));

@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class AppEventOptionRequest {
 
-    @Pattern(regexp = "STR|INTL|CHA", message = "{constraint.message.type}")
+    @Pattern(regexp = "STR|INTL|CHA|TEXT|DECLINE", message = "{constraint.message.type}")
     private String attribute;
 
     @Size(min = 1, max = 500, message = "{constraint.message.size}")

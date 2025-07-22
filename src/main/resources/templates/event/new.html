@@ -25,12 +25,6 @@
     </div>
 
     <div>
-        <label>Общее количество попыток:</label>
-        <input type="number" th:field="*{commonAttempts}" class="form-control mb-2"/>
-        <div th:if="${#fields.hasErrors('commonAttempts')}" th:errors="*{commonAttempts}" style="color:red;"></div>
-    </div>
-
-    <div>
         <h3>Опции и результаты</h3>
         <div id="optionResultPairs-container">
         </div>
@@ -93,6 +87,8 @@
                 <option value="STR">Удаль</option>
                 <option value="INTL">Смекалка</option>
                 <option value="CHA">Обаяние</option>
+                <option value="TEXT">Текст без проверки</option>
+                <option value="DECLINE">Отказ</option>
             </select>
 
             <label>Описание опции:</label>

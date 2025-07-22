@@ -20,7 +20,6 @@
 <div th:if="${event != null}">
     <p><strong>Название:</strong> <span th:text="${event.title}"></span></p>
     <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
-    <p><strong>Количество попыток:</strong> <span th:text="${event.commonAttempts}"></span></p>
 </div>
 
 <div th:if="${options != null and result == null}">

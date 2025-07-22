@@ -31,13 +31,6 @@ public class AppEvent {
     @Size(min = 1, max = 1000)
     private String descr;
 
-    /**
-     * Общее количество попыток для решения события
-     */
-    @Column(name = "common_attempts", columnDefinition = "integer default 1")
-    @Range(min = 1, max = Integer.MAX_VALUE)
-    private int commonAttempts;
-
     @Type(JsonBinaryType.class)
     @Column(name = "option_collection", columnDefinition = "jsonb")
     @Size(min = 1, max = 10)
@@ -49,10 +42,9 @@ public class AppEvent {
     @Column(name = "updated_at", columnDefinition = "timestamp default now()")
     private LocalDateTime updatedAt;
 
-    public AppEvent(String title, String descr, int commonAttempts, List<AppEventOption> options) {
+    public AppEvent(String title, String descr, List<AppEventOption> options) {
         this.title = title;
         this.descr = descr;
-        this.commonAttempts = commonAttempts;
         this.options = options;
     }
 }

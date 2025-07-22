@@ -1,6 +1,5 @@
 package dev.blynchik.magicRangers.model.dto.request;
 
-import dev.blynchik.magicRangers.validation.annotaion.CountAttempts;
 import dev.blynchik.magicRangers.validation.annotaion.UniqueAttributeDescrCombination;
 import dev.blynchik.magicRangers.validation.annotaion.UniqueEventTitle;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
@@ -16,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@CountAttempts(message = "{event.constraint.message.attemptsMissMatch}")
 public class AppEventRequest {
 
     @ValidStringNoMuchGaps(message = "{constraint.message.noMuchGaps}")
@@ -29,10 +27,6 @@ public class AppEventRequest {
     @NotBlank(message = "{constraint.message.notBlank}")
     @Size(min = 1, max = 1000, message = "{constraint.message.size}")
     private String descr;
-
-    @Min(value = 1, message = "{constraint.message.minNum}")
-    @Max(value = Integer.MAX_VALUE, message = "{constraint.message.maxNum}")
-    private int commonAttempts;
 
     @Valid
     @Size(min = 1, max = 10, message = "{constraint.message.size}")
