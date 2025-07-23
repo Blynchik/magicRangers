@@ -23,6 +23,10 @@
 </div>
 
 <div th:if="${options != null and result == null}">
+    <label>
+        Ограничить значение атрибута:
+        <input type="number" name="attributeConstraint" placeholder="Без ограничения"/>
+    </label>
     <h3>Выбери действие:</h3>
     <form th:action="@{/main}" method="post" th:each="opt : ${options}">
         <input type="hidden" name="attribute" th:value="${opt.attribute}"/>

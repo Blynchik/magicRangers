@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class SelectedAppEventOption {
     private String attribute;
     private String descr;
+    private Integer attributeConstraint;
 }
