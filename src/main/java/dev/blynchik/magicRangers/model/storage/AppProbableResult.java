@@ -20,4 +20,5 @@ public class AppProbableResult {
 
     private Double probabilityPercent;
     private String descr;
+    private Boolean isFinal;
 }

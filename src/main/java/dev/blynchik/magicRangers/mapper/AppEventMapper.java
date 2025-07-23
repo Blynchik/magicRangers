@@ -76,7 +76,7 @@ public class AppEventMapper {
     public AppEventOptionResultList mapToEntity(AppEventOptionResultListRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppEventOptionResultList.class.getName());
         return new AppEventOptionResultList(dto.getMinDifficulty(), dto.getProbableResults().stream()
-                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr()))
+                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr(), r.getIsFinal()))
                 .toList());
     }
 }

@@ -23,4 +23,7 @@ public class AppProbableResultRequest {
     @NotBlank(message = "{constraint.message.notBlank}")
     @NotNull(message = "{constraint.message.notBlank}")
     private String descr;
+
+    @NotNull(message = "{constraint.message.notBlank}")
+    private Boolean isFinal;
 }

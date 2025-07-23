@@ -130,14 +130,23 @@
     <div class="probable-result-block border p-2 mb-2">
         <label>Вероятность (%):</label>
         <input type="number" step="0.000001"
-               name="optionRequests[#].results[##].probableResults[###].probabilityPercent" class="form-control mb-2"/>
-
+               name="optionRequests[#].results[##].probableResults[###].probabilityPercent"
+               class="form-control mb-2"/>
         <label>Описание результата:</label>
         <textarea name="optionRequests[#].results[##].probableResults[###].descr" rows="2"
                   class="form-control mb-2"></textarea>
-
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProbableResult(this)">Удалить
-            вероятный результат
+        <div class="form-check mb-2">
+            <input type="checkbox"
+                   class="form-check-input"
+                   name="optionRequests[#].results[##].probableResults[###].isFinal"
+                   value="true"
+                   id="finalResultCheckbox###">
+            <label class="form-check-label" for="finalResultCheckbox###">
+                Финальный результат
+            </label>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProbableResult(this)">
+            Удалить вероятный результат
         </button>
     </div>
 </template>
