@@ -376,7 +376,7 @@ public class DevDataInitializer implements ApplicationRunner {
                 List.of(
                         new AppEventOption(INTL, "Назойливость — не путь, а порок за неё мне феи влепили урок!", Integer.MAX_VALUE - 1,
                                 List.of(
-                                        new AppEventOptionResultList(100,
+                                        new AppEventOptionResultList(70,
                                                 List.of(
                                                         new AppProbableResult(100.0, "Неимоверным усилием силы воли вы заставили себя не говорить эту осточертевшую фразу", true)
                                                 )

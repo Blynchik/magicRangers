@@ -1,15 +1,14 @@
 package dev.blynchik.magicRangers.controller;
 
-import dev.blynchik.magicRangers.exception.AppException;
-import dev.blynchik.magicRangers.exception.ExceptionMessage;
 import dev.blynchik.magicRangers.mapper.AppCharacterMapper;
 import dev.blynchik.magicRangers.mapper.AppEventMapper;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.dto.request.SelectedAppEventOption;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
-import dev.blynchik.magicRangers.model.storage.AppCharacter;
-import dev.blynchik.magicRangers.model.storage.AppEvent;
-import dev.blynchik.magicRangers.model.storage.AppEventOption;
+import dev.blynchik.magicRangers.model.storage.*;
+import dev.blynchik.magicRangers.service.mechanic.EventMechanic;
+import dev.blynchik.magicRangers.service.mechanic.ResultMechanic;
+import dev.blynchik.magicRangers.service.mechanic.RollMechanic;
 import dev.blynchik.magicRangers.service.model.AppCharacterService;
 import dev.blynchik.magicRangers.service.model.AppEventService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ import java.util.List;
 
 import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.MAIN;
 import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.SEARCH;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static dev.blynchik.magicRangers.model.storage.AppAttributes.valueOf;
 
 @Controller
 @RequestMapping(MAIN)
@@ -37,16 +36,25 @@ public class MainPageController {
     private final AppEventService eventService;
     private final AppEventMapper eventMapper;
     private final AppCharacterMapper characterMapper;
+    private final ResultMechanic resultMechanic;
+    private final RollMechanic rollMechanic;
+    private final EventMechanic eventMechanic;
 
     @Autowired
     public MainPageController(AppCharacterService characterService,
                               AppEventService eventService,
                               AppEventMapper eventMapper,
-                              AppCharacterMapper characterMapper) {
+                              AppCharacterMapper characterMapper,
+                              ResultMechanic resultMechanic,
+                              RollMechanic rollMechanic,
+                              EventMechanic eventMechanic) {
         this.characterService = characterService;
         this.eventService = eventService;
         this.eventMapper = eventMapper;
         this.characterMapper = characterMapper;
+        this.resultMechanic = resultMechanic;
+        this.rollMechanic = rollMechanic;
+        this.eventMechanic = eventMechanic;
     }
 
     /**
@@ -104,16 +112,38 @@ public class MainPageController {
         AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             List<AppEventOption> options = character.getCurrentEvent().getOptions();
-            AppEventOption eventOption = options.stream()
-                    .filter(o -> o.getDescr().equals(selectedOption.getDescr()) && o.getAttribute().name().equals(selectedOption.getAttribute()))
-                    .findFirst()
-                    .orElseThrow(() -> new AppException(ExceptionMessage.NOT_FOUND.formatted(selectedOption.getDescr() + " " + selectedOption.getAttribute()), NOT_FOUND));
-            model.addAttribute("character", characterMapper.mapToDto(character));
-            model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
-            model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
-                    selectedOption.getDescr(),
-                    eventOption.getResults().get(0)));
-            characterService.updateCurrentEvent(character.getId(), null);
+            AppEventOption eventOption = eventMechanic.getSelectedOptionFromCurrentEvent(
+                    valueOf(selectedOption.getAttribute()), selectedOption.getDescr(), options);
+            Integer rolledValue = rollMechanic.roll(valueOf(selectedOption.getAttribute()), selectedOption.getAttributeConstraint(), character);
+            AppEventOptionResultList optionResultList = resultMechanic.getResultList(eventOption, selectedOption, rolledValue);
+            AppProbableResult result = resultMechanic.getResult(optionResultList);
+            log.info("Result defined: {}", result);
+            if (eventOption.getRemainingAttempts() <= 0 || result.getIsFinal()) {
+                // если нет попыток или результат прекращает попытки, то обнуляем текущий квест и возвращаем результат
+                characterService.updateCurrentEvent(character.getId(), null);
+                model.addAttribute("character", characterMapper.mapToDto(character));
+                model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
+                model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
+                        valueOf(selectedOption.getAttribute()),
+                        selectedOption.getDescr(),
+                        optionResultList.getMinDifficulty(),
+                        rolledValue,
+                        selectedOption.getAttributeConstraint(),
+                        result));
+            } else {
+                // если попытки есть и результат не прекращает попытки, то сохраняем событие с уменьшенным количеством попыток, возвращаем то же самое событие
+                characterService.updateCurrentEvent(character.getId(), character.getCurrentEvent());
+                model.addAttribute("character", characterMapper.mapToDto(character));
+                model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
+                model.addAttribute("options", character.getCurrentEvent().getOptions());
+                model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
+                        valueOf(selectedOption.getAttribute()),
+                        selectedOption.getDescr(),
+                        optionResultList.getMinDifficulty(),
+                        rolledValue,
+                        selectedOption.getAttributeConstraint(),
+                        result));
+            }
             return "/main";
         }
         return "redirect:" + MAIN;

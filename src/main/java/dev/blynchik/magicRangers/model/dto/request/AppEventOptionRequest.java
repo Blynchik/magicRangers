@@ -33,5 +33,6 @@ public class AppEventOptionRequest {
     @UniqueElements(message = "{constraint.message.notUniqueElements}")
     @NotNull(message = "{constraint.message.notBlank}")
     @UniqueResultMinDifficulty(message = "{event.constraint.message.notUniqueMinDifficulty}")
+    //при TEXT или DECLINE возможен только один элемент
     private List<@NotNull(message = "{constraint.message.notBlank}") AppEventOptionResultListRequest> results;
 }

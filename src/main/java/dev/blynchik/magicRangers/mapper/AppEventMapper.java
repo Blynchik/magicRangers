@@ -4,7 +4,7 @@ import dev.blynchik.magicRangers.model.dto.request.AppEventOptionRequest;
 import dev.blynchik.magicRangers.model.dto.request.AppEventOptionResultListRequest;
 import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResponse;
-import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResultListResponse;
+import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResultResponse;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.*;
 import lombok.extern.slf4j.Slf4j;
@@ -49,15 +49,15 @@ public class AppEventMapper {
     /**
      * Получаем объект для ответа на выбор варианта
      */
-    public AppEventOptionResultListResponse mapToDto(String eventTitle, String selectedOption, AppEventOptionResultList optionResultSet) {
-        log.info("Convert {} to {}", optionResultSet.getClass().getName(), AppEventOptionResultListResponse.class.getName());
-        return new AppEventOptionResultListResponse(eventTitle,
+    public AppEventOptionResultResponse mapToDto(String eventTitle, AppAttributes attribute, String selectedOption, Integer minDifficulty, Integer rolledValue, Integer constraint, AppProbableResult result) {
+        log.info("Convert {} to {}", result.getClass().getName(), AppEventOptionResultResponse.class.getName());
+        return new AppEventOptionResultResponse(eventTitle,
+                attribute.name(),
                 selectedOption,
-                optionResultSet.getMinDifficulty(),
-                optionResultSet.getProbableResults().stream()
-                        .findFirst()
-                        .get()
-                        .getDescr());
+                minDifficulty,
+                rolledValue,
+                constraint,
+                result.getDescr());
     }
 
     /**
@@ -76,7 +76,7 @@ public class AppEventMapper {
     public AppEventOptionResultList mapToEntity(AppEventOptionResultListRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppEventOptionResultList.class.getName());
         return new AppEventOptionResultList(dto.getMinDifficulty(), dto.getProbableResults().stream()
-                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr(), r.getIsFinal()))
+                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr(), r.isFinal()))
                 .toList());
     }
 }

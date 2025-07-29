@@ -7,10 +7,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class AppEventOptionResultListResponse {
+public class AppEventOptionResultResponse {
 
     private String title;
+    private String attribute;
     private String selectedOption;
-    private int minDifficulty;
+    private Integer minDifficulty;
+    private Integer rolledValue;
+    private Integer attributeConstraint;
     private String resultDescr;
 }

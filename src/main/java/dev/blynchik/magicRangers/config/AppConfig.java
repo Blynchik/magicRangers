@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import java.util.Random;
+
 @Configuration
 public class AppConfig {
 
@@ -25,5 +27,10 @@ public class AppConfig {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return objectMapper;
+    }
+
+    @Bean
+    public Random random() {
+        return new Random();
     }
 }

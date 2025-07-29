@@ -22,10 +22,17 @@
     <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
 </div>
 
-<div th:if="${options != null and result == null}">
+<div th:if="${result != null}">
+    <h3>Результат выбора:</h3>
+    <p><strong>Выбранный вариант:</strong> <span th:text="${result.selectedOption}"></span></p>
+    <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
+    <p><strong>Описание:</strong> <span th:text="${result.resultDescr}"></span></p>
+</div>
+
+<div th:if="${options != null}">
     <label>
         Ограничить значение атрибута:
-        <input type="number" name="attributeConstraint" placeholder="Без ограничения"/>
+        <input type="number" id="attributeConstraintGlobal" placeholder="Без ограничения"/>
     </label>
     <h3>Выбери действие:</h3>
     <form th:action="@{/main}" method="post" th:each="opt : ${options}">
@@ -36,13 +43,6 @@
                 th:text="${opt.descr + ' (' + opt.attribute + ')' + ' x ' + opt.remainingAttempts}">
         </button>
     </form>
-</div>
-
-<div th:if="${result != null}">
-    <h3>Результат выбора:</h3>
-    <p><strong>Выбранный вариант:</strong> <span th:text="${result.selectedOption}"></span></p>
-    <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
-    <p><strong>Описание:</strong> <span th:text="${result.resultDescr}"></span></p>
 </div>
 
 <div th:if="${param.name != null and event == null}">
@@ -69,6 +69,21 @@
             const toast = new bootstrap.Toast(toastEl);
             toast.show();
         }
+    });
+</script>
+
+<script>
+    document.querySelectorAll("form").forEach(form => {
+        form.addEventListener("submit", function (e) {
+            const globalVal = document.getElementById("attributeConstraintGlobal").value;
+            if (globalVal !== "") {
+                let hidden = document.createElement("input");
+                hidden.type = "hidden";
+                hidden.name = "attributeConstraint";
+                hidden.value = globalVal;
+                form.appendChild(hidden);
+            }
+        });
     });
 </script>
 
