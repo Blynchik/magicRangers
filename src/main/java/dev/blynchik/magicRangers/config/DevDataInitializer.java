@@ -442,5 +442,36 @@ public class DevDataInitializer implements ApplicationRunner {
                                 )
                         )
                 )));
+        // Демонстрация того, что случайности работают не только с броском и попаданием в случайные результаты.
+        // Случайные результаты могут быть и при простом выборе варианта
+        eventService.save(new AppEvent("Однорукий бандит",
+                """
+                        Казино "Три топора Азиноя" предлагает невероятный выбор развлечений! Ваш внимание пало на однорукого бандита!
+                        """,
+                List.of(
+                        new AppEventOption(TEXT, "Дернуть за рычаг!", Integer.MAX_VALUE - 1,
+                                List.of(
+                                        new AppEventOptionResultList(0,
+                                                List.of(
+                                                        new AppProbableResult(5.0, "Вы сорвали куш! Удача вам благоволит! Попробуйте еще раз!", false),
+                                                        new AppProbableResult(10.0, "Вы выиграли значительную сумму! Удача вам благоволит! В следующий раз выиграете больше!", false),
+                                                        new AppProbableResult(25.0, "Вы выиграли! Есть повод попробовать еще раз!", false),
+                                                        new AppProbableResult(55.0, "К сожалению, вам не повезло! Удача любит настойчивых! Попробуйте еще раз!", false)
+                                                )
+                                        )
+                                )
+                        ),
+                        new AppEventOption(DECLINE, "Ну этого однорукого бандита!", 1,
+                                List.of(
+                                        new AppEventOptionResultList(0,
+                                                List.of(
+                                                        new AppProbableResult(5.0, "Охрана казино решила, что вы мошенничали. Вас хорошенько отмутузили и забрали все деньги!", true),
+                                                        new AppProbableResult(10.0, "Местные карманники сочли вас удачной целью. Теперь ваши карманы пусты!", true),
+                                                        new AppProbableResult(85.0, "Вы благополучно покинули казино!", true)
+                                                )
+                                        )
+                                )
+                        )
+                )));
     }
 }

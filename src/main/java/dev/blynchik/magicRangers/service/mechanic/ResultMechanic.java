@@ -28,9 +28,8 @@ public class ResultMechanic {
     /**
      * Возвращает один из возможных результатов, определенных процентом возможности
      */
-    public AppProbableResult getResult(AppEventOptionResultList optionResultList) {
-        log.info("Start to define result from {}", optionResultList);
-        List<AppProbableResult> probableResults = optionResultList.getProbableResults();
+    public AppProbableResult getResult(List<AppProbableResult> probableResults) {
+        log.info("Start to define result from {}", probableResults);
         if (probableResults.size() == 1) {
             return probableResults.get(0);
         }
@@ -81,8 +80,10 @@ public class ResultMechanic {
                     // если бросок оказался меньше, ем минимальная сложность для получения результата, то возвращаем самое легкое из списка
                     .orElse(list.get(list.size() - 1));
         } else {
-            // если не нужно, то возвращаем самый первый результат
-            appEventOptionResultList = eventOption.getResults().get(0);
+            // если не нужно, то возвращаем результаты, которые возможны в данном варианте
+            appEventOptionResultList = new AppEventOptionResultList(0, eventOption.getResults().stream()
+                    .flatMap(results -> results.getProbableResults().stream())
+                    .toList());
         }
         // уменьшаем количество попыток на 1 для выбранного варианта
         eventOption.setRemainingAttempts(eventOption.getRemainingAttempts() - 1);

@@ -116,7 +116,7 @@ public class MainPageController {
                     valueOf(selectedOption.getAttribute()), selectedOption.getDescr(), options);
             Integer rolledValue = rollMechanic.roll(valueOf(selectedOption.getAttribute()), selectedOption.getAttributeConstraint(), character);
             AppEventOptionResultList optionResultList = resultMechanic.getResultList(eventOption, selectedOption, rolledValue);
-            AppProbableResult result = resultMechanic.getResult(optionResultList);
+            AppProbableResult result = resultMechanic.getResult(optionResultList.getProbableResults());
             log.info("Result defined: {}", result);
             if (eventOption.getRemainingAttempts() <= 0 || result.getIsFinal()) {
                 // если нет попыток или результат прекращает попытки, то обнуляем текущий квест и возвращаем результат
