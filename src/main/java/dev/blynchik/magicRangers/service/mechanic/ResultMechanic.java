@@ -81,6 +81,8 @@ public class ResultMechanic {
                     .orElse(list.get(list.size() - 1));
         } else {
             // если не нужно, то возвращаем результаты, которые возможны в данном варианте
+            // объединяем все списки возможны результатов, т.к. списки отличаются только сложностью по атрибутам,
+            // в данном случае мы не применяем сложность и атрибуты, поэтом объединяем все списки
             appEventOptionResultList = new AppEventOptionResultList(0, eventOption.getResults().stream()
                     .flatMap(results -> results.getProbableResults().stream())
                     .toList());
