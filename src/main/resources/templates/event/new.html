@@ -145,12 +145,40 @@
                 Финальный результат
             </label>
         </div>
+
+        <div class="rewards-container mb-2">
+            <h5>Награды:</h5>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary mb-2"
+                onclick="addReward(this, #, ##, ###)">Добавить награду
+        </button>
+
         <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeProbableResult(this)">
             Удалить вероятный результат
         </button>
     </div>
 </template>
 
+<template id="rewardTemplate">
+    <div class="reward-block border p-2 mb-2">
+        <label>Тип награды:</label>
+        <select name="optionRequests[#].results[##].probableResults[###].rewardList[####].type"
+                class="form-select mb-2">
+            <option value="STR">Удаль</option>
+            <option value="INTL">Смекалка</option>
+            <option value="CHA">Обаяние</option>
+        </select>
+
+        <label>Значение:</label>
+        <input type="number"
+               name="optionRequests[#].results[##].probableResults[###].rewardList[####].value"
+               class="form-control mb-2"/>
+
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeReward(this)">
+            Удалить награду
+        </button>
+    </div>
+</template>
 <script>
     let pairCount = 0;
 
@@ -209,18 +237,46 @@ function removeResult(button) {
     const template = document.getElementById('probableResultTemplate').innerHTML;
     const currentCount = container.querySelectorAll('.probable-result-block').length;
 
+    let html = template
+        .replaceAll('[#]', `[${optionIdx}]`)
+        .replaceAll('[##]', `[${resultIdx}]`)
+        .replaceAll('[###]', `[${currentCount}]`)
+        .replace(/onclick="addReward\(this, #, ##, ###\)"/g,
+                `onclick="addReward(this, ${optionIdx}, ${resultIdx}, ${currentCount})"`);
+
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    container.appendChild(div);
+
+
+    const addRewardBtn = div.querySelector('button[onclick^="addReward"]');
+    if (addRewardBtn) {
+        addRewardBtn.click(); // Имитируем клик для добавления первой награды
+    }
+}
+
+function removeProbableResult(button) {
+    button.closest('.probable-result-block').remove();
+}
+
+    function addReward(button, optionIdx, resultIdx, probableResultIdx) {
+    const container = button.parentElement.querySelector('.rewards-container');
+    const template = document.getElementById('rewardTemplate').innerHTML;
+    const currentCount = container.querySelectorAll('.reward-block').length;
+
     const html = template
         .replaceAll('[#]', `[${optionIdx}]`)
         .replaceAll('[##]', `[${resultIdx}]`)
-        .replaceAll('[###]', `[${currentCount}]`);
+        .replaceAll('[###]', `[${probableResultIdx}]`)
+        .replaceAll('[####]', `[${currentCount}]`);
 
     const div = document.createElement('div');
     div.innerHTML = html;
     container.appendChild(div);
 }
 
-function removeProbableResult(button) {
-    button.closest('.probable-result-block').remove();
+function removeReward(button) {
+    button.closest('.reward-block').remove();
 }
 </script>
 

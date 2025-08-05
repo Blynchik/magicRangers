@@ -8,6 +8,7 @@ import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.*;
 import dev.blynchik.magicRangers.service.mechanic.EventMechanic;
 import dev.blynchik.magicRangers.service.mechanic.ResultMechanic;
+import dev.blynchik.magicRangers.service.mechanic.RewardMechanic;
 import dev.blynchik.magicRangers.service.mechanic.RollMechanic;
 import dev.blynchik.magicRangers.service.model.AppCharacterService;
 import dev.blynchik.magicRangers.service.model.AppEventService;
@@ -39,6 +40,7 @@ public class MainPageController {
     private final ResultMechanic resultMechanic;
     private final RollMechanic rollMechanic;
     private final EventMechanic eventMechanic;
+    private final RewardMechanic rewardMechanic;
 
     @Autowired
     public MainPageController(AppCharacterService characterService,
@@ -47,7 +49,8 @@ public class MainPageController {
                               AppCharacterMapper characterMapper,
                               ResultMechanic resultMechanic,
                               RollMechanic rollMechanic,
-                              EventMechanic eventMechanic) {
+                              EventMechanic eventMechanic,
+                              RewardMechanic rewardMechanic) {
         this.characterService = characterService;
         this.eventService = eventService;
         this.eventMapper = eventMapper;
@@ -55,6 +58,7 @@ public class MainPageController {
         this.resultMechanic = resultMechanic;
         this.rollMechanic = rollMechanic;
         this.eventMechanic = eventMechanic;
+        this.rewardMechanic = rewardMechanic;
     }
 
     /**
@@ -121,29 +125,22 @@ public class MainPageController {
             if (eventOption.getRemainingAttempts() <= 0 || result.getIsFinal()) {
                 // если нет попыток или результат прекращает попытки, то обнуляем текущий квест и возвращаем результат
                 characterService.updateCurrentEvent(character.getId(), null);
-                model.addAttribute("character", characterMapper.mapToDto(character));
-                model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
-                model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
-                        valueOf(selectedOption.getAttribute()),
-                        selectedOption.getDescr(),
-                        optionResultList.getMinDifficulty(),
-                        rolledValue,
-                        selectedOption.getAttributeConstraint(),
-                        result));
             } else {
                 // если попытки есть и результат не прекращает попытки, то сохраняем событие с уменьшенным количеством попыток, возвращаем то же самое событие
                 characterService.updateCurrentEvent(character.getId(), character.getCurrentEvent());
-                model.addAttribute("character", characterMapper.mapToDto(character));
-                model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
                 model.addAttribute("options", character.getCurrentEvent().getOptions());
-                model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
-                        valueOf(selectedOption.getAttribute()),
-                        selectedOption.getDescr(),
-                        optionResultList.getMinDifficulty(),
-                        rolledValue,
-                        selectedOption.getAttributeConstraint(),
-                        result));
             }
+            // награждение
+            character = rewardMechanic.setReward(character, result.getRewardList());
+            model.addAttribute("character", characterMapper.mapToDto(character));
+            model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
+            model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),
+                    valueOf(selectedOption.getAttribute()),
+                    selectedOption.getDescr(),
+                    optionResultList.getMinDifficulty(),
+                    rolledValue,
+                    selectedOption.getAttributeConstraint(),
+                    result));
             return "/main";
         }
         return "redirect:" + MAIN;

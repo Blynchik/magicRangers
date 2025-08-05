@@ -33,11 +33,21 @@ public class AppCharacterService {
     }
 
     /**
+     * Метод обновляет атрибуты персонажа
+     */
+    @Transactional
+    public void updateAttributes(Long characterId, Integer strValue, Integer intlValue, Integer chaValue) {
+        log.info("Update attributes for character id:{}, str:{}, intl:{}, cha:{}", characterId, strValue, intlValue, chaValue);
+        characterRepo.updateAttributesValue(characterId, strValue, intlValue, chaValue);
+    }
+
+    /**
      * Метод обновляет текущее событие персонажа
      * или выбрасывает исключение, если не смог этого сделать
      */
     @Transactional
     public void updateCurrentEvent(Long characterId, AppEvent event) {
+        log.info("Update current event for character id:{}, event:{}", characterId, event);
         String eventJson = null;
         try {
             if (event != null) {

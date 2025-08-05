@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 /**
  * Класс для вероятных результатов варианта события.
@@ -21,4 +23,5 @@ public class AppProbableResult {
     private Double probabilityPercent;
     private String descr;
     private Boolean isFinal;
+    private List<Reward> rewardList;
 }

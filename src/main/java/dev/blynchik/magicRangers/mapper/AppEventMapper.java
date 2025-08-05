@@ -6,6 +6,7 @@ import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResponse;
 import dev.blynchik.magicRangers.model.dto.response.AppEventOptionResultResponse;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
+import dev.blynchik.magicRangers.model.dto.response.RewardResponse;
 import dev.blynchik.magicRangers.model.storage.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -57,7 +58,12 @@ public class AppEventMapper {
                 minDifficulty,
                 rolledValue,
                 constraint,
-                result.getDescr());
+                result.getDescr(),
+                result.getRewardList() == null ?
+                        null :
+                        result.getRewardList().stream()
+                                .map(reward -> new RewardResponse(reward.getType().name(), reward.getValue()))
+                                .toList());
     }
 
     /**
@@ -76,7 +82,13 @@ public class AppEventMapper {
     public AppEventOptionResultList mapToEntity(AppEventOptionResultListRequest dto) {
         log.info("Convert {} to {}", dto.getClass().getName(), AppEventOptionResultList.class.getName());
         return new AppEventOptionResultList(dto.getMinDifficulty(), dto.getProbableResults().stream()
-                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr(), r.isFinal()))
+                .map(r -> new AppProbableResult(r.getProbabilityPercent(), r.getDescr(), r.isFinal(),
+                                r.getRewardList().stream()
+                                        .map(reward -> new Reward(AppAttributes.valueOf(reward.getType()), reward.getValue()))
+                                        .collect(Collectors.toList())
+                        )
+                )
+
                 .toList());
     }
 }

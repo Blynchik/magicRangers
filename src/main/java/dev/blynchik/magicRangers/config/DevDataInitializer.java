@@ -42,22 +42,38 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(70,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Энергичное выступление из акробатических трюков, прыжков, жонглирования гирями привело публику в восторг. Такого удалого молодца это село еще не видело.", true)
+                                                        new AppProbableResult(100.0, "Энергичное выступление из акробатических трюков, прыжков, жонглирования гирями привело публику в восторг. Такого удалого молодца это село еще не видело.", true,
+                                                                List.of(
+                                                                        new Reward(STR, 2)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(50,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Поднятие гирь, бочек и даже целой кобылы впечатлило публику. Вы стали примером для многих деревенских мальчишек.", true)
+                                                        new AppProbableResult(100.0, "Поднятие гирь, бочек и даже целой кобылы впечатлило публику. Вы стали примером для многих деревенских мальчишек.", true,
+                                                                List.of(
+                                                                        new Reward(STR, 1)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(30,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Поднятие гирь и других тяжелых предметов понравилось публике, но на празднике вы не один такой.", true)
+                                                        new AppProbableResult(100.0, "Поднятие гирь и других тяжелых предметов понравилось публике, но на празднике вы не один такой.", true,
+                                                                List.of(
+                                                                        new Reward(STR, 0)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(10,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Демонстрация пресса и бицепсов не впечатлила публику. К тому же лопнувшие штаны сделали вас посмешищем.", true)
+                                                        new AppProbableResult(100.0, "Демонстрация пресса и бицепсов не впечатлила публику. К тому же лопнувшие штаны сделали вас посмешищем.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -2)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -66,17 +82,29 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(70,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Интересно рассказанные научные теории понравились сельчанам. Возможно, кто-то из них даже решится получить образование.", true)
+                                                        new AppProbableResult(100.0, "Интересно рассказанные научные теории понравились сельчанам. Возможно, кто-то из них даже решится получить образование.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, 2)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(35,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Рассказ о рецептах лечащих отваров и мазей заинтересовало сельчан. Вас явно стали уважать больше.", true)
+                                                        new AppProbableResult(100.0, "Рассказ о рецептах лечащих отваров и мазей заинтересовало сельчан. Вас явно стали уважать больше.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, 1)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(10,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Лекция \"О пользе уринотерапии\" заинтересовала слушателей. Вы часто слышали смешки и видели улыбки. Но в деревне вас стали считать чудаком.", true)
+                                                        new AppProbableResult(100.0, "Лекция \"О пользе уринотерапии\" заинтересовала слушателей. Вы часто слышали смешки и видели улыбки. Но в деревне вас стали считать чудаком.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, -2)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -85,17 +113,29 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(40,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Баллада тронула чувства деревенских жителей. А вы теперь являетесь предметом воздыхания юных сельчанок.", true)
+                                                        new AppProbableResult(100.0, "Баллада тронула чувства деревенских жителей. А вы теперь являетесь предметом воздыхания юных сельчанок.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, 2)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(20,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Хорошая плаксивая песня всегда в почете в каком-нибудь кабаке. Вам даже бесплатно налили кружку пива.", true)
+                                                        new AppProbableResult(100.0, "Хорошая плаксивая песня всегда в почете в каком-нибудь кабаке. Вам даже бесплатно налили кружку пива.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, 0)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(5,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Выйдя на всеобщее обозрение, вы просто забыли слова баллады. Немного потоптавшись, вы сделали вид, что попали сюда случайно. Кажется, на вас даже не обратили внимания.", true)
+                                                        new AppProbableResult(100.0, "Выйдя на всеобщее обозрение, вы просто забыли слова баллады. Немного потоптавшись, вы сделали вид, что попали сюда случайно. Кажется, на вас даже не обратили внимания.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -112,12 +152,20 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(51,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Выхватив меч, ловким движением вы уклонились от удара ножа, а взмахом меча прекратили грешную жизнь грабителя.", true)
+                                                        new AppProbableResult(100.0, "Выхватив меч, ловким движением вы уклонились от удара ножа, а взмахом меча прекратили грешную жизнь грабителя.", true,
+                                                                List.of(
+                                                                        new Reward(STR, 3)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(50,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Не успев вовремя достать меч из ножен, вы и не заметили, как холодное лезвие ножа прикоснулось к вашей шее. Что теперь важнее? Жизнь или кошелек?", true)
+                                                        new AppProbableResult(100.0, "Не успев вовремя достать меч из ножен, вы и не заметили, как холодное лезвие ножа прикоснулось к вашей шее. Что теперь важнее? Жизнь или кошелек?", true,
+                                                                List.of(
+                                                                        new Reward(STR, -5)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -126,17 +174,31 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(50,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Разбойник явно надеется поживиться деньгами. Рассказав ему расположение несуществующего клада в обмен на свободу, вы поспешно удалились.", true)
+                                                        new AppProbableResult(100.0, "Разбойник явно надеется поживиться деньгами. Рассказав ему расположение несуществующего клада в обмен на свободу, вы поспешно удалились.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, 5)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(35,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Разбойник явно надеется поживиться деньгами. Вы попытались рассказать о сокровищах и кладах, но услышав заумные речи, разбойник понимает, что у ученых больших денег никогда не водилось. Вы потеряли лишь, то что заметил грабитель.", true)
+                                                        new AppProbableResult(100.0, "Разбойник явно надеется поживиться деньгами. Вы попытались рассказать о сокровищах и кладах, но услышав заумные речи, разбойник понимает, что у ученых больших денег никогда не водилось. Вы потеряли лишь, то что заметил грабитель.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, 1),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(10,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Разбойник явно надеется поживиться деньгами. Вы попытались рассказать о сокровищах, но услышав какую-то несвязную чушь, разбойник решил, что это заразно и поспешно скрылся в тенях. Ошарашенный, вы продолжили свой путь.", true)
+                                                        new AppProbableResult(100.0, "Разбойник явно надеется поживиться деньгами. Вы попытались рассказать о сокровищах, но услышав какую-то несвязную чушь, разбойник решил, что это заразно и поспешно скрылся в тенях. Ошарашенный, вы продолжили свой путь.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, -2),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -145,22 +207,43 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(90,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Вы убедили разбойника в том, что вас отправили ему на подмогу сообщники, т.к. следом идет богатый торговец. Как только разбойник отвлекся, вы сбежали от него.", true)
+                                                        new AppProbableResult(100.0, "Вы убедили разбойника в том, что вас отправили ему на подмогу сообщники, т.к. следом идет богатый торговец. Как только разбойник отвлекся, вы сбежали от него.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, 2),
+                                                                        new Reward(STR, 1)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(50,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Вы сделали вид, что приняли разбойника за благородного патрульного. Наградили его парой монет за честный труд и, заговорив ему зубы, оставили позади.", true)
+                                                        new AppProbableResult(100.0, "Вы сделали вид, что приняли разбойника за благородного патрульного. Наградили его парой монет за честный труд и, заговорив ему зубы, оставили позади.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, 2),
+                                                                        new Reward(STR, -1)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(30,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Вы притворились, что болеете ужасной неизлечимой чумой. Любое ваше прикосновение и даже взгляд может заразить окружающих! Ваши кривляния так напугали разбойника, что он бежал, бросив свой кинжал.", true)
+                                                        new AppProbableResult(100.0, "Вы притворились, что болеете ужасной неизлечимой чумой. Любое ваше прикосновение и даже взгляд может заразить окружающих! Ваши кривляния так напугали разбойника, что он бежал, бросив свой кинжал.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, 2),
+                                                                        new Reward(STR, -2)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(15,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Ваши мольбы, аргументы, стенания и рыдания не убедили разбойника. Он обобрал вас до нитки.", true)
+                                                        new AppProbableResult(100.0, "Ваши мольбы, аргументы, стенания и рыдания не убедили разбойника. Он обобрал вас до нитки.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -2),
+                                                                        new Reward(INTL, -2),
+                                                                        new Reward(CHA, -2)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -179,17 +262,32 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(50,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "\"Там есть города, но нет домов. Есть горы, но нет деревьев. Есть вода, но в ней нет рыбы. Что это?\". Чудовище не смогло ответить на эту загадку. Но и вы не уверены, что знаете ответ. Благо, правила игры позволяют не раскрывать тайну.", true)
+                                                        new AppProbableResult(100.0, "\"Там есть города, но нет домов. Есть горы, но нет деревьев. Есть вода, но в ней нет рыбы. Что это?\". Чудовище не смогло ответить на эту загадку. Но и вы не уверены, что знаете ответ. Благо, правила игры позволяют не раскрывать тайну.", true,
+                                                                List.of(
+                                                                        new Reward(INTL, 5)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(40,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "\"Пятеро братьев всегда находятся рядом. Стоят не по росту. У каждого свое имя.\". Чудовище с трудом посчитало до пяти на пальцах. Внезапно его задумчивое выражение морды сменилось на злобную ухмылку. Кажется, вам конец.", true)
+                                                        new AppProbableResult(100.0, "\"Пятеро братьев всегда находятся рядом. Стоят не по росту. У каждого свое имя.\". Чудовище с трудом посчитало до пяти на пальцах. Внезапно его задумчивое выражение морды сменилось на злобную ухмылку. Кажется, вам конец.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -2),
+                                                                        new Reward(INTL, -2)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(20,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "\"Что нельзя съесть на завтрак?\" В ответ на загадку чудовище ответило, что на обед и на ужин оно вас точно не оставит. Вашей последней мыслью было, что вы не поняли каламбура.", true)
+                                                        new AppProbableResult(100.0, "\"Что нельзя съесть на завтрак?\" В ответ на загадку чудовище ответило, что на обед и на ужин оно вас точно не оставит. Вашей последней мыслью было, что вы не поняли каламбура.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -3),
+                                                                        new Reward(INTL, -3),
+                                                                        new Reward(CHA, -3)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -206,7 +304,11 @@ public class DevDataInitializer implements ApplicationRunner {
                                                                         И снова затихнут впотьмах."
                                                                         Чудовище задумалось, но не смогло дать ответ. Через час вы уже улыбались во весь рот на открытом свежем воздухе.
                                                                         """,
-                                                                true)
+                                                                true,
+                                                                List.of(
+                                                                        new Reward(INTL, 10)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(70,
@@ -219,7 +321,11 @@ public class DevDataInitializer implements ApplicationRunner {
                                                                         Только ты высоко, не добраться»."
                                                                         Чудовище задумалось, но не смогло дать ответ. Через час вы уже наслаждались теплом утреннего солнца и вдыхали аромат ромашек.
                                                                         """,
-                                                                true)
+                                                                true,
+                                                                List.of(
+                                                                        new Reward(INTL, 8)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(50,
@@ -232,7 +338,11 @@ public class DevDataInitializer implements ApplicationRunner {
                                                                         Золота кусок."
                                                                         Чудовище заявило, что это кекс с начинкой. Но вы заявили, что начинка в кексе ни при каких обстоятельствах не может быть золотой. Вскоре вы уже были на свободе.
                                                                         """,
-                                                                true)
+                                                                true,
+                                                                List.of(
+                                                                        new Reward(INTL, 5)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(30,
@@ -245,7 +355,12 @@ public class DevDataInitializer implements ApplicationRunner {
                                                                         И с безногой убежали"
                                                                         Вы долго придумывали загадку. Чудовище уже начало вас торопить. И вы придумали то, что придумали. Вас спасло только то, что чудовище никогда не слышало подобной загадки.
                                                                         """,
-                                                                true)
+                                                                true,
+                                                                List.of(
+                                                                        new Reward(INTL, 2),
+                                                                        new Reward(CHA, 1)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(10,
@@ -254,7 +369,12 @@ public class DevDataInitializer implements ApplicationRunner {
                                                                 """
                                                                         "А что у меня в кармашке?", - ляпнули вы, нервно перебирая безделицы в кармане. Чудовище решило, что это загадка, но так и не смогло дать верный ответ. Потому что ваши пальцы вовремя сложились в фигу.
                                                                         """,
-                                                                true)
+                                                                true,
+                                                                List.of(
+                                                                        new Reward(CHA, 3),
+                                                                        new Reward(INTL, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -271,8 +391,20 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(5,
                                                 List.of(
-                                                        new AppProbableResult(18.0 / 37.0, "Вы выиграли!", true),
-                                                        new AppProbableResult(19.0 / 37.0, "Вы проиграли!", true)
+                                                        new AppProbableResult(18.0 / 37.0, "Вы выиграли!", true,
+                                                                List.of(
+                                                                        new Reward(STR, 1),
+                                                                        new Reward(INTL, 1),
+                                                                        new Reward(CHA, 1)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(19.0 / 37.0, "Вы проиграли!", true,
+                                                                List.of(
+                                                                        new Reward(STR, -1),
+                                                                        new Reward(INTL, -1),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -281,8 +413,20 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(4,
                                                 List.of(
-                                                        new AppProbableResult(18.0 / 37.0, "Вы выиграли!", true),
-                                                        new AppProbableResult(19.0 / 37.0, "Вы проиграли!", true)
+                                                        new AppProbableResult(18.0 / 37.0, "Вы выиграли!", true,
+                                                                List.of(
+                                                                        new Reward(STR, 1),
+                                                                        new Reward(INTL, 1),
+                                                                        new Reward(CHA, 1)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(19.0 / 37.0, "Вы проиграли!", true,
+                                                                List.of(
+                                                                        new Reward(STR, -1),
+                                                                        new Reward(INTL, -1),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -291,8 +435,20 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(4,
                                                 List.of(
-                                                        new AppProbableResult(1.0 / 37.0, "Вы сорвали куш!", true),
-                                                        new AppProbableResult(36.0 / 37.0, "Вы проиграли!", true)
+                                                        new AppProbableResult(1.0 / 37.0, "Вы сорвали куш!", true,
+                                                                List.of(
+                                                                        new Reward(STR, 5),
+                                                                        new Reward(INTL, 5),
+                                                                        new Reward(CHA, 5)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(36.0 / 37.0, "Вы проиграли!", true,
+                                                                List.of(
+                                                                        new Reward(STR, -1),
+                                                                        new Reward(INTL, -1),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -301,14 +457,39 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(80,
                                                 List.of(
-                                                        new AppProbableResult(85.0, "Ха! Вы обнесли этих простаков!", true),
-                                                        new AppProbableResult(10.0, "Служба безопасности раскрыла ваши планы. Вас избили и выбросили на улицу. Вход в казино теперь вам заказан.", true),
-                                                        new AppProbableResult(5.0, "Один из игроков поймал вас на краже! Служба безопасности задала вам хорошую взбучку. Вход в казино теперь вам заказан.", true)
+                                                        new AppProbableResult(85.0, "Ха! Вы обнесли этих простаков!", true,
+                                                                List.of(
+                                                                        new Reward(STR, 5),
+                                                                        new Reward(INTL, 5),
+                                                                        new Reward(CHA, 5)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(10.0, "Служба безопасности раскрыла ваши планы. Вас избили и выбросили на улицу. Вход в казино теперь вам заказан.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -3),
+                                                                        new Reward(INTL, -3),
+                                                                        new Reward(CHA, -3)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(5.0, "Один из игроков поймал вас на краже! Служба безопасности задала вам хорошую взбучку. Вход в казино теперь вам заказан.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -3),
+                                                                        new Reward(INTL, -3),
+                                                                        new Reward(CHA, -3)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(5,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Служба безопасности раскрыла ваши планы. Вас избили и выбросили на улицу. Вход в казино теперь вам заказан.", true))
+                                                        new AppProbableResult(100.0, "Служба безопасности раскрыла ваши планы. Вас избили и выбросили на улицу. Вход в казино теперь вам заказан.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -3),
+                                                                        new Reward(INTL, -3),
+                                                                        new Reward(CHA, -3)
+                                                                )
+                                                        )
+                                                )
                                         )
                                 )
                         ),
@@ -316,12 +497,25 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(99,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Теория вероятности, острый ум и зоркий глаз сделали свое дело! Теперь вы очень богаты!", true)
+                                                        new AppProbableResult(100.0, "Теория вероятности, острый ум и зоркий глаз сделали свое дело! Теперь вы очень богаты!", true,
+                                                                List.of(
+                                                                        new Reward(STR, 5),
+                                                                        new Reward(INTL, 5),
+                                                                        new Reward(CHA, 5)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(5,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Служба безопасности раскрыла ваши планы, когда вы считали вероятности на пальцах. Вас избили и выбросили на улицу. Вход в казино теперь вам заказан.", true))
+                                                        new AppProbableResult(100.0, "Служба безопасности раскрыла ваши планы, когда вы считали вероятности на пальцах. Вас избили и выбросили на улицу. Вход в казино теперь вам заказан.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -3),
+                                                                        new Reward(INTL, -3),
+                                                                        new Reward(CHA, -3)
+                                                                )
+                                                        )
+                                                )
                                         )
                                 )
                         )
@@ -340,8 +534,20 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(60,
                                                 List.of(
-                                                        new AppProbableResult(80.0, "Издав истошный вопль, вампир обратился в прах. Теперь все сокровища вампира ваши!", true),
-                                                        new AppProbableResult(20.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Кол соскользнул с доспеха, а вампир, открыв глаза, моментально потянулся к вашей шее. Теперь ваша участь вечное служение злу.", true)
+                                                        new AppProbableResult(80.0, "Издав истошный вопль, вампир обратился в прах. Теперь все сокровища вампира ваши!", true,
+                                                                List.of(
+                                                                        new Reward(STR, 3),
+                                                                        new Reward(INTL, 3),
+                                                                        new Reward(CHA, 3)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(20.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Кол соскользнул с доспеха, а вампир, открыв глаза, моментально потянулся к вашей шее. Теперь ваша участь вечное служение злу.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -5),
+                                                                        new Reward(INTL, -5),
+                                                                        new Reward(CHA, -5)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -350,8 +556,19 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(40,
                                                 List.of(
-                                                        new AppProbableResult(80.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Кол соскользнул с доспеха, а вампир, открыв глаза, моментально потянулся к вашей шее. Теперь ваша участь - вечное служение злу.", true),
-                                                        new AppProbableResult(20.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Поэтому вампир ощутил лишь легкий толчок. Открыв глаза он только спросило текущем годе, но, не получив ожидаемого ответа, в весьма грубой форме послал вас восвояси. Опозоренный, вы не решились доводить дело до конца.", true)
+                                                        new AppProbableResult(80.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Кол соскользнул с доспеха, а вампир, открыв глаза, моментально потянулся к вашей шее. Теперь ваша участь - вечное служение злу.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -5),
+                                                                        new Reward(INTL, -5),
+                                                                        new Reward(CHA, -5)
+                                                                )
+                                                        ),
+                                                        new AppProbableResult(20.0, "Вы не обратили внимание на то, что вампир одет в кирасу. Поэтому вампир ощутил лишь легкий толчок. Открыв глаза он только спросило текущем годе, но, не получив ожидаемого ответа, в весьма грубой форме послал вас восвояси. Опозоренный, вы не решились доводить дело до конца.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -1),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -360,7 +577,12 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(20,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Продрав глаза, вампир одарил вас презрительным взглядом с ног до головы. А затем в весьма грубой форме вы были посланы восвояси. Опозоренный, вы не решились доводить дело до конца.", true)
+                                                        new AppProbableResult(100.0, "Продрав глаза, вампир одарил вас презрительным взглядом с ног до головы. А затем в весьма грубой форме вы были посланы восвояси. Опозоренный, вы не решились доводить дело до конца.", true,
+                                                                List.of(
+                                                                        new Reward(STR, -1),
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -378,12 +600,20 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(70,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Неимоверным усилием силы воли вы заставили себя не говорить эту осточертевшую фразу", true)
+                                                        new AppProbableResult(100.0, "Неимоверным усилием силы воли вы заставили себя не говорить эту осточертевшую фразу", true,
+                                                                List.of(
+                                                                        new Reward(INTL, 3)
+                                                                )
+                                                        )
                                                 )
                                         ),
                                         new AppEventOptionResultList(5,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Как бы вы не старались, но у вам не удается перестать говорить эту фразу. Может попробовать сделать еще одно усилие воли?", false)
+                                                        new AppProbableResult(100.0, "Как бы вы не старались, но у вам не удается перестать говорить эту фразу. Может попробовать сделать еще одно усилие воли?", false,
+                                                                List.of(
+                                                                        new Reward(CHA, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -392,12 +622,13 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(5,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Как только вы подумали об этом, проклятье спало. Теперь вы научены, что феям досаждать не стоит.", true)
+                                                        new AppProbableResult(100.0, "Как только вы подумали об этом, проклятье спало. Теперь вы научены, что феям досаждать не стоит.", true,
+                                                                null
+                                                        )
                                                 )
                                         )
                                 )
-                        )
-                )));
+                        ))));
         // Демонстрация того, что необязательно все варианты должны быть с проверкой.
         // Так же есть возможность просто отказаться от события.
         eventService.save(new AppEvent("Кодовое слово",
@@ -409,7 +640,12 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(1,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Дверь открылась. Вас встретил пожилой гоблин. -А, вы из культурной столицы? Чаю не хотите-с? А по спине палкой? Проходи давай, рот не разевай! - ехидно сказал гоблин, но тем не менее пропуская вас внутрь.", true)
+                                                        new AppProbableResult(100.0, "Дверь открылась. Вас встретил пожилой гоблин. -А, вы из культурной столицы? Чаю не хотите-с? А по спине палкой? Проходи давай, рот не разевай! - ехидно сказал гоблин, но тем не менее пропуская вас внутрь.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, -1),
+                                                                        new Reward(INTL, 1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -418,7 +654,12 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(1,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Дверь открылась. Вас встретил пожилой гоблин. -А,ты из деревни что-ли? Настойка боярышника закончилась! - ехидно сказал гоблин, но тем не менее пропуская вас внутрь.", true)
+                                                        new AppProbableResult(100.0, "Дверь открылась. Вас встретил пожилой гоблин. -А,ты из деревни что-ли? Настойка боярышника закончилась! - ехидно сказал гоблин, но тем не менее пропуская вас внутрь.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, -1),
+                                                                        new Reward(INTL, 1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -427,7 +668,12 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(1,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "Дверь открылась. Вас встретил пожилой гоблин. -Понаехали! Нахамят, права покачают и свалят! Даже не купят ничего! - ехидно сказал гоблин, но тем не менее пропуская вас внутрь.", true)
+                                                        new AppProbableResult(100.0, "Дверь открылась. Вас встретил пожилой гоблин. -Понаехали! Нахамят, права покачают и свалят! Даже не купят ничего! - ехидно сказал гоблин, но тем не менее пропуская вас внутрь.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, -1),
+                                                                        new Reward(INTL, 1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -436,7 +682,13 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(1,
                                                 List.of(
-                                                        new AppProbableResult(100.0, "-Пароль? Пароль - пошел ты! - рявкнули вы ответ, развернулись и с достоинством пошли прогуливать выданные вам на ингредиенты деньги.", true)
+                                                        new AppProbableResult(100.0, "-Пароль? Пароль - пошел ты! - рявкнули вы ответ, развернулись и с достоинством пошли прогуливать выданные вам на ингредиенты деньги.", true,
+                                                                List.of(
+                                                                        new Reward(CHA, 2),
+                                                                        new Reward(STR, 1),
+                                                                        new Reward(INTL, -1)
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )
@@ -454,26 +706,57 @@ public class DevDataInitializer implements ApplicationRunner {
                                 List.of(
                                         new AppEventOptionResultList(0,
                                                 List.of(
-                                                        new AppProbableResult(5.0, "Вы сорвали куш! Удача вам благоволит! Попробуйте еще раз!", false),
-                                                        new AppProbableResult(10.0, "Вы выиграли значительную сумму! Удача вам благоволит! В следующий раз выиграете больше!", false),
-                                                        new AppProbableResult(25.0, "Вы выиграли! Есть повод попробовать еще раз!", false)
+                                                        new AppProbableResult(5.0, "Вы сорвали куш! Удача вам благоволит! Попробуйте еще раз!", false,
+                                                                List.of(
+                                                                        new Reward(STR, 10),
+                                                                        new Reward(INTL, 10),
+                                                                        new Reward(CHA, 10)
+                                                                )),
+                                                        new AppProbableResult(10.0, "Вы выиграли значительную сумму! Удача вам благоволит! В следующий раз выиграете больше!", false,
+                                                                List.of(
+                                                                        new Reward(STR, 5),
+                                                                        new Reward(INTL, 5),
+                                                                        new Reward(CHA, 5)
+                                                                )),
+                                                        new AppProbableResult(25.0, "Вы выиграли! Есть повод попробовать еще раз!", false,
+                                                                List.of(
+                                                                        new Reward(STR, 1),
+                                                                        new Reward(INTL, 1),
+                                                                        new Reward(CHA, 1)
+                                                                ))
                                                 )
                                         ),
                                         new AppEventOptionResultList(0,
-                                                List.of(new AppProbableResult(55.0, "К сожалению, вам не повезло! Удача любит настойчивых! Попробуйте еще раз!", false)))
+                                                List.of(new AppProbableResult(55.0, "К сожалению, вам не повезло! Удача любит настойчивых! Попробуйте еще раз!", false,
+                                                        List.of(
+                                                                new Reward(STR, -2),
+                                                                new Reward(INTL, -2),
+                                                                new Reward(CHA, -2)
+                                                        ))
+                                                )
+                                        )
                                 )
                         ),
                         new AppEventOption(DECLINE, "Ну этого однорукого бандита!", 1,
                                 List.of(
                                         new AppEventOptionResultList(0,
                                                 List.of(
-                                                        new AppProbableResult(5.0, "Охрана казино решила, что вы мошенничали. Вас хорошенько отмутузили и забрали все деньги!", true),
-                                                        new AppProbableResult(10.0, "Местные карманники сочли вас удачной целью. Теперь ваши карманы пусты!", true)
+                                                        new AppProbableResult(5.0, "Охрана казино решила, что вы мошенничали. Вас хорошенько отмутузили и забрали все деньги!", true,
+                                                                List.of(
+                                                                        new Reward(CHA, -3),
+                                                                        new Reward(STR, -3),
+                                                                        new Reward(INTL, -3)
+                                                                )),
+                                                        new AppProbableResult(10.0, "Местные карманники сочли вас удачной целью. Теперь ваши карманы пусты!", true,
+                                                                List.of(
+                                                                        new Reward(CHA, -3),
+                                                                        new Reward(INTL, -3)
+                                                                ))
                                                 )
                                         ),
                                         new AppEventOptionResultList(0,
                                                 List.of(
-                                                        new AppProbableResult(85.0, "Вы благополучно покинули казино!", true)
+                                                        new AppProbableResult(85.0, "Вы благополучно покинули казино!", true, null)
                                                 )
                                         )
                                 )

@@ -2,10 +2,14 @@ package dev.blynchik.magicRangers.model.dto.request;
 
 import dev.blynchik.magicRangers.validation.annotaion.MinDouble;
 import dev.blynchik.magicRangers.validation.annotaion.ValidStringNoMuchGaps;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +29,8 @@ public class AppProbableResultRequest {
     private String descr;
 
     private boolean isFinal;
+
+    @Valid
+    @UniqueElements(message = "{constraint.message.notUniqueElements}")
+    private List<RewardRequest> rewardList;
 }

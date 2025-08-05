@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @Builder
@@ -16,4 +18,5 @@ public class AppEventOptionResultResponse {
     private Integer rolledValue;
     private Integer attributeConstraint;
     private String resultDescr;
+    private List<RewardResponse> reward;
 }

@@ -20,5 +20,15 @@ public interface AppCharacterRepo extends JpaRepository<AppCharacter, Long> {
 
     @Modifying
     @Query(value = "UPDATE character SET current_event = cast(:event as jsonb), updated_at = now() WHERE id = :characterId", nativeQuery = true)
-    int updateCurrentEvent(@Param("characterId") Long characterId, @Param("event") String eventJson);
+    int updateCurrentEvent(@Param("characterId") Long characterId,
+                           @Param("event") String eventJson);
+
+    @Modifying
+    @Query(value = "UPDATE character SET str = :str, intl = :intl, cha = :cha, updated_at = now() WHERE id = :characterId", nativeQuery = true)
+    int updateAttributesValue(
+            @Param("characterId") Long characterId,
+            @Param("str") Integer str,
+            @Param("intl") Integer intl,
+            @Param("cha") Integer cha
+    );
 }

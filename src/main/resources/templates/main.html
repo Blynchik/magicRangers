@@ -28,6 +28,12 @@
     <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
     <p><strong>Выброшенное число:</strong> <span th:text="${result.rolledValue}"></span></p>
     <p><strong>Описание:</strong> <span th:text="${result.resultDescr}"></span></p>
+    <div th:if="${result.reward != null}">
+        <strong>Награды:</strong>
+        <ul th:each="reward : ${result.reward}">
+            <li th:text="${reward.attribute + ': ' + reward.value}"></li>
+        </ul>
+    </div>
 </div>
 
 <div th:if="${options != null}">
