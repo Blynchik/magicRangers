@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes.*;
+import static dev.blynchik.magicRangers.controller.rout.MainPageRoutes.MAIN;
 
 @Controller
 @RequestMapping(CHARACTER)
@@ -53,7 +54,7 @@ public class CharacterPageController {
                 characterService.create(
                         authUser.getAppUser().getId(), characterMapper.mapToEntity(authUser.getAppUser().getId(), dto)));
         redirectAttributes.addFlashAttribute("character", ch);
-        return "redirect:" + CHARACTER + MY;
+        return "redirect:" + MAIN;
     }
 
     /**

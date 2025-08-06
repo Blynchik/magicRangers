@@ -30,10 +30,12 @@ public class SecurityConfig {
                     auth.requestMatchers("/").permitAll();
                     auth.anyRequest().authenticated();
                 })
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults())
                 .logout(withDefaults())
-                .oauth2Login(oauth -> oauth.successHandler(successHandler))
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/")
+                        .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
+                        .successHandler(successHandler)
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
