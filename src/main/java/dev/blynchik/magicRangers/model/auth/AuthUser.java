@@ -14,12 +14,12 @@ public class AuthUser implements OAuth2User {
     private final OAuth2User oAuth2User;
 
     @Getter
-    private final AppUser appUser;
+    private final Long id;
 
     public AuthUser(@NonNull OAuth2User oAuth2User,
-                    @NonNull AppUser appUser) {
+                    @NonNull Long id) {
         this.oAuth2User = oAuth2User;
-        this.appUser = appUser;
+        this.id = id;
     }
 
     @Override
@@ -39,6 +39,6 @@ public class AuthUser implements OAuth2User {
 
     @Override
     public String toString() {
-        return "AuthUser: id: %s[%s]".formatted(appUser.getId(), appUser.getEmail());
+        return "AuthUser: id: %s".formatted(this.id);
     }
 }

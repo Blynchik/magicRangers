@@ -52,7 +52,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
                 .orElseThrow(() -> new OAuth2AuthenticationException(
                         OAUTH2_MISSING_EMAIL.formatted(oAuth2Provider)));
         AppUser appUser = appUserService.saveAppUserIfNotExist(oAuth2Provider, sub, email);
-        return new AuthUser(oAuth2User, appUser);
+        return new AuthUser(oAuth2User, appUser.getId());
     }
 
     // вынесено для возможности мокирования метода в тестах

@@ -44,7 +44,7 @@ public class EventPageController {
     public String create(@AuthenticationPrincipal AuthUser authUser,
                          @Valid @ModelAttribute("event") AppEventRequest dto,
                          BindingResult bindingResult) {
-        log.info("Request POST to {} by {}", EVENT, authUser.getAppUser().getId());
+        log.info("Request POST to {} by {}", EVENT, authUser.getId());
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return EVENT + NEW;
         AppEventResponse event = eventMapper.mapToDto(
                 eventService.create(
@@ -56,9 +56,11 @@ public class EventPageController {
      * Возвращает страницу создания персонажа
      */
     @GetMapping(NEW)
-    public String showCreate(Model model) {
+    public String showCreate(@AuthenticationPrincipal AuthUser authUser,
+                             Model model) {
         log.info("Request GET to {}", EVENT + NEW);
         model.addAttribute("event", new AppEventRequest());
+        model.addAttribute("authUser", authUser);
         return "event/new";
     }
 
@@ -66,12 +68,14 @@ public class EventPageController {
      * По названию получаем событие
      */
     @GetMapping
-    public String get(@RequestParam(name = "name", defaultValue = "Конкурс талантов", required = false)
-                      String name,
-                      Model model) {
+    public String get(@AuthenticationPrincipal AuthUser authUser,
+            @RequestParam(name = "name", defaultValue = "Конкурс талантов", required = false)
+            String name,
+            Model model) {
         log.info("Request GET to {} with name {}", EVENT, name);
         AppEventResponse event = eventMapper.mapToDto(eventService.getByTitle(name));
         model.addAttribute("event", event);
+        model.addAttribute("authUser", authUser);
         return "event/view";
     }
 }

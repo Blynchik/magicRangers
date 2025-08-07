@@ -20,10 +20,32 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.APPUSER_NOT_F
 public class AppUserService {
 
     private final AppUserRepo appUserRepo;
+    private final AppCharacterService characterService;
 
     @Autowired
-    public AppUserService(AppUserRepo appUserRepo) {
+    public AppUserService(AppUserRepo appUserRepo,
+                          AppCharacterService characterService) {
         this.appUserRepo = appUserRepo;
+        this.characterService = characterService;
+    }
+
+    /**
+     * Метод проверяет, существует ли пользователь по его id
+     */
+    public boolean existsById(Long userId) {
+        log.info("Check existing user id: {}", userId);
+        return appUserRepo.existsById(userId);
+    }
+
+    /**
+     * Метод удаляет пользователя по id
+     */
+    @Transactional
+    public void delete(Long userId) {
+        log.info("Delete user id: {}", userId);
+        characterService.getOptByAppUserId(userId)
+                .ifPresent(c -> characterService.delete(c.getId()));
+        appUserRepo.deleteById(userId);
     }
 
     /**

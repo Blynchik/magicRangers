@@ -45,14 +45,14 @@ public class CharacterPageController {
                          @Valid @ModelAttribute("character") AppCharacterRequest dto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
-        log.info("Request POST to {} by {}", CHARACTER, authUser.getAppUser().getId());
-        if (characterService.existsByAppUserId(authUser.getAppUser().getId())) {
+        log.info("Request POST to {} by {}", CHARACTER, authUser.getId());
+        if (characterService.existsByAppUserId(authUser.getId())) {
             bindingResult.reject("character.constraint.message.appUserHasCharacter");
         }
         if (validationUIErrorUtil.hasValidationErrors(bindingResult)) return CHARACTER + NEW;
         AppCharacterResponse ch = characterMapper.mapToDto(
                 characterService.create(
-                        authUser.getAppUser().getId(), characterMapper.mapToEntity(authUser.getAppUser().getId(), dto)));
+                        authUser.getId(), characterMapper.mapToEntity(authUser.getId(), dto)));
         redirectAttributes.addFlashAttribute("character", ch);
         return "redirect:" + MAIN;
     }
@@ -71,12 +71,14 @@ public class CharacterPageController {
      * Возвращает страницу персонажа по id персонажа
      */
     @GetMapping(ID)
-    public String get(@PathVariable Long id,
+    public String get(@AuthenticationPrincipal AuthUser authUser,
+                      @PathVariable Long id,
                       Model model) {
         log.info("Request GET to {}", CHARACTER + ID);
         AppCharacterResponse ch = characterMapper.mapToDto(
                 characterService.getById(id));
         model.addAttribute("character", ch);
+        model.addAttribute("authUser", authUser);
         return "character/view";
     }
 
@@ -86,10 +88,11 @@ public class CharacterPageController {
     @GetMapping(MY)
     public String getMy(@AuthenticationPrincipal AuthUser authUser,
                         Model model) {
-        log.info("Request GET to {} by {}", CHARACTER + MY, authUser.getAppUser().getId());
+        log.info("Request GET to {} by {}", CHARACTER + MY, authUser.getId());
         AppCharacterResponse ch = characterMapper.mapToDto(
-                characterService.getByAppUserId(authUser.getAppUser().getId()));
+                characterService.getByAppUserId(authUser.getId()));
         model.addAttribute("character", ch);
+        model.addAttribute("authUser", authUser);
         return "character/view";
     }
 }

@@ -67,9 +67,9 @@ public class MainPageController {
     @GetMapping
     public String get(@AuthenticationPrincipal AuthUser authUser,
                       Model model) {
-        log.info("Request GET to {} by {}", MAIN, authUser.getAppUser().getId());
+        log.info("Request GET to {} by {}", MAIN, authUser.getId());
         AppEvent event;
-        AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        AppCharacter character = characterService.getByAppUserId(authUser.getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
             AppEventResponse eventResponse = eventMapper.mapToDto(event);
@@ -77,6 +77,7 @@ public class MainPageController {
             model.addAttribute("options", eventResponse.getOptions());
         }
         model.addAttribute("character", characterMapper.mapToDto(character));
+        model.addAttribute("authUser", authUser);
         return "/main";
     }
 
@@ -87,8 +88,8 @@ public class MainPageController {
     @PostMapping(SEARCH)
     public String findRandomEvent(@AuthenticationPrincipal AuthUser authUser,
                                   Model model) {
-        log.info("Request GET to {} by {}", MAIN + SEARCH, authUser.getAppUser().getId());
-        AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        log.info("Request GET to {} by {}", MAIN + SEARCH, authUser.getId());
+        AppCharacter character = characterService.getByAppUserId(authUser.getId());
         AppEvent event;
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             event = character.getCurrentEvent();
@@ -100,6 +101,7 @@ public class MainPageController {
         model.addAttribute("character", characterMapper.mapToDto(character));
         model.addAttribute("event", eventResponse);
         model.addAttribute("options", eventResponse.getOptions());
+        model.addAttribute("authUser", authUser);
         return "/main";
     }
 
@@ -112,8 +114,8 @@ public class MainPageController {
     public String select(@AuthenticationPrincipal AuthUser authUser,
                          @ModelAttribute SelectedAppEventOption selectedOption,
                          Model model) {
-        log.info("Request POST to {} by {}", MAIN, authUser.getAppUser().getId());
-        AppCharacter character = characterService.getByAppUserId(authUser.getAppUser().getId());
+        log.info("Request POST to {} by {}", MAIN, authUser.getId());
+        AppCharacter character = characterService.getByAppUserId(authUser.getId());
         if (characterService.existsByIdAndCurrentEventIsNotNull(character.getId())) {
             List<AppEventOption> options = character.getCurrentEvent().getOptions();
             AppEventOption eventOption = eventMechanic.getSelectedOptionFromCurrentEvent(
@@ -132,6 +134,7 @@ public class MainPageController {
             }
             // награждение
             character = rewardMechanic.setReward(character, result.getRewardList());
+            model.addAttribute("authUser", authUser);
             model.addAttribute("character", characterMapper.mapToDto(character));
             model.addAttribute("event", eventMapper.mapToDto(character.getCurrentEvent()));
             model.addAttribute("result", eventMapper.mapToDto(character.getCurrentEvent().getTitle(),

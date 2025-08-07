@@ -33,6 +33,15 @@ public class AppCharacterService {
     }
 
     /**
+     * Метод удаляет персонажа по его id
+     */
+    @Transactional
+    public void delete(Long characterId) {
+        log.info("Delete character id: {}", characterId);
+        characterRepo.deleteById(characterId);
+    }
+
+    /**
      * Метод обновляет атрибуты персонажа
      */
     @Transactional

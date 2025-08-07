@@ -5,6 +5,7 @@
     <title>Главная</title>
 </head>
 <body>
+<div th:replace="~{fragment/user_menu_actions :: userActionsMenu(${authUser})}"></div>
 <h1 th:text="'Персонаж: ' + ${character.name}"></h1>
 
 <ul>

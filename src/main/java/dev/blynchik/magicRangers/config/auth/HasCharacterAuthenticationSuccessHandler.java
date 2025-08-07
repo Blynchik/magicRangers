@@ -1,5 +1,6 @@
 package dev.blynchik.magicRangers.config.auth;
 
+import dev.blynchik.magicRangers.controller.rout.MainPageRoutes;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.service.model.AppCharacterService;
 import jakarta.servlet.ServletException;
@@ -29,9 +30,9 @@ public class HasCharacterAuthenticationSuccessHandler extends SimpleUrlAuthentic
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        Long userId = ((AuthUser) authentication.getPrincipal()).getAppUser().getId();
+        Long userId = ((AuthUser) authentication.getPrincipal()).getId();
         boolean hasCharacter = characterService.existsByAppUserId(userId);
-        String targetUrl = hasCharacter ? CHARACTER + MY : CHARACTER + NEW;
+        String targetUrl = hasCharacter ? MainPageRoutes.MAIN : CHARACTER + NEW;
         log.info("AppUser id {} has character: {}, and redirected: {}", userId, hasCharacter, targetUrl);
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }

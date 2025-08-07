@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню</title>
+</head>
+<body>
+<div th:fragment="userActionsMenu(authUser)" class="user-actions-menu">
+    <form th:action="@{/menu/user}" method="post" th:if="${authUser != null}">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button type="submit" class="btn btn-danger">Удалить аккаунт</button>
+    </form>
+
+    <form th:action="@{/menu/character}" method="post" th:if="${authUser != null}">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button type="submit" class="btn btn-warning">Удалить персонажа</button>
+    </form>
+</div>
+</body>
+</html>
