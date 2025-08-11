@@ -6,14 +6,30 @@
 </head>
 <body>
 <div th:fragment="userActionsMenu(authUser)" class="user-actions-menu">
-    <form th:action="@{/menu/user}" method="post" th:if="${authUser != null}">
-        <input type="hidden" name="_method" value="DELETE"/>
-        <button type="submit" class="btn btn-danger">Удалить аккаунт</button>
+    <form th:action="@{/menu/main}" method="get" th:if="${authUser != null}">
+        <button type="submit" class="btn btn-warning">Приключение</button>
+    </form>
+
+    <form th:action="@{/menu/new-character}" method="get" th:if="${authUser != null}">
+        <button type="submit" class="btn btn-warning">Новый персонаж</button>
+    </form>
+
+    <form th:action="@{/menu/new-event}" method="get" th:if="${authUser != null}">
+        <button type="submit" class="btn btn-warning">Создать событие</button>
     </form>
 
     <form th:action="@{/menu/character}" method="post" th:if="${authUser != null}">
         <input type="hidden" name="_method" value="DELETE"/>
         <button type="submit" class="btn btn-warning">Удалить персонажа</button>
+    </form>
+
+    <form th:action="@{/menu/user}" method="post" th:if="${authUser != null}">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button type="submit" class="btn btn-danger">Удалить аккаунт</button>
+    </form>
+
+    <form th:action="@{/menu/logout}" method="get" th:if="${authUser != null}">
+        <button type="submit" class="btn btn-warning">Выйти</button>
     </form>
 </div>
 </body>
