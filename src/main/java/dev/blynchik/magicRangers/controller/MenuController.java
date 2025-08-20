@@ -1,10 +1,7 @@
 package dev.blynchik.magicRangers.controller;
 
-import dev.blynchik.magicRangers.controller.rout.AuthRoutes;
-import dev.blynchik.magicRangers.controller.rout.CharacterPageRoutes;
-import dev.blynchik.magicRangers.controller.rout.EventPageRoutes;
-import dev.blynchik.magicRangers.controller.rout.MainPageRoutes;
-import dev.blynchik.magicRangers.model.auth.AuthUser;
+import dev.blynchik.magicRangers.controller.rout.*;
+import dev.blynchik.magicRangers.model.auth.AppPrincipal;
 import dev.blynchik.magicRangers.service.model.AppUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-@RequestMapping("/menu")
+@RequestMapping(MenuRoutes.MENU)
 public class MenuController {
 
     private final AppUserService appUserService;
@@ -29,33 +26,33 @@ public class MenuController {
     }
 
 
-    @GetMapping("/main")
-    public String redirectToMainPage(@AuthenticationPrincipal AuthUser authUser) {
+    @GetMapping(MenuRoutes.TO_MAIN)
+    public String redirectToMainPage(@AuthenticationPrincipal AppPrincipal authUser) {
         log.info("Redirect to main user id: {}", authUser.getId());
         return "redirect:" + MainPageRoutes.MAIN;
     }
 
-    @GetMapping("/new-character")
-    public String redirectToNewCharacter(@AuthenticationPrincipal AuthUser authUser) {
+    @GetMapping(MenuRoutes.NEW_CHAR)
+    public String redirectToNewCharacter(@AuthenticationPrincipal AppPrincipal authUser) {
         log.info("Redirect to create new character user id: {}", authUser.getId());
         return "redirect:" + CharacterPageRoutes.CHARACTER + CharacterPageRoutes.NEW;
     }
 
-    @GetMapping("/new-event")
-    public String redirectToNewEvent(@AuthenticationPrincipal AuthUser authUser) {
+    @GetMapping(MenuRoutes.NEW_EVENT)
+    public String redirectToNewEvent(@AuthenticationPrincipal AppPrincipal authUser) {
         log.info("Redirect to create new event user id: {}", authUser.getId());
         return "redirect:" + EventPageRoutes.EVENT + EventPageRoutes.NEW;
     }
 
-    @DeleteMapping("/character")
-    public String deleteOwnCharacter(@AuthenticationPrincipal AuthUser authUser) {
+    @DeleteMapping(MenuRoutes.DEL_CHAR)
+    public String deleteOwnCharacter(@AuthenticationPrincipal AppPrincipal authUser) {
         log.info("Deleting character by user id: {}", authUser.getId());
         appUserService.delete(authUser.getId());
         return "redirect:" + CharacterPageRoutes.CHARACTER + CharacterPageRoutes.NEW;
     }
 
-    @DeleteMapping("/user")
-    public String deleteOwnUser(@AuthenticationPrincipal AuthUser authUser,
+    @DeleteMapping(MenuRoutes.DEL_USER)
+    public String deleteOwnUser(@AuthenticationPrincipal AppPrincipal authUser,
                                 HttpServletRequest request) {
         log.info("Deleting user id: {}", authUser.getId());
         appUserService.delete(authUser.getId());
@@ -64,8 +61,8 @@ public class MenuController {
         return "redirect:" + AuthRoutes.LOGIN;
     }
 
-    @GetMapping("/logout")
-    public String logout(@AuthenticationPrincipal AuthUser authUser,
+    @GetMapping(MenuRoutes.TO_LOGOUT)
+    public String logout(@AuthenticationPrincipal AppPrincipal authUser,
                          HttpServletRequest request) {
         log.info("Logout user id: {}", authUser.getId());
         SecurityContextHolder.clearContext();

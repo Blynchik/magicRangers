@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @AllArgsConstructor
 @Data
@@ -15,5 +15,5 @@ public class AppCharacterResponse {
     private Integer str;
     private Integer intl;
     private Integer cha;
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 }

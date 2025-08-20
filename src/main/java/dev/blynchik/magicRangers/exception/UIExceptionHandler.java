@@ -27,7 +27,7 @@ public class UIExceptionHandler {
             return "redirect:" + request.getHeader("Referer");
         }
         // можно закомментировать/раскомментировать в зависимости от того, нужно ли показывать актуальное сообщение об ошибке для 500
-//        request.getSession().setAttribute("handledError", ex.getMessage());
+        request.getSession().setAttribute("handledError", ex.getMessage());
         return "redirect:" + ERROR;
     }
 
@@ -39,7 +39,7 @@ public class UIExceptionHandler {
                                   HttpServletRequest request) {
         log.error("Exception occurred: {}", ex);
         // можно закомментировать/раскомментировать в зависимости от того, нужно ли показывать актуальное сообщение об ошибке для 500
-//        request.getSession().setAttribute("handledError", ex.getMessage());
+        request.getSession().setAttribute("handledError", ex.getMessage());
         return "redirect:" + ERROR;
     }
 

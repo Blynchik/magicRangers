@@ -2,7 +2,7 @@ package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.mapper.AppCharacterMapper;
 import dev.blynchik.magicRangers.mapper.AppEventMapper;
-import dev.blynchik.magicRangers.model.auth.AuthUser;
+import dev.blynchik.magicRangers.model.auth.AppPrincipal;
 import dev.blynchik.magicRangers.model.dto.request.SelectedAppEventOption;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.model.storage.*;
@@ -65,7 +65,7 @@ public class MainPageController {
      * Возвращает главную страницу с событием (если он есть) и персонажем
      */
     @GetMapping
-    public String get(@AuthenticationPrincipal AuthUser authUser,
+    public String get(@AuthenticationPrincipal AppPrincipal authUser,
                       Model model) {
         log.info("Request GET to {} by {}", MAIN, authUser.getId());
         AppEvent event;
@@ -86,7 +86,7 @@ public class MainPageController {
      * со случайным событием (либо с текущим персонажа) и персонажем
      */
     @PostMapping(SEARCH)
-    public String findRandomEvent(@AuthenticationPrincipal AuthUser authUser,
+    public String findRandomEvent(@AuthenticationPrincipal AppPrincipal authUser,
                                   Model model) {
         log.info("Request GET to {} by {}", MAIN + SEARCH, authUser.getId());
         AppCharacter character = characterService.getByAppUserId(authUser.getId());
@@ -111,7 +111,7 @@ public class MainPageController {
      * является текущим у персонажа
      */
     @PostMapping
-    public String select(@AuthenticationPrincipal AuthUser authUser,
+    public String select(@AuthenticationPrincipal AppPrincipal authUser,
                          @ModelAttribute SelectedAppEventOption selectedOption,
                          Model model) {
         log.info("Request POST to {} by {}", MAIN, authUser.getId());

@@ -3,6 +3,7 @@ package dev.blynchik.magicRangers.service.auth;
 import dev.blynchik.magicRangers.config.auth.BaseOAuth2UserExtractor;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.storage.AppUser;
+import dev.blynchik.magicRangers.model.storage.Role;
 import dev.blynchik.magicRangers.service.model.AppUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
 
@@ -51,8 +53,8 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         String email = Optional.ofNullable(userExtractor.getEmail())
                 .orElseThrow(() -> new OAuth2AuthenticationException(
                         OAUTH2_MISSING_EMAIL.formatted(oAuth2Provider)));
-        AppUser appUser = appUserService.saveAppUserIfNotExist(oAuth2Provider, sub, email);
-        return new AuthUser(oAuth2User, appUser.getId());
+        AppUser appUser = appUserService.saveAppUserIfNotExist(oAuth2Provider, sub, email, Set.of(Role.USER));
+        return new AuthUser(oAuth2User, appUser.getId(), appUser.getRoles());
     }
 
     // вынесено для возможности мокирования метода в тестах

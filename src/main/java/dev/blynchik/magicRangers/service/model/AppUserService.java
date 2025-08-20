@@ -2,14 +2,19 @@ package dev.blynchik.magicRangers.service.model;
 
 import dev.blynchik.magicRangers.exception.AppException;
 import dev.blynchik.magicRangers.model.storage.AppUser;
+import dev.blynchik.magicRangers.model.storage.Role;
 import dev.blynchik.magicRangers.repo.AppUserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.APPUSER_NOT_FOUND;
@@ -27,6 +32,38 @@ public class AppUserService {
                           AppCharacterService characterService) {
         this.appUserRepo = appUserRepo;
         this.characterService = characterService;
+    }
+
+    /**
+     * Поиcк пользователя по id
+     */
+    public Optional<AppUser> getOptById(Long id) {
+        Optional<AppUser> mbAppUser = appUserRepo.findById(id);
+        log.info("AppUser by id: {} is found: {}", id, mbAppUser.isPresent());
+        return mbAppUser;
+    }
+
+    /**
+     * Очищает всех гостевых пользователей, которые созданы более часа назад
+     */
+    @Scheduled(fixedRate = 1 * 60 * 1000)
+    @Transactional
+    public void cleanupOldGuests() {
+        log.info("Starting to cleanup old guests with characters");
+        Instant cutoff = Instant.now().minus(30, ChronoUnit.SECONDS);
+        List<Long> ids = appUserRepo.findUserIdsByRoleAndCreatedBefore(Role.GUEST, cutoff);
+        if (!ids.isEmpty()) {
+            log.info("Found {} guest users to cleanup", ids.size());
+            ids.forEach(id -> {
+                try {
+                    characterService.deleteByAppUserId(id);
+                    appUserRepo.deleteById(id);
+                    log.info("Successfully cleaned up user ID: {}", id);
+                } catch (Exception e) {
+                    log.error("Error cleaning up user ID: {}", id, e);
+                }
+            });
+        }
     }
 
     /**
@@ -62,10 +99,10 @@ public class AppUserService {
      * Если такого нет, то сохраняем в БД
      */
     @Transactional
-    public AppUser saveAppUserIfNotExist(String oauth2Provider, String oauth2Sub, String email) {
+    public AppUser saveAppUserIfNotExist(String oauth2Provider, String oauth2Sub, String email, Collection<Role> roles) {
         log.info("Save appUser if not exist email: {}", email);
         return this.findOptByEmail(email).orElseGet(
-                () -> this.save(new AppUser(oauth2Provider, oauth2Sub, email)));
+                () -> this.save(new AppUser(oauth2Provider, oauth2Sub, email, roles)));
     }
 
     /**
@@ -91,7 +128,6 @@ public class AppUserService {
      */
     @Transactional
     private AppUser save(AppUser appUser) {
-        appUser.setUpdatedAt(LocalDateTime.now());
         log.info("Save appUser: {}", appUser);
         return appUserRepo.save(appUser);
     }

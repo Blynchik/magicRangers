@@ -31,4 +31,6 @@ public interface AppCharacterRepo extends JpaRepository<AppCharacter, Long> {
             @Param("intl") Integer intl,
             @Param("cha") Integer cha
     );
+
+    void deleteByAppUserId(Long appUserId);
 }

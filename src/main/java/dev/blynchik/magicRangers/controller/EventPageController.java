@@ -1,7 +1,7 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.mapper.AppEventMapper;
-import dev.blynchik.magicRangers.model.auth.AuthUser;
+import dev.blynchik.magicRangers.model.auth.AppPrincipal;
 import dev.blynchik.magicRangers.model.dto.request.AppEventRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppEventResponse;
 import dev.blynchik.magicRangers.service.model.AppEventService;
@@ -41,7 +41,7 @@ public class EventPageController {
      * Создает новое событие и перенаправляет на страницу с отображения события
      */
     @PostMapping
-    public String create(@AuthenticationPrincipal AuthUser authUser,
+    public String create(@AuthenticationPrincipal AppPrincipal authUser,
                          @Valid @ModelAttribute("event") AppEventRequest dto,
                          BindingResult bindingResult) {
         log.info("Request POST to {} by {}", EVENT, authUser.getId());
@@ -56,7 +56,7 @@ public class EventPageController {
      * Возвращает страницу создания персонажа
      */
     @GetMapping(NEW)
-    public String showCreate(@AuthenticationPrincipal AuthUser authUser,
+    public String showCreate(@AuthenticationPrincipal AppPrincipal authUser,
                              Model model) {
         log.info("Request GET to {}", EVENT + NEW);
         model.addAttribute("event", new AppEventRequest());
@@ -68,10 +68,10 @@ public class EventPageController {
      * По названию получаем событие
      */
     @GetMapping
-    public String get(@AuthenticationPrincipal AuthUser authUser,
-            @RequestParam(name = "name", defaultValue = "Конкурс талантов", required = false)
-            String name,
-            Model model) {
+    public String get(@AuthenticationPrincipal AppPrincipal authUser,
+                      @RequestParam(name = "name", defaultValue = "Конкурс талантов", required = false)
+                      String name,
+                      Model model) {
         log.info("Request GET to {} with name {}", EVENT, name);
         AppEventResponse event = eventMapper.mapToDto(eventService.getByTitle(name));
         model.addAttribute("event", event);

@@ -2,13 +2,20 @@ package dev.blynchik.magicRangers.model.storage;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
+import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "app_user")
@@ -32,19 +39,31 @@ public class AppUser {
     @Column(name = "sub")
     private String oauth2Sub;
 
-    @Column(name = "created_at", columnDefinition = "timestamp default now()", updatable = false)
-    private LocalDateTime createdAt;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Instant createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "timestamp default now()")
-    private LocalDateTime updatedAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Instant updatedAt;
 
     @Column(name = "character_id")
     private Long characterId;
 
-    public AppUser(String oauth2Provider, String oauth2Sub, String email) {
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "role",
+            joinColumns = @JoinColumn(name = "app_user_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"app_user_id", "role"}, name = "uc_user_role"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @NotNull
+    private Set<Role> roles;
+
+    public AppUser(String oauth2Provider, String oauth2Sub, String email, Collection<Role> roles) {
         this.oauth2Provider = oauth2Provider;
         this.oauth2Sub = oauth2Sub;
         this.email = email;
+        setRoles(roles);
     }
 
     @Override
@@ -67,5 +86,9 @@ public class AppUser {
     private static Class<?> getEffectiveClass(Object o) {
         return o instanceof HibernateProxy ?
                 ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
 }

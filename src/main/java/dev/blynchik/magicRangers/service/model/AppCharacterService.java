@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
@@ -30,6 +29,15 @@ public class AppCharacterService {
                                ObjectMapper objectMapper) {
         this.characterRepo = characterRepo;
         this.objectMapper = objectMapper;
+    }
+
+    /**
+     * Метод удаляет персонажа по id пользователя
+     */
+    @Transactional
+    public void deleteByAppUserId(Long appUserId) {
+        log.info("Delete by user id: {}", appUserId);
+        characterRepo.deleteByAppUserId(appUserId);
     }
 
     /**
@@ -136,7 +144,6 @@ public class AppCharacterService {
     @Transactional
     public AppCharacter save(AppCharacter character) {
         character.setName(character.getName().trim());
-        character.setUpdatedAt(LocalDateTime.now());
         log.info("Save character {}", character);
         return characterRepo.save(character);
     }

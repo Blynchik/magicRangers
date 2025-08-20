@@ -6,10 +6,12 @@ import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -37,11 +39,13 @@ public class AppEvent {
     @Size(min = 1, max = 10)
     private List<AppEventOption> options;
 
-    @Column(name = "created_at", columnDefinition = "timestamp default now()", updatable = false)
-    private LocalDateTime createdAt;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Instant createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "timestamp default now()")
-    private LocalDateTime updatedAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Instant updatedAt;
 
     public AppEvent(String title, String descr, List<AppEventOption> options) {
         this.title = title;

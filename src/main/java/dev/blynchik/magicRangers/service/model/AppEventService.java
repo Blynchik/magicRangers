@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.NOT_FOUND;
@@ -98,7 +97,6 @@ public class AppEventService {
     public AppEvent save(AppEvent event) {
         event.setTitle(event.getTitle().trim());
         event.setDescr(event.getDescr().trim());
-        event.setUpdatedAt(LocalDateTime.now());
         log.info("Save event {}", event);
         return eventRepo.save(event);
     }

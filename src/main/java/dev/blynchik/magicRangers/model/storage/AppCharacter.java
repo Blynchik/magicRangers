@@ -8,10 +8,12 @@ import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "character")
@@ -44,11 +46,13 @@ public class AppCharacter {
     @PositiveOrZero
     private Integer cha;
 
-    @Column(name = "created_at", columnDefinition = "timestamp default now()", updatable = false)
-    private LocalDateTime createdAt;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private Instant createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "timestamp default now()")
-    private LocalDateTime updatedAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Instant updatedAt;
 
     @Type(JsonBinaryType.class)
     @Column(name = "current_event", columnDefinition = "jsonb")

@@ -1,7 +1,7 @@
 package dev.blynchik.magicRangers.controller;
 
 import dev.blynchik.magicRangers.mapper.AppCharacterMapper;
-import dev.blynchik.magicRangers.model.auth.AuthUser;
+import dev.blynchik.magicRangers.model.auth.AppPrincipal;
 import dev.blynchik.magicRangers.model.dto.request.AppCharacterRequest;
 import dev.blynchik.magicRangers.model.dto.response.AppCharacterResponse;
 import dev.blynchik.magicRangers.service.model.AppCharacterService;
@@ -41,7 +41,7 @@ public class CharacterPageController {
      * Создает нового персонажа и перенаправляет на страницу с собственным персонажем
      */
     @PostMapping
-    public String create(@AuthenticationPrincipal AuthUser authUser,
+    public String create(@AuthenticationPrincipal AppPrincipal authUser,
                          @Valid @ModelAttribute("character") AppCharacterRequest dto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
@@ -71,7 +71,7 @@ public class CharacterPageController {
      * Возвращает страницу персонажа по id персонажа
      */
     @GetMapping(ID)
-    public String get(@AuthenticationPrincipal AuthUser authUser,
+    public String get(@AuthenticationPrincipal AppPrincipal authUser,
                       @PathVariable Long id,
                       Model model) {
         log.info("Request GET to {}", CHARACTER + ID);
@@ -86,7 +86,7 @@ public class CharacterPageController {
      * Возвращает страницу с собственным персонажем
      */
     @GetMapping(MY)
-    public String getMy(@AuthenticationPrincipal AuthUser authUser,
+    public String getMy(@AuthenticationPrincipal AppPrincipal authUser,
                         Model model) {
         log.info("Request GET to {} by {}", CHARACTER + MY, authUser.getId());
         AppCharacterResponse ch = characterMapper.mapToDto(
