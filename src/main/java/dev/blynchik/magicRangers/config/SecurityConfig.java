@@ -56,7 +56,7 @@ public class SecurityConfig {
                                 appUserService.delete(guestId);
                             }
                         })
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login")
                 )
                 .oauth2Login(oauth -> oauth
                         .loginPage("/")

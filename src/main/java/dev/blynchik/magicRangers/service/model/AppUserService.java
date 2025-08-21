@@ -6,6 +6,7 @@ import dev.blynchik.magicRangers.model.storage.Role;
 import dev.blynchik.magicRangers.repo.AppUserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ import static dev.blynchik.magicRangers.exception.ExceptionMessage.APPUSER_NOT_F
 @Transactional(readOnly = true)
 @Slf4j
 public class AppUserService {
+
+    @Value("${scheduler.deleteGuests.enabled}")
+    private boolean enabledGuestsDelete;
 
     private final AppUserRepo appUserRepo;
     private final AppCharacterService characterService;
@@ -46,11 +50,12 @@ public class AppUserService {
     /**
      * Очищает всех гостевых пользователей, которые созданы более часа назад
      */
-    @Scheduled(fixedRate = 1 * 60 * 1000)
+    @Scheduled(fixedRate = 1 * 60 * 60 * 1000)
     @Transactional
     public void cleanupOldGuests() {
+        if (!enabledGuestsDelete) return;
         log.info("Starting to cleanup old guests with characters");
-        Instant cutoff = Instant.now().minus(30, ChronoUnit.SECONDS);
+        Instant cutoff = Instant.now().minus(1, ChronoUnit.HOURS);
         List<Long> ids = appUserRepo.findUserIdsByRoleAndCreatedBefore(Role.GUEST, cutoff);
         if (!ids.isEmpty()) {
             log.info("Found {} guest users to cleanup", ids.size());
