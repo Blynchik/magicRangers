@@ -4,7 +4,6 @@ import dev.blynchik.magicRangers.controller.rout.MainPageRoutes;
 import dev.blynchik.magicRangers.model.auth.AppPrincipal;
 import dev.blynchik.magicRangers.model.auth.AuthUser;
 import dev.blynchik.magicRangers.model.auth.GuestUser;
-import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import dev.blynchik.magicRangers.model.storage.AppUser;
 import dev.blynchik.magicRangers.model.storage.Role;
 import dev.blynchik.magicRangers.service.model.AppCharacterService;
@@ -64,8 +63,7 @@ public class AuthController {
                 "own", "ownSub",
                 UUID.randomUUID().toString().substring(0, 8) + "@example.ru",
                 Set.of(Role.GUEST));
-        characterService.create(guest.getId(),
-                new AppCharacter(null, "Зелёный", 100, 100, 100));
+        characterService.createRandomCharacter(guest.getId());
         GuestUser guestUser = new GuestUser(guest.getId(), guest.getEmail(), guest.getRoles());
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(guestUser, null, guestUser.getAuthorities());

@@ -3,10 +3,9 @@ package dev.blynchik.magicRangers.service.mechanic;
 import dev.blynchik.magicRangers.model.storage.AppAttributes;
 import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static dev.blynchik.magicRangers.model.storage.AppAttributes.DECLINE;
 import static dev.blynchik.magicRangers.model.storage.AppAttributes.TEXT;
@@ -14,13 +13,6 @@ import static dev.blynchik.magicRangers.model.storage.AppAttributes.TEXT;
 @Service
 @Slf4j
 public class RollMechanic {
-
-    private final Random random;
-
-    @Autowired
-    public RollMechanic(Random random) {
-        this.random = random;
-    }
 
     /**
      * Метод возвращает случайное значение атрибута от 0 до ограничения, либо
@@ -89,7 +81,7 @@ public class RollMechanic {
      */
     public Integer roll(int min, int max) {
         log.info("Roll value min={}, max={}", min, max);
-        int value = random.nextInt(min, max + 1);
+        int value = ThreadLocalRandom.current().nextInt(min, max + 1);
         log.info("Rolled value={}", value);
         return value;
     }

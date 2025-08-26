@@ -3,8 +3,10 @@ package dev.blynchik.magicRangers.service.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.blynchik.magicRangers.exception.AppException;
+import dev.blynchik.magicRangers.model.storage.AnimalName;
 import dev.blynchik.magicRangers.model.storage.AppCharacter;
 import dev.blynchik.magicRangers.model.storage.AppEvent;
+import dev.blynchik.magicRangers.model.storage.ColorName;
 import dev.blynchik.magicRangers.repo.AppCharacterRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static dev.blynchik.magicRangers.exception.ExceptionMessage.*;
 
@@ -23,12 +27,60 @@ public class AppCharacterService {
 
     private final AppCharacterRepo characterRepo;
     private final ObjectMapper objectMapper;
+    private final List<AnimalName> animalName;
+    private final List<ColorName> colorName;
 
     @Autowired
     public AppCharacterService(AppCharacterRepo characterRepo,
-                               ObjectMapper objectMapper) {
+                               ObjectMapper objectMapper,
+                               List<AnimalName> animalName,
+                               List<ColorName> colorName) {
         this.characterRepo = characterRepo;
         this.objectMapper = objectMapper;
+        this.animalName = animalName;
+        this.colorName = colorName;
+    }
+
+    /**
+     * Генерирует три случайных числа от 70 до 160, чтобы их сумма не превысила 300
+     */
+    public int[] getRandomAttributes() {
+        log.info("Get random attributes");
+        int attributeSum = 90;
+        int[] attributes = new int[]{70, 70, 70};
+        int plusRandom;
+        for (int i = 0; i < 2; i++) {
+            plusRandom = ThreadLocalRandom.current().nextInt(0, attributeSum);
+            attributes[i] += plusRandom;
+            attributeSum -= plusRandom;
+        }
+        attributes[2] += attributeSum;
+        return attributes;
+    }
+
+    /**
+     * Создает случайного персонажа
+     */
+    @Transactional
+    public AppCharacter createRandomCharacter(Long userId) {
+        log.info("Get random character");
+        int[] attributes = getRandomAttributes();
+        return create(userId, new AppCharacter(null,
+                getRandomName(),
+                attributes[0],
+                attributes[1],
+                attributes[2]
+        ));
+    }
+
+    /**
+     * Подбирает персонажу случайное имя
+     */
+    public String getRandomName() {
+        log.info("Get random name");
+        AnimalName animal = animalName.get(ThreadLocalRandom.current().nextInt(animalName.size()));
+        ColorName color = colorName.get(ThreadLocalRandom.current().nextInt(colorName.size()));
+        return color.getName() + color.getEnds()[animal.getGender() - 1] + " " + animal.getName();
     }
 
     /**
