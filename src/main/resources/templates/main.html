@@ -1,62 +1,89 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Главная</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
-<body>
-<div th:replace="~{fragment/user_menu_actions :: userActionsMenu(${authUser})}"></div>
-<h1 th:text="'Персонаж: ' + ${character.name}"></h1>
+<body class="bg-light">
 
-<ul>
-    <li><strong>Удаль:</strong> <span th:text="${character.str}"></span></li>
-    <li><strong>Смекалка:</strong> <span th:text="${character.intl}"></span></li>
-    <li><strong>Обаяние:</strong> <span th:text="${character.cha}"></span></li>
-</ul>
+<div class="container py-4">
 
-<form method="post" action="/main/search">
-    <button type="submit">Найти событие</button>
-</form>
+    <!-- Меню -->
+    <div th:replace="~{fragment/user_menu_actions :: userActionsMenu(${authUser})}"></div>
 
-<div th:if="${event != null}">
-    <p><strong>Название:</strong> <span th:text="${event.title}"></span></p>
-    <p><strong>Описание:</strong> <span th:text="${event.descr}"></span></p>
-</div>
-
-<div th:if="${result != null}">
-    <h3>Результат выбора:</h3>
-    <p><strong>Выбранный вариант:</strong> <span th:text="${result.selectedOption}"></span></p>
-    <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
-    <p><strong>Выброшенное число:</strong> <span th:text="${result.rolledValue}"></span></p>
-    <p><strong>Описание:</strong> <span th:text="${result.resultDescr}"></span></p>
-    <div th:if="${result.reward != null}">
-        <strong>Награды:</strong>
-        <ul th:each="reward : ${result.reward}">
-            <li th:text="${reward.attribute + ': ' + reward.value}"></li>
-        </ul>
+    <!-- Инфо о персонаже -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title" th:text="'Персонаж: ' + ${character.name}"></h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Удаль:</strong> <span th:text="${character.str}"></span></li>
+                <li class="list-group-item"><strong>Смекалка:</strong> <span th:text="${character.intl}"></span></li>
+                <li class="list-group-item"><strong>Обаяние:</strong> <span th:text="${character.cha}"></span></li>
+            </ul>
+        </div>
     </div>
-</div>
 
-<div th:if="${options != null}">
-    <label>
-        Ограничить значение атрибута:
-        <input type="number" id="attributeConstraintGlobal" placeholder="Без ограничения"/>
-    </label>
-    <h3>Выбери действие:</h3>
-    <form th:action="@{/main}" method="post" th:each="opt : ${options}">
-        <input type="hidden" name="attribute" th:value="${opt.attribute}"/>
-        <input type="hidden" name="descr" th:value="${opt.descr}"/>
-        <input type="hidden" name="remainingAttempts" th:value="${opt.remainingAttempts}">
-        <button type="submit"
-                th:text="${opt.descr + ' (' + opt.attribute + ')' + ' x ' + opt.remainingAttempts}">
-        </button>
+    <!-- Поиск события -->
+    <form method="post" action="/main/search" class="mb-4">
+        <button type="submit" class="btn btn-primary w-100">🔍 Найти событие</button>
     </form>
+
+    <!-- Событие -->
+    <div th:if="${event != null}" class="card mb-4 border-info shadow-sm">
+        <div class="card-body">
+            <h4 class="text-info" th:text="${event.title}"></h4>
+            <p th:text="${event.descr}"></p>
+        </div>
+    </div>
+
+    <!-- Результат -->
+    <div th:if="${result != null}" class="card mb-4 border-success shadow-sm">
+        <div class="card-body">
+            <h4 class="text-success">🎲 Результат выбора</h4>
+            <p><strong>Выбранный вариант:</strong> <span th:text="${result.selectedOption}"></span></p>
+            <p><strong>Минимальная сложность:</strong> <span th:text="${result.minDifficulty}"></span></p>
+            <p><strong>Выброшенное число:</strong> <span th:text="${result.rolledValue}"></span></p>
+            <p><strong>Описание:</strong> <span th:text="${result.resultDescr}"></span></p>
+
+            <div th:if="${result.reward != null}">
+                <h6 class="mt-3">🏅 Награды:</h6>
+                <ul class="list-group list-group-flush">
+                    <li th:each="reward : ${result.reward}" class="list-group-item"
+                        th:text="${reward.attribute + ': ' + reward.value}"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Выбор действий -->
+    <div th:if="${options != null}" class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <label class="form-label">Ограничить значение атрибута:</label>
+            <input type="number" id="attributeConstraintGlobal" class="form-control mb-3" placeholder="Без ограничения"/>
+
+            <h5>Выбери действие:</h5>
+            <div class="d-grid gap-2">
+                <form th:action="@{/main}" method="post" th:each="opt : ${options}">
+                    <input type="hidden" name="attribute" th:value="${opt.attribute}"/>
+                    <input type="hidden" name="descr" th:value="${opt.descr}"/>
+                    <input type="hidden" name="remainingAttempts" th:value="${opt.remainingAttempts}">
+                    <button type="submit" class="btn btn-outline-secondary"
+                            th:text="${opt.descr + ' (' + opt.attribute + ') x ' + opt.remainingAttempts}">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ошибка -->
+    <div th:if="${param.name != null and event == null}" class="alert alert-danger">
+        Событие не найдено.
+    </div>
+
 </div>
 
-<div th:if="${param.name != null and event == null}">
-    <p style="color: red;">Событие не найдено.</p>
-</div>
-
+<!-- Toast ошибки -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="errorToast" class="toast align-items-center text-white bg-danger border-0"
          role="alert" aria-live="assertive" aria-atomic="true"
@@ -70,20 +97,20 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
+    window.addEventListener('DOMContentLoaded', () => {
         const toastEl = document.getElementById('errorToast');
         if (toastEl) {
             const toast = new bootstrap.Toast(toastEl);
             toast.show();
         }
     });
-</script>
 
-<script>
     document.querySelectorAll("form").forEach(form => {
         form.addEventListener("submit", function (e) {
-            const globalVal = document.getElementById("attributeConstraintGlobal").value;
+            const globalVal = document.getElementById("attributeConstraintGlobal")?.value;
             if (globalVal !== "") {
                 let hidden = document.createElement("input");
                 hidden.type = "hidden";

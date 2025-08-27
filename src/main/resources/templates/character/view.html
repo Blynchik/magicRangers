@@ -1,19 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Персонаж</title>
+    <title th:text="'Персонаж: ' + ${character.name}">Персонаж</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="bg-light">
+
+<!-- Меню -->
 <div th:replace="~{fragment/user_menu_actions :: userActionsMenu(${authUser})}"></div>
-<h1 th:text="'Персонаж: ' + ${character.name}"></h1>
 
-<ul>
-    <li><strong>Удаль:</strong> <span th:text="${character.str}"></span></li>
-    <li><strong>Смекалка:</strong> <span th:text="${character.intl}"></span></li>
-    <li><strong>Обаяние:</strong> <span th:text="${character.cha}"></span></li>
-</ul>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
 
+            <!-- Карточка персонажа -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0" th:text="'Персонаж: ' + ${character.name}"></h3>
+                </div>
+                <div class="card-body">
+
+                    <!-- Характеристики -->
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>💪 Удаль:</span>
+                            <span class="fw-bold" th:text="${character.str}"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>🧠 Смекалка:</span>
+                            <span class="fw-bold" th:text="${character.intl}"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>✨ Обаяние:</span>
+                            <span class="fw-bold" th:text="${character.cha}"></span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="card-footer text-end">
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">⬅ Назад</a>
+                    <a th:href="@{/}" class="btn btn-primary">🏠 На главную</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Toast ошибки -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="errorToast" class="toast align-items-center text-white bg-danger border-0"
          role="alert" aria-live="assertive" aria-atomic="true"
@@ -22,13 +58,13 @@
         <div class="d-flex">
             <div class="toast-body" th:text="${handledError}"></div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                    data-bs-dismiss="toast" aria-label="Close"></button>
+                    data-bs-dismiss="toast" aria-label="Закрыть"></button>
         </div>
     </div>
 </div>
 
 <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
+    window.addEventListener('DOMContentLoaded', () => {
         const toastEl = document.getElementById('errorToast');
         if (toastEl) {
             const toast = new bootstrap.Toast(toastEl);
